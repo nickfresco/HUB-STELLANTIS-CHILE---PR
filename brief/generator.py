@@ -13,6 +13,12 @@ Sprint 4: se agregaron campos aditivos (competitors, organizations,
 source, why_it_matters) requeridos por el Daily HTML — no cambia
 ningún campo ni comportamiento ya existente, solo agrega información
 adicional al mismo diccionario de salida.
+
+Opportunity Engine v1.0: se agregó el campo aditivo `opportunities`
+(lista de objetos con tipo, prioridad, score, justificación y acción
+recomendada — ver opportunity_engine/opportunities.py) y
+`opportunity_rules` dentro de `rules_triggered`, para trazabilidad. No
+cambia ningún campo existente.
 """
 
 from __future__ import annotations
@@ -94,6 +100,7 @@ def build_daily_brief(context: Dict[str, Any], kb, priority_registry=None) -> Di
     organization_names = [_display_name(oid, kb.organizations) for oid in entities.organizations]
 
     source = context["source"]
+    opportunities = context.get("opportunities", [])
 
     return {
         "story": news.title,
@@ -105,12 +112,14 @@ def build_daily_brief(context: Dict[str, Any], kb, priority_registry=None) -> Di
         "priority": priority,
         "section": assign_section(priority, event_type),
         "recommendations": recommendations,
+        "opportunities": [o.to_dict() for o in opportunities],
         "why_it_matters": _why_it_matters(priority_result, priority_registry),
         "source": {"name": source.display_name, "tier": source.tier},
         "source_url": news.source_url,
         "rules_triggered": {
             "priority_rules": priority_result.matched_rule_ids(),
             "recommendation_rules": recommendation_result.matched_rule_ids(),
+            "opportunity_rules": [o.rule_id for o in opportunities],
         },
         "summary": f"{news.title}. {news.summary}".strip(),
         "reasoning": build_reasoning(priority_result, recommendation_result),
