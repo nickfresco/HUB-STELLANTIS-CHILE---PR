@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PR HUB — Modo de Entrenamiento</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin:0; padding:0; background:#ECEEF2; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; color:#14213D; }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 32px 20px 80px 20px; }
+  .masthead { border-top:2px solid #14213D; border-bottom:1px solid #14213D; padding:14px 0; text-align:center; margin-bottom:18px; }
+  .masthead .eyebrow { font-size:12px; letter-spacing:.2em; text-transform:uppercase; font-weight:700; }
+  h1 { font-family: Georgia, serif; font-size: 26px; margin: 10px 0 4px 0; }
+  .meta { color:#6B7280; font-size:13px; margin-bottom: 6px; }
+  .instructions { background:#FFFFFF; border:1px solid #DADFE6; border-radius:8px; padding:14px 18px; font-size:13.5px; line-height:1.5; margin-bottom:24px; }
+  .card { background:#FFFFFF; border:1px solid #DADFE6; border-left:4px solid #14213D; border-radius:8px; padding:16px 18px; margin-bottom:14px; }
+  .card-header { display:flex; justify-content:space-between; align-items:flex-start; gap:12px; }
+  .story-title { font-weight:700; font-size:15px; line-height:1.35; }
+  .priority-chip { font-size:10.5px; font-weight:700; letter-spacing:.04em; color:#fff; background:#6B7280; padding:3px 9px; border-radius:3px; white-space:nowrap; }
+  .muted { color:#6B7280; }
+  .small { font-size:12px; }
+  .fact-table { width:100%; border-collapse:collapse; margin-top:10px; font-size:13px; }
+  .fact-table td { padding:5px 0; vertical-align:top; border-bottom:1px solid #ECEEF2; }
+  .fact-label { color:#6B7280; width:180px; font-weight:600; }
+  .validation { margin-top:14px; padding-top:12px; border-top:1px dashed #DADFE6; }
+  .validation-question { font-weight:700; font-size:13px; margin-bottom:6px; }
+  .radio-label { margin-right:18px; font-size:13.5px; cursor:pointer; }
+  .correction-fields { margin-top:10px; padding:12px; background:#ECEEF2; border-radius:6px; display:flex; flex-direction:column; gap:8px; }
+  .field-label { font-size:12.5px; color:#6B7280; display:flex; flex-direction:column; gap:3px; }
+  .field-label input, .field-label select, .field-label textarea {
+    font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size:13px; color:#14213D; padding:6px 8px; border:1px solid #DADFE6; border-radius:4px; background:#FFFFFF;
+  }
+  .toolbar { position: sticky; bottom: 0; background:#FFFFFF; border-top:1px solid #DADFE6; padding:14px 20px; display:flex; justify-content:space-between; align-items:center; margin-top: 24px; border-radius: 8px; box-shadow: 0 -2px 8px rgba(0,0,0,0.05); }
+  .counter { font-size:13px; color:#6B7280; }
+  button.download { background:#14213D; color:#fff; border:none; padding:10px 18px; border-radius:6px; font-size:13.5px; font-weight:600; cursor:pointer; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; }
+  button.download:hover { opacity:0.9; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="masthead">
+    <div class="eyebrow">Stellantis · PR Intelligence</div>
+    <h1>Modo de Entrenamiento</h1>
+    <div class="meta">martes 4 de agosto de 2026 · 16 noticias procesadas</div>
+  </div>
+
+  <div class="instructions">
+    Para cada noticia, indica si el criterio del sistema (marca, prioridad, evento y
+    recomendaciones) coincide con lo que tú, como Coordinador de PR, habrías determinado.
+    Si marcas <strong>No</strong>, completa los campos de corrección. Al final puedes
+    descargar todas las validaciones en un archivo JSON — no se envía a ningún servidor,
+    el archivo se genera y descarga localmente en tu navegador.
+  </div>
+
+  
+  
+<div class="card" data-index="0">
+  <div class="card-header">
+    <div class="story-title">SERNAC emite alerta de seguridad para Citroën, DS, Fiat, Jeep, Opel y Peugeot por defecto en el alternador</div>
+    <div class="priority-chip">HIGH</div>
+  </div>
+  <div class="muted small"><a href="https://www.sernac.cl/portal/619/w3-article-88689.html" target="_blank" rel="noopener" style="color:#14213D;">SERNAC (sitio oficial) ↗</a></div>
+
+  <table class="fact-table">
+    <tr><td class="fact-label">Marca detectada</td><td>Peugeot, Citroën, Opel, DS Automobiles, Fiat, Jeep</td></tr>
+    <tr><td class="fact-label">Event Type</td><td>Recall <span class="muted">(explicit)</span></td></tr>
+    <tr><td class="fact-label">Priority</td><td>HIGH</td></tr>
+    <tr><td class="fact-label">Regla aplicada</td><td>PR-001 — <span class="muted">Recall Stellantis con impacto o repercusión en Chile</span></td></tr>
+    <tr><td class="fact-label">Recommendation Actions</td><td>Evaluar comunicado oficial, Preparar Q&amp;A para prensa</td></tr>
+  </table>
+
+  <div class="validation">
+    <div class="validation-question">¿Correcto?</div>
+    <label class="radio-label">
+      <input type="radio" name="correct_0" value="si" onchange="toggleCorrection(0, false)"> Sí
+    </label>
+    <label class="radio-label">
+      <input type="radio" name="correct_0" value="no" onchange="toggleCorrection(0, true)"> No
+    </label>
+
+    <div id="correction_0" class="correction-fields" style="display:none;">
+      <label class="field-label">Marca correcta
+        <input type="text" id="brand_correct_0" placeholder="Ej: Peugeot">
+      </label>
+      <label class="field-label">Priority correcta
+        <select id="priority_correct_0">
+          <option value="">— sin cambio —</option>
+          <option value="Critical">Critical</option>
+          <option value="High">High</option>
+          <option value="Medium">Medium</option>
+          <option value="Low">Low</option>
+          <option value="Ninguna">Ninguna (no debería tener prioridad)</option>
+        </select>
+      </label>
+      <label class="field-label">Recommendation correcta
+        <input type="text" id="recommendation_correct_0" placeholder="Ej: EvaluarComunicado">
+      </label>
+      <label class="field-label">Comentarios
+        <textarea id="comments_0" rows="2" placeholder="¿Qué faltó o qué sobró en el criterio del sistema?"></textarea>
+      </label>
+    </div>
+  </div>
+</div>
+
+<div class="card" data-index="1">
+  <div class="card-header">
+    <div class="story-title">SERNAC alerta sobre vehículos DS y Peugeot por posible falla en el Módulo de Supervisión del Vehículo</div>
+    <div class="priority-chip">HIGH</div>
+  </div>
+  <div class="muted small"><a href="https://www.sernac.cl/portal/619/w3-article-88864.html" target="_blank" rel="noopener" style="color:#14213D;">SERNAC (sitio oficial) ↗</a></div>
+
+  <table class="fact-table">
+    <tr><td class="fact-label">Marca detectada</td><td>Peugeot, DS Automobiles</td></tr>
+    <tr><td class="fact-label">Event Type</td><td>Recall <span class="muted">(explicit)</span></td></tr>
+    <tr><td class="fact-label">Priority</td><td>HIGH</td></tr>
+    <tr><td class="fact-label">Regla aplicada</td><td>PR-001 — <span class="muted">Recall Stellantis con impacto o repercusión en Chile</span></td></tr>
+    <tr><td class="fact-label">Recommendation Actions</td><td>Evaluar comunicado oficial, Preparar Q&amp;A para prensa</td></tr>
+  </table>
+
+  <div class="validation">
+    <div class="validation-question">¿Correcto?</div>
+    <label class="radio-label">
+      <input type="radio" name="correct_1" value="si" onchange="toggleCorrection(1, false)"> Sí
+    </label>
+    <label class="radio-label">
+      <input type="radio" name="correct_1" value="no" onchange="toggleCorrection(1, true)"> No
+    </label>
+
+    <div id="correction_1" class="correction-fields" style="display:none;">
+      <label class="field-label">Marca correcta
+        <input type="text" id="brand_correct_1" placeholder="Ej: Peugeot">
+      </label>
+      <label class="field-label">Priority correcta
+        <select id="priority_correct_1">
+          <option value="">— sin cambio —</option>
+          <option value="Critical">Critical</option>
+          <option value="High">High</option>
+          <option value="Medium">Medium</option>
+          <option value="Low">Low</option>
+          <option value="Ninguna">Ninguna (no debería tener prioridad)</option>
+        </select>
+      </label>
+      <label class="field-label">Recommendation correcta
+        <input type="text" id="recommendation_correct_1" placeholder="Ej: EvaluarComunicado">
+      </label>
+      <label class="field-label">Comentarios
+        <textarea id="comments_1" rows="2" placeholder="¿Qué faltó o qué sobró en el criterio del sistema?"></textarea>
+      </label>
+    </div>
+  </div>
+</div>
+
+<div class="card" data-index="2">
+  <div class="card-header">
+    <div class="story-title">Stellantis anuncia en Chile un plan para responder a las fallas de los motores PureTech</div>
+    <div class="priority-chip">Sin clasificar</div>
+  </div>
+  <div class="muted small"><a href="https://noticias.autocosmos.cl/2026/04/21/stellantis-toma-cartas-para-dar-solucion-en-chile-a-los-cuestionados-motores-puretech" target="_blank" rel="noopener" style="color:#14213D;">Autocosmos ↗</a></div>
+
+  <table class="fact-table">
+    <tr><td class="fact-label">Marca detectada</td><td>Peugeot, Citroën, Opel, DS Automobiles</td></tr>
+    <tr><td class="fact-label">Event Type</td><td>DenunciaOControversia <span class="muted">(explicit)</span></td></tr>
+    <tr><td class="fact-label">Priority</td><td>Sin clasificar</td></tr>
+    <tr><td class="fact-label">Regla aplicada</td><td>Ninguna</td></tr>
+    <tr><td class="fact-label">Recommendation Actions</td><td>Ninguna</td></tr>
+  </table>
+
+  <div class="validation">
+    <div class="validation-question">¿Correcto?</div>
+    <label class="radio-label">
+      <input type="radio" name="correct_2" value="si" onchange="toggleCorrection(2, false)"> Sí
+    </label>
+    <label class="radio-label">
+      <input type="radio" name="correct_2" value="no" onchange="toggleCorrection(2, true)"> No
+    </label>
+
+    <div id="correction_2" class="correction-fields" style="display:none;">
+      <label class="field-label">Marca correcta
+        <input type="text" id="brand_correct_2" placeholder="Ej: Peugeot">
+      </label>
+      <label class="field-label">Priority correcta
+        <select id="priority_correct_2">
+          <option value="">— sin cambio —</option>
+          <option value="Critical">Critical</option>
+          <option value="High">High</option>
+          <option value="Medium">Medium</option>
+          <option value="Low">Low</option>
+          <option value="Ninguna">Ninguna (no debería tener prioridad)</option>
+        </select>
+      </label>
+      <label class="field-label">Recommendation correcta
+        <input type="text" id="recommendation_correct_2" placeholder="Ej: EvaluarComunicado">
+      </label>
+      <label class="field-label">Comentarios
+        <textarea id="comments_2" rows="2" placeholder="¿Qué faltó o qué sobró en el criterio del sistema?"></textarea>
+      </label>
+    </div>
+  </div>
+</div>
+
+<div class="card" data-index="3">
+  <div class="card-header">
+    <div class="story-title">Stellantis asume representación directa de Fiat, Jeep, RAM y otras marcas que estaban con Astara en Chile</div>
+    <div class="priority-chip">Sin clasificar</div>
+  </div>
+  <div class="muted small"><a href="https://www.latercera.com/mtonline/noticia/stellantis-informa-que-toma-la-representacion-de-seis-marcas-de-astara-en-chile/" target="_blank" rel="noopener" style="color:#14213D;">La Tercera ↗</a></div>
+
+  <table class="fact-table">
+    <tr><td class="fact-label">Marca detectada</td><td>Fiat, Jeep, RAM</td></tr>
+    <tr><td class="fact-label">Event Type</td><td>Sin detectar <span class="muted">(undetected)</span></td></tr>
+    <tr><td class="fact-label">Priority</td><td>Sin clasificar</td></tr>
+    <tr><td class="fact-label">Regla aplicada</td><td>Ninguna</td></tr>
+    <tr><td class="fact-label">Recommendation Actions</td><td>Ninguna</td></tr>
+  </table>
+
+  <div class="validation">
+    <div class="validation-question">¿Correcto?</div>
+    <label class="radio-label">
+      <input type="radio" name="correct_3" value="si" onchange="toggleCorrection(3, false)"> Sí
+    </label>
+    <label class="radio-label">
+      <input type="radio" name="correct_3" value="no" onchange="toggleCorrection(3, true)"> No
+    </label>
+
+    <div id="correction_3" class="correction-fields" style="display:none;">
+      <label class="field-label">Marca correcta
+        <input type="text" id="brand_correct_3" placeholder="Ej: Peugeot">
+      </label>
+      <label class="field-label">Priority correcta
+        <select id="priority_correct_3">
+          <option value="">— sin cambio —</option>
+          <option value="Critical">Critical</option>
+          <option value="High">High</option>
+          <option value="Medium">Medium</option>
+          <option value="Low">Low</option>
+          <option value="Ninguna">Ninguna (no debería tener prioridad)</option>
+        </select>
+      </label>
+      <label class="field-label">Recommendation correcta
+        <input type="text" id="recommendation_correct_3" placeholder="Ej: EvaluarComunicado">
+      </label>
+      <label class="field-label">Comentarios
+        <textarea id="comments_3" rows="2" placeholder="¿Qué faltó o qué sobró en el criterio del sistema?"></textarea>
+      </label>
+    </div>
+  </div>
+</div>
+
+<div class="card" data-index="4">
+  <div class="card-header">
+    <div class="story-title">Crédito automotriz en ventas de Stellantis alcanza un 45% en Chile tras alianza con Santander Consumer</div>
+    <div class="priority-chip">Sin clasificar</div>
+  </div>
+  <div class="muted small"><a href="https://www.biobiochile.cl/noticias/economia/negocios-y-empresas/2026/07/24/credito-automotriz-en-ventas-de-stellantis-alcanza-un-45-en-chile-tras-alianza-con-santander-consumer.shtml" target="_blank" rel="noopener" style="color:#14213D;">BioBío Chile ↗</a></div>
+
+  <table class="fact-table">
+    <tr><td class="fact-label">Marca detectada</td><td>— (ninguna detectada)</td></tr>
+    <tr><td class="fact-label">Event Type</td><td>AlianzaOAcuerdoComercial <span class="muted">(inferred)</span></td></tr>
+    <tr><td class="fact-label">Priority</td><td>Sin clasificar</td></tr>
+    <tr><td class="fact-label">Regla aplicada</td><td>Ninguna</td></tr>
+    <tr><td class="fact-label">Recommendation Actions</td><td>Ninguna</td></tr>
+  </table>
+
+  <div class="validation">
+    <div class="validation-question">¿Correcto?</div>
+    <label class="radio-label">
+      <input type="radio" name="correct_4" value="si" onchange="toggleCorrection(4, false)"> Sí
+    </label>
+    <label class="radio-label">
+      <input type="radio" name="correct_4" value="no" onchange="toggleCorrection(4, true)"> No
+    </label>
+
+    <div id="correction_4" class="correction-fields" style="display:none;">
+      <label class="field-label">Marca correcta
+        <input type="text" id="brand_correct_4" placeholder="Ej: Peugeot">
+      </label>
+      <label class="field-label">Priority correcta
+        <select id="priority_correct_4">
+          <option value="">— sin cambio —</option>
+          <option value="Critical">Critical</option>
+          <option value="High">High</option>
+          <option value="Medium">Medium</option>
+          <option value="Low">Low</option>
+          <option value="Ninguna">Ninguna (no debería tener prioridad)</option>
+        </select>
+      </label>
+      <label class="field-label">Recommendation correcta
+        <input type="text" id="recommendation_correct_4" placeholder="Ej: EvaluarComunicado">
+      </label>
+      <label class="field-label">Comentarios
+        <textarea id="comments_4" rows="2" placeholder="¿Qué faltó o qué sobró en el criterio del sistema?"></textarea>
+      </label>
+    </div>
+  </div>
+</div>
+
+<div class="card" data-index="5">
+  <div class="card-header">
+    <div class="story-title">Jeep celebra sus 85 años con una expedición regional por el Eje Cafetero colombiano</div>
+    <div class="priority-chip">Sin clasificar</div>
+  </div>
+  <div class="muted small">Autonoticias.cl</div>
+
+  <table class="fact-table">
+    <tr><td class="fact-label">Marca detectada</td><td>— (ninguna detectada)</td></tr>
+    <tr><td class="fact-label">Event Type</td><td>Campana <span class="muted">(explicit)</span></td></tr>
+    <tr><td class="fact-label">Priority</td><td>Sin clasificar</td></tr>
+    <tr><td class="fact-label">Regla aplicada</td><td>Ninguna</td></tr>
+    <tr><td class="fact-label">Recommendation Actions</td><td>Ninguna</td></tr>
+  </table>
+
+  <div class="validation">
+    <div class="validation-question">¿Correcto?</div>
+    <label class="radio-label">
+      <input type="radio" name="correct_5" value="si" onchange="toggleCorrection(5, false)"> Sí
+    </label>
+    <label class="radio-label">
+      <input type="radio" name="correct_5" value="no" onchange="toggleCorrection(5, true)"> No
+    </label>
+
+    <div id="correction_5" class="correction-fields" style="display:none;">
+      <label class="field-label">Marca correcta
+        <input type="text" id="brand_correct_5" placeholder="Ej: Peugeot">
+      </label>
+      <label class="field-label">Priority correcta
+        <select id="priority_correct_5">
+          <option value="">— sin cambio —</option>
+          <option value="Critical">Critical</option>
+          <option value="High">High</option>
+          <option value="Medium">Medium</option>
+          <option value="Low">Low</option>
+          <option value="Ninguna">Ninguna (no debería tener prioridad)</option>
+        </select>
+      </label>
+      <label class="field-label">Recommendation correcta
+        <input type="text" id="recommendation_correct_5" placeholder="Ej: EvaluarComunicado">
+      </label>
+      <label class="field-label">Comentarios
+        <textarea id="comments_5" rows="2" placeholder="¿Qué faltó o qué sobró en el criterio del sistema?"></textarea>
+      </label>
+    </div>
+  </div>
+</div>
+
+<div class="card" data-index="6">
+  <div class="card-header">
+    <div class="story-title">BYD Yuan Pro cambia de receta y ahora llega a Chile como híbrido enchufable</div>
+    <div class="priority-chip">LOW</div>
+  </div>
+  <div class="muted small"><a href="https://www.rutamotor.com/tag/lanzamiento-en-chile/" target="_blank" rel="noopener" style="color:#14213D;">Rutamotor ↗</a></div>
+
+  <table class="fact-table">
+    <tr><td class="fact-label">Marca detectada</td><td>BYD</td></tr>
+    <tr><td class="fact-label">Event Type</td><td>Lanzamiento <span class="muted">(explicit)</span></td></tr>
+    <tr><td class="fact-label">Priority</td><td>LOW</td></tr>
+    <tr><td class="fact-label">Regla aplicada</td><td>PR-010 — <span class="muted">Lanzamiento de modelo de la competencia</span></td></tr>
+    <tr><td class="fact-label">Recommendation Actions</td><td>Monitorear evolución</td></tr>
+  </table>
+
+  <div class="validation">
+    <div class="validation-question">¿Correcto?</div>
+    <label class="radio-label">
+      <input type="radio" name="correct_6" value="si" onchange="toggleCorrection(6, false)"> Sí
+    </label>
+    <label class="radio-label">
+      <input type="radio" name="correct_6" value="no" onchange="toggleCorrection(6, true)"> No
+    </label>
+
+    <div id="correction_6" class="correction-fields" style="display:none;">
+      <label class="field-label">Marca correcta
+        <input type="text" id="brand_correct_6" placeholder="Ej: Peugeot">
+      </label>
+      <label class="field-label">Priority correcta
+        <select id="priority_correct_6">
+          <option value="">— sin cambio —</option>
+          <option value="Critical">Critical</option>
+          <option value="High">High</option>
+          <option value="Medium">Medium</option>
+          <option value="Low">Low</option>
+          <option value="Ninguna">Ninguna (no debería tener prioridad)</option>
+        </select>
+      </label>
+      <label class="field-label">Recommendation correcta
+        <input type="text" id="recommendation_correct_6" placeholder="Ej: EvaluarComunicado">
+      </label>
+      <label class="field-label">Comentarios
+        <textarea id="comments_6" rows="2" placeholder="¿Qué faltó o qué sobró en el criterio del sistema?"></textarea>
+      </label>
+    </div>
+  </div>
+</div>
+
+<div class="card" data-index="7">
+  <div class="card-header">
+    <div class="story-title">Buque BYD Changzhou llegará por primera vez a Chile con capacidad para transportar 7.000 vehículos</div>
+    <div class="priority-chip">Sin clasificar</div>
+  </div>
+  <div class="muted small"><a href="https://autonoticias.cl/2026/08/01/buque-byd-changzhou-llegara-por-primera-vez-a-chile-con-capacidad-para-transportar-7-000-vehiculos/" target="_blank" rel="noopener" style="color:#14213D;">Autonoticias.cl ↗</a></div>
+
+  <table class="fact-table">
+    <tr><td class="fact-label">Marca detectada</td><td>BYD</td></tr>
+    <tr><td class="fact-label">Event Type</td><td>Sin detectar <span class="muted">(undetected)</span></td></tr>
+    <tr><td class="fact-label">Priority</td><td>Sin clasificar</td></tr>
+    <tr><td class="fact-label">Regla aplicada</td><td>Ninguna</td></tr>
+    <tr><td class="fact-label">Recommendation Actions</td><td>Ninguna</td></tr>
+  </table>
+
+  <div class="validation">
+    <div class="validation-question">¿Correcto?</div>
+    <label class="radio-label">
+      <input type="radio" name="correct_7" value="si" onchange="toggleCorrection(7, false)"> Sí
+    </label>
+    <label class="radio-label">
+      <input type="radio" name="correct_7" value="no" onchange="toggleCorrection(7, true)"> No
+    </label>
+
+    <div id="correction_7" class="correction-fields" style="display:none;">
+      <label class="field-label">Marca correcta
+        <input type="text" id="brand_correct_7" placeholder="Ej: Peugeot">
+      </label>
+      <label class="field-label">Priority correcta
+        <select id="priority_correct_7">
+          <option value="">— sin cambio —</option>
+          <option value="Critical">Critical</option>
+          <option value="High">High</option>
+          <option value="Medium">Medium</option>
+          <option value="Low">Low</option>
+          <option value="Ninguna">Ninguna (no debería tener prioridad)</option>
+        </select>
+      </label>
+      <label class="field-label">Recommendation correcta
+        <input type="text" id="recommendation_correct_7" placeholder="Ej: EvaluarComunicado">
+      </label>
+      <label class="field-label">Comentarios
+        <textarea id="comments_7" rows="2" placeholder="¿Qué faltó o qué sobró en el criterio del sistema?"></textarea>
+      </label>
+    </div>
+  </div>
+</div>
+
+<div class="card" data-index="8">
+  <div class="card-header">
+    <div class="story-title">BAIC presenta el BJ81 en el Salón de Beijing 2026 y confirma su primera pickup para Chile</div>
+    <div class="priority-chip">LOW</div>
+  </div>
+  <div class="muted small"><a href="https://autonoticias.cl/2026/04/30/baic-presenta-ofensiva-global-en-beijing-2026-con-el-debut-del-bj81-y-su-primera-pickup-que-llegara-a-chile/" target="_blank" rel="noopener" style="color:#14213D;">Autonoticias.cl ↗</a></div>
+
+  <table class="fact-table">
+    <tr><td class="fact-label">Marca detectada</td><td>BAIC</td></tr>
+    <tr><td class="fact-label">Event Type</td><td>Lanzamiento <span class="muted">(explicit)</span></td></tr>
+    <tr><td class="fact-label">Priority</td><td>LOW</td></tr>
+    <tr><td class="fact-label">Regla aplicada</td><td>PR-010 — <span class="muted">Lanzamiento de modelo de la competencia</span></td></tr>
+    <tr><td class="fact-label">Recommendation Actions</td><td>Monitorear evolución</td></tr>
+  </table>
+
+  <div class="validation">
+    <div class="validation-question">¿Correcto?</div>
+    <label class="radio-label">
+      <input type="radio" name="correct_8" value="si" onchange="toggleCorrection(8, false)"> Sí
+    </label>
+    <label class="radio-label">
+      <input type="radio" name="correct_8" value="no" onchange="toggleCorrection(8, true)"> No
+    </label>
+
+    <div id="correction_8" class="correction-fields" style="display:none;">
+      <label class="field-label">Marca correcta
+        <input type="text" id="brand_correct_8" placeholder="Ej: Peugeot">
+      </label>
+      <label class="field-label">Priority correcta
+        <select id="priority_correct_8">
+          <option value="">— sin cambio —</option>
+          <option value="Critical">Critical</option>
+          <option value="High">High</option>
+          <option value="Medium">Medium</option>
+          <option value="Low">Low</option>
+          <option value="Ninguna">Ninguna (no debería tener prioridad)</option>
+        </select>
+      </label>
+      <label class="field-label">Recommendation correcta
+        <input type="text" id="recommendation_correct_8" placeholder="Ej: EvaluarComunicado">
+      </label>
+      <label class="field-label">Comentarios
+        <textarea id="comments_8" rows="2" placeholder="¿Qué faltó o qué sobró en el criterio del sistema?"></textarea>
+      </label>
+    </div>
+  </div>
+</div>
+
+<div class="card" data-index="9">
+  <div class="card-header">
+    <div class="story-title">Campaña &quot;Kia In&quot; se posiciona entre los 10 comerciales más valorados por los chilenos</div>
+    <div class="priority-chip">Sin clasificar</div>
+  </div>
+  <div class="muted small">Autonoticias.cl</div>
+
+  <table class="fact-table">
+    <tr><td class="fact-label">Marca detectada</td><td>KIA</td></tr>
+    <tr><td class="fact-label">Event Type</td><td>Campana <span class="muted">(explicit)</span></td></tr>
+    <tr><td class="fact-label">Priority</td><td>Sin clasificar</td></tr>
+    <tr><td class="fact-label">Regla aplicada</td><td>Ninguna</td></tr>
+    <tr><td class="fact-label">Recommendation Actions</td><td>Ninguna</td></tr>
+  </table>
+
+  <div class="validation">
+    <div class="validation-question">¿Correcto?</div>
+    <label class="radio-label">
+      <input type="radio" name="correct_9" value="si" onchange="toggleCorrection(9, false)"> Sí
+    </label>
+    <label class="radio-label">
+      <input type="radio" name="correct_9" value="no" onchange="toggleCorrection(9, true)"> No
+    </label>
+
+    <div id="correction_9" class="correction-fields" style="display:none;">
+      <label class="field-label">Marca correcta
+        <input type="text" id="brand_correct_9" placeholder="Ej: Peugeot">
+      </label>
+      <label class="field-label">Priority correcta
+        <select id="priority_correct_9">
+          <option value="">— sin cambio —</option>
+          <option value="Critical">Critical</option>
+          <option value="High">High</option>
+          <option value="Medium">Medium</option>
+          <option value="Low">Low</option>
+          <option value="Ninguna">Ninguna (no debería tener prioridad)</option>
+        </select>
+      </label>
+      <label class="field-label">Recommendation correcta
+        <input type="text" id="recommendation_correct_9" placeholder="Ej: EvaluarComunicado">
+      </label>
+      <label class="field-label">Comentarios
+        <textarea id="comments_9" rows="2" placeholder="¿Qué faltó o qué sobró en el criterio del sistema?"></textarea>
+      </label>
+    </div>
+  </div>
+</div>
+
+<div class="card" data-index="10">
+  <div class="card-header">
+    <div class="story-title">Nissan inicia una nueva etapa en Chile junto a Astara con el lanzamiento del renovado Versa</div>
+    <div class="priority-chip">LOW</div>
+  </div>
+  <div class="muted small">Autonoticias.cl</div>
+
+  <table class="fact-table">
+    <tr><td class="fact-label">Marca detectada</td><td>Nissan</td></tr>
+    <tr><td class="fact-label">Event Type</td><td>Lanzamiento <span class="muted">(explicit)</span></td></tr>
+    <tr><td class="fact-label">Priority</td><td>LOW</td></tr>
+    <tr><td class="fact-label">Regla aplicada</td><td>PR-010 — <span class="muted">Lanzamiento de modelo de la competencia</span></td></tr>
+    <tr><td class="fact-label">Recommendation Actions</td><td>Monitorear evolución</td></tr>
+  </table>
+
+  <div class="validation">
+    <div class="validation-question">¿Correcto?</div>
+    <label class="radio-label">
+      <input type="radio" name="correct_10" value="si" onchange="toggleCorrection(10, false)"> Sí
+    </label>
+    <label class="radio-label">
+      <input type="radio" name="correct_10" value="no" onchange="toggleCorrection(10, true)"> No
+    </label>
+
+    <div id="correction_10" class="correction-fields" style="display:none;">
+      <label class="field-label">Marca correcta
+        <input type="text" id="brand_correct_10" placeholder="Ej: Peugeot">
+      </label>
+      <label class="field-label">Priority correcta
+        <select id="priority_correct_10">
+          <option value="">— sin cambio —</option>
+          <option value="Critical">Critical</option>
+          <option value="High">High</option>
+          <option value="Medium">Medium</option>
+          <option value="Low">Low</option>
+          <option value="Ninguna">Ninguna (no debería tener prioridad)</option>
+        </select>
+      </label>
+      <label class="field-label">Recommendation correcta
+        <input type="text" id="recommendation_correct_10" placeholder="Ej: EvaluarComunicado">
+      </label>
+      <label class="field-label">Comentarios
+        <textarea id="comments_10" rows="2" placeholder="¿Qué faltó o qué sobró en el criterio del sistema?"></textarea>
+      </label>
+    </div>
+  </div>
+</div>
+
+<div class="card" data-index="11">
+  <div class="card-header">
+    <div class="story-title">Toyota Yaris y Yaris Cross obtienen solo dos estrellas en las últimas pruebas de choque de Latin NCAP</div>
+    <div class="priority-chip">HIGH</div>
+  </div>
+  <div class="muted small">Latin NCAP (sitio oficial)</div>
+
+  <table class="fact-table">
+    <tr><td class="fact-label">Marca detectada</td><td>Toyota</td></tr>
+    <tr><td class="fact-label">Event Type</td><td>ResultadoDeSeguridad <span class="muted">(explicit)</span></td></tr>
+    <tr><td class="fact-label">Priority</td><td>HIGH</td></tr>
+    <tr><td class="fact-label">Regla aplicada</td><td>PR-013 — <span class="muted">Resultado Latin NCAP de modelo comercializado en la región</span></td></tr>
+    <tr><td class="fact-label">Recommendation Actions</td><td>Preparar Q&amp;A para prensa</td></tr>
+  </table>
+
+  <div class="validation">
+    <div class="validation-question">¿Correcto?</div>
+    <label class="radio-label">
+      <input type="radio" name="correct_11" value="si" onchange="toggleCorrection(11, false)"> Sí
+    </label>
+    <label class="radio-label">
+      <input type="radio" name="correct_11" value="no" onchange="toggleCorrection(11, true)"> No
+    </label>
+
+    <div id="correction_11" class="correction-fields" style="display:none;">
+      <label class="field-label">Marca correcta
+        <input type="text" id="brand_correct_11" placeholder="Ej: Peugeot">
+      </label>
+      <label class="field-label">Priority correcta
+        <select id="priority_correct_11">
+          <option value="">— sin cambio —</option>
+          <option value="Critical">Critical</option>
+          <option value="High">High</option>
+          <option value="Medium">Medium</option>
+          <option value="Low">Low</option>
+          <option value="Ninguna">Ninguna (no debería tener prioridad)</option>
+        </select>
+      </label>
+      <label class="field-label">Recommendation correcta
+        <input type="text" id="recommendation_correct_11" placeholder="Ej: EvaluarComunicado">
+      </label>
+      <label class="field-label">Comentarios
+        <textarea id="comments_11" rows="2" placeholder="¿Qué faltó o qué sobró en el criterio del sistema?"></textarea>
+      </label>
+    </div>
+  </div>
+</div>
+
+<div class="card" data-index="12">
+  <div class="card-header">
+    <div class="story-title">ANAC: las ventas de autos crecen 5,5% en el primer semestre de 2026, con Peugeot liderando comerciales</div>
+    <div class="priority-chip">MEDIUM</div>
+  </div>
+  <div class="muted small"><a href="https://www.emol.com/noticias/Autos/2026/07/07/1204916/autos-vendidos-2026-primer-semestre.html" target="_blank" rel="noopener" style="color:#14213D;">Emol ↗</a></div>
+
+  <table class="fact-table">
+    <tr><td class="fact-label">Marca detectada</td><td>Peugeot</td></tr>
+    <tr><td class="fact-label">Event Type</td><td>ResultadoFinanciero <span class="muted">(explicit)</span></td></tr>
+    <tr><td class="fact-label">Priority</td><td>MEDIUM</td></tr>
+    <tr><td class="fact-label">Regla aplicada</td><td>PR-011 — <span class="muted">Publicación oficial de resultados ANAC</span></td></tr>
+    <tr><td class="fact-label">Recommendation Actions</td><td>Sin acción inmediata</td></tr>
+  </table>
+
+  <div class="validation">
+    <div class="validation-question">¿Correcto?</div>
+    <label class="radio-label">
+      <input type="radio" name="correct_12" value="si" onchange="toggleCorrection(12, false)"> Sí
+    </label>
+    <label class="radio-label">
+      <input type="radio" name="correct_12" value="no" onchange="toggleCorrection(12, true)"> No
+    </label>
+
+    <div id="correction_12" class="correction-fields" style="display:none;">
+      <label class="field-label">Marca correcta
+        <input type="text" id="brand_correct_12" placeholder="Ej: Peugeot">
+      </label>
+      <label class="field-label">Priority correcta
+        <select id="priority_correct_12">
+          <option value="">— sin cambio —</option>
+          <option value="Critical">Critical</option>
+          <option value="High">High</option>
+          <option value="Medium">Medium</option>
+          <option value="Low">Low</option>
+          <option value="Ninguna">Ninguna (no debería tener prioridad)</option>
+        </select>
+      </label>
+      <label class="field-label">Recommendation correcta
+        <input type="text" id="recommendation_correct_12" placeholder="Ej: EvaluarComunicado">
+      </label>
+      <label class="field-label">Comentarios
+        <textarea id="comments_12" rows="2" placeholder="¿Qué faltó o qué sobró en el criterio del sistema?"></textarea>
+      </label>
+    </div>
+  </div>
+</div>
+
+<div class="card" data-index="13">
+  <div class="card-header">
+    <div class="story-title">ANAC advierte que el descuento en el permiso de circulación para autos eléctricos bajará al 50% el próximo año</div>
+    <div class="priority-chip">MEDIUM</div>
+  </div>
+  <div class="muted small"><a href="https://www.emol.com/noticias/Economia/2026/01/27/1189813/autos-electricos-permiso-de-circulacion.html" target="_blank" rel="noopener" style="color:#14213D;">Emol ↗</a></div>
+
+  <table class="fact-table">
+    <tr><td class="fact-label">Marca detectada</td><td>— (ninguna detectada)</td></tr>
+    <tr><td class="fact-label">Event Type</td><td>RegulacionOPoliticaPublica <span class="muted">(explicit)</span></td></tr>
+    <tr><td class="fact-label">Priority</td><td>MEDIUM</td></tr>
+    <tr><td class="fact-label">Regla aplicada</td><td>PR-012 — <span class="muted">Cambio regulatorio (nueva ley, incentivo o normativa)</span></td></tr>
+    <tr><td class="fact-label">Recommendation Actions</td><td>Sin acción inmediata</td></tr>
+  </table>
+
+  <div class="validation">
+    <div class="validation-question">¿Correcto?</div>
+    <label class="radio-label">
+      <input type="radio" name="correct_13" value="si" onchange="toggleCorrection(13, false)"> Sí
+    </label>
+    <label class="radio-label">
+      <input type="radio" name="correct_13" value="no" onchange="toggleCorrection(13, true)"> No
+    </label>
+
+    <div id="correction_13" class="correction-fields" style="display:none;">
+      <label class="field-label">Marca correcta
+        <input type="text" id="brand_correct_13" placeholder="Ej: Peugeot">
+      </label>
+      <label class="field-label">Priority correcta
+        <select id="priority_correct_13">
+          <option value="">— sin cambio —</option>
+          <option value="Critical">Critical</option>
+          <option value="High">High</option>
+          <option value="Medium">Medium</option>
+          <option value="Low">Low</option>
+          <option value="Ninguna">Ninguna (no debería tener prioridad)</option>
+        </select>
+      </label>
+      <label class="field-label">Recommendation correcta
+        <input type="text" id="recommendation_correct_13" placeholder="Ej: EvaluarComunicado">
+      </label>
+      <label class="field-label">Comentarios
+        <textarea id="comments_13" rows="2" placeholder="¿Qué faltó o qué sobró en el criterio del sistema?"></textarea>
+      </label>
+    </div>
+  </div>
+</div>
+
+<div class="card" data-index="14">
+  <div class="card-header">
+    <div class="story-title">Latin NCAP endurece sus pruebas de choque desde 2026: será más difícil llegar a cinco estrellas</div>
+    <div class="priority-chip">HIGH</div>
+  </div>
+  <div class="muted small">Autocosmos</div>
+
+  <table class="fact-table">
+    <tr><td class="fact-label">Marca detectada</td><td>— (ninguna detectada)</td></tr>
+    <tr><td class="fact-label">Event Type</td><td>ResultadoDeSeguridad <span class="muted">(inferred)</span></td></tr>
+    <tr><td class="fact-label">Priority</td><td>HIGH</td></tr>
+    <tr><td class="fact-label">Regla aplicada</td><td>PR-013 — <span class="muted">Resultado Latin NCAP de modelo comercializado en la región</span></td></tr>
+    <tr><td class="fact-label">Recommendation Actions</td><td>Preparar Q&amp;A para prensa</td></tr>
+  </table>
+
+  <div class="validation">
+    <div class="validation-question">¿Correcto?</div>
+    <label class="radio-label">
+      <input type="radio" name="correct_14" value="si" onchange="toggleCorrection(14, false)"> Sí
+    </label>
+    <label class="radio-label">
+      <input type="radio" name="correct_14" value="no" onchange="toggleCorrection(14, true)"> No
+    </label>
+
+    <div id="correction_14" class="correction-fields" style="display:none;">
+      <label class="field-label">Marca correcta
+        <input type="text" id="brand_correct_14" placeholder="Ej: Peugeot">
+      </label>
+      <label class="field-label">Priority correcta
+        <select id="priority_correct_14">
+          <option value="">— sin cambio —</option>
+          <option value="Critical">Critical</option>
+          <option value="High">High</option>
+          <option value="Medium">Medium</option>
+          <option value="Low">Low</option>
+          <option value="Ninguna">Ninguna (no debería tener prioridad)</option>
+        </select>
+      </label>
+      <label class="field-label">Recommendation correcta
+        <input type="text" id="recommendation_correct_14" placeholder="Ej: EvaluarComunicado">
+      </label>
+      <label class="field-label">Comentarios
+        <textarea id="comments_14" rows="2" placeholder="¿Qué faltó o qué sobró en el criterio del sistema?"></textarea>
+      </label>
+    </div>
+  </div>
+</div>
+
+<div class="card" data-index="15">
+  <div class="card-header">
+    <div class="story-title">Marcas chinas alcanzan un 31% de participación en el mercado automotor chileno</div>
+    <div class="priority-chip">MEDIUM</div>
+  </div>
+  <div class="muted small">Diario Financiero</div>
+
+  <table class="fact-table">
+    <tr><td class="fact-label">Marca detectada</td><td>— (ninguna detectada)</td></tr>
+    <tr><td class="fact-label">Event Type</td><td>TendenciaDeMercado <span class="muted">(explicit)</span></td></tr>
+    <tr><td class="fact-label">Priority</td><td>MEDIUM</td></tr>
+    <tr><td class="fact-label">Regla aplicada</td><td>PR-011 — <span class="muted">Publicación oficial de resultados ANAC</span></td></tr>
+    <tr><td class="fact-label">Recommendation Actions</td><td>Sin acción inmediata</td></tr>
+  </table>
+
+  <div class="validation">
+    <div class="validation-question">¿Correcto?</div>
+    <label class="radio-label">
+      <input type="radio" name="correct_15" value="si" onchange="toggleCorrection(15, false)"> Sí
+    </label>
+    <label class="radio-label">
+      <input type="radio" name="correct_15" value="no" onchange="toggleCorrection(15, true)"> No
+    </label>
+
+    <div id="correction_15" class="correction-fields" style="display:none;">
+      <label class="field-label">Marca correcta
+        <input type="text" id="brand_correct_15" placeholder="Ej: Peugeot">
+      </label>
+      <label class="field-label">Priority correcta
+        <select id="priority_correct_15">
+          <option value="">— sin cambio —</option>
+          <option value="Critical">Critical</option>
+          <option value="High">High</option>
+          <option value="Medium">Medium</option>
+          <option value="Low">Low</option>
+          <option value="Ninguna">Ninguna (no debería tener prioridad)</option>
+        </select>
+      </label>
+      <label class="field-label">Recommendation correcta
+        <input type="text" id="recommendation_correct_15" placeholder="Ej: EvaluarComunicado">
+      </label>
+      <label class="field-label">Comentarios
+        <textarea id="comments_15" rows="2" placeholder="¿Qué faltó o qué sobró en el criterio del sistema?"></textarea>
+      </label>
+    </div>
+  </div>
+</div>
+
+
+  <div class="toolbar">
+    <span class="counter" id="counter">0 de 16 validadas</span>
+    <button class="download" onclick="downloadValidations()">Descargar validaciones (JSON)</button>
+  </div>
+</div>
+
+<script>
+const SYSTEM_DATA = [{"index": 0, "story": "SERNAC emite alerta de seguridad para Citroën, DS, Fiat, Jeep, Opel y Peugeot por defecto en el alternador", "source": "SERNAC (sitio oficial)", "source_url": "https://www.sernac.cl/portal/619/w3-article-88689.html", "system_brand": ["Peugeot", "Citroën", "Opel", "DS Automobiles", "Fiat", "Jeep"], "system_event_type": "Recall", "system_priority": "HIGH", "system_recommendations": ["EvaluarComunicado", "EvaluarQyA"], "system_rules": ["PR-001"]}, {"index": 1, "story": "SERNAC alerta sobre vehículos DS y Peugeot por posible falla en el Módulo de Supervisión del Vehículo", "source": "SERNAC (sitio oficial)", "source_url": "https://www.sernac.cl/portal/619/w3-article-88864.html", "system_brand": ["Peugeot", "DS Automobiles"], "system_event_type": "Recall", "system_priority": "HIGH", "system_recommendations": ["EvaluarComunicado", "EvaluarQyA"], "system_rules": ["PR-001"]}, {"index": 2, "story": "Stellantis anuncia en Chile un plan para responder a las fallas de los motores PureTech", "source": "Autocosmos", "source_url": "https://noticias.autocosmos.cl/2026/04/21/stellantis-toma-cartas-para-dar-solucion-en-chile-a-los-cuestionados-motores-puretech", "system_brand": ["Peugeot", "Citroën", "Opel", "DS Automobiles"], "system_event_type": "DenunciaOControversia", "system_priority": null, "system_recommendations": [], "system_rules": []}, {"index": 3, "story": "Stellantis asume representación directa de Fiat, Jeep, RAM y otras marcas que estaban con Astara en Chile", "source": "La Tercera", "source_url": "https://www.latercera.com/mtonline/noticia/stellantis-informa-que-toma-la-representacion-de-seis-marcas-de-astara-en-chile/", "system_brand": ["Fiat", "Jeep", "RAM"], "system_event_type": null, "system_priority": null, "system_recommendations": [], "system_rules": []}, {"index": 4, "story": "Crédito automotriz en ventas de Stellantis alcanza un 45% en Chile tras alianza con Santander Consumer", "source": "BioBío Chile", "source_url": "https://www.biobiochile.cl/noticias/economia/negocios-y-empresas/2026/07/24/credito-automotriz-en-ventas-de-stellantis-alcanza-un-45-en-chile-tras-alianza-con-santander-consumer.shtml", "system_brand": [], "system_event_type": "AlianzaOAcuerdoComercial", "system_priority": null, "system_recommendations": [], "system_rules": []}, {"index": 5, "story": "Jeep celebra sus 85 años con una expedición regional por el Eje Cafetero colombiano", "source": "Autonoticias.cl", "source_url": null, "system_brand": [], "system_event_type": "Campana", "system_priority": null, "system_recommendations": [], "system_rules": []}, {"index": 6, "story": "BYD Yuan Pro cambia de receta y ahora llega a Chile como híbrido enchufable", "source": "Rutamotor", "source_url": "https://www.rutamotor.com/tag/lanzamiento-en-chile/", "system_brand": ["BYD"], "system_event_type": "Lanzamiento", "system_priority": "LOW", "system_recommendations": ["MonitorearEvolucion"], "system_rules": ["PR-010"]}, {"index": 7, "story": "Buque BYD Changzhou llegará por primera vez a Chile con capacidad para transportar 7.000 vehículos", "source": "Autonoticias.cl", "source_url": "https://autonoticias.cl/2026/08/01/buque-byd-changzhou-llegara-por-primera-vez-a-chile-con-capacidad-para-transportar-7-000-vehiculos/", "system_brand": ["BYD"], "system_event_type": null, "system_priority": null, "system_recommendations": [], "system_rules": []}, {"index": 8, "story": "BAIC presenta el BJ81 en el Salón de Beijing 2026 y confirma su primera pickup para Chile", "source": "Autonoticias.cl", "source_url": "https://autonoticias.cl/2026/04/30/baic-presenta-ofensiva-global-en-beijing-2026-con-el-debut-del-bj81-y-su-primera-pickup-que-llegara-a-chile/", "system_brand": ["BAIC"], "system_event_type": "Lanzamiento", "system_priority": "LOW", "system_recommendations": ["MonitorearEvolucion"], "system_rules": ["PR-010"]}, {"index": 9, "story": "Campaña \"Kia In\" se posiciona entre los 10 comerciales más valorados por los chilenos", "source": "Autonoticias.cl", "source_url": null, "system_brand": ["KIA"], "system_event_type": "Campana", "system_priority": null, "system_recommendations": [], "system_rules": []}, {"index": 10, "story": "Nissan inicia una nueva etapa en Chile junto a Astara con el lanzamiento del renovado Versa", "source": "Autonoticias.cl", "source_url": null, "system_brand": ["Nissan"], "system_event_type": "Lanzamiento", "system_priority": "LOW", "system_recommendations": ["MonitorearEvolucion"], "system_rules": ["PR-010"]}, {"index": 11, "story": "Toyota Yaris y Yaris Cross obtienen solo dos estrellas en las últimas pruebas de choque de Latin NCAP", "source": "Latin NCAP (sitio oficial)", "source_url": null, "system_brand": ["Toyota"], "system_event_type": "ResultadoDeSeguridad", "system_priority": "HIGH", "system_recommendations": ["EvaluarQyA"], "system_rules": ["PR-013"]}, {"index": 12, "story": "ANAC: las ventas de autos crecen 5,5% en el primer semestre de 2026, con Peugeot liderando comerciales", "source": "Emol", "source_url": "https://www.emol.com/noticias/Autos/2026/07/07/1204916/autos-vendidos-2026-primer-semestre.html", "system_brand": ["Peugeot"], "system_event_type": "ResultadoFinanciero", "system_priority": "MEDIUM", "system_recommendations": ["SinAccionInmediata"], "system_rules": ["PR-011"]}, {"index": 13, "story": "ANAC advierte que el descuento en el permiso de circulación para autos eléctricos bajará al 50% el próximo año", "source": "Emol", "source_url": "https://www.emol.com/noticias/Economia/2026/01/27/1189813/autos-electricos-permiso-de-circulacion.html", "system_brand": [], "system_event_type": "RegulacionOPoliticaPublica", "system_priority": "MEDIUM", "system_recommendations": ["SinAccionInmediata"], "system_rules": ["PR-012"]}, {"index": 14, "story": "Latin NCAP endurece sus pruebas de choque desde 2026: será más difícil llegar a cinco estrellas", "source": "Autocosmos", "source_url": null, "system_brand": [], "system_event_type": "ResultadoDeSeguridad", "system_priority": "HIGH", "system_recommendations": ["EvaluarQyA"], "system_rules": ["PR-013"]}, {"index": 15, "story": "Marcas chinas alcanzan un 31% de participación en el mercado automotor chileno", "source": "Diario Financiero", "source_url": null, "system_brand": [], "system_event_type": "TendenciaDeMercado", "system_priority": "MEDIUM", "system_recommendations": ["SinAccionInmediata"], "system_rules": ["PR-011"]}];
+
+function toggleCorrection(index, show) {
+  document.getElementById('correction_' + index).style.display = show ? 'flex' : 'none';
+  updateCounter();
+}
+
+function updateCounter() {
+  let count = 0;
+  const total = SYSTEM_DATA.length;
+  for (let i = 0; i < total; i++) {
+    const radios = document.getElementsByName('correct_' + i);
+    for (const r of radios) {
+      if (r.checked) { count++; break; }
+    }
+  }
+  document.getElementById('counter').textContent = count + ' de ' + total + ' validadas';
+}
+
+function downloadValidations() {
+  const results = SYSTEM_DATA.map(item => {
+    const i = item.index;
+    const radios = document.getElementsByName('correct_' + i);
+    let correct = null;
+    for (const r of radios) { if (r.checked) correct = (r.value === 'si'); }
+
+    return {
+      ...item,
+      validated: correct !== null,
+      correct: correct,
+      brand_correct: correct === false ? document.getElementById('brand_correct_' + i).value : null,
+      priority_correct: correct === false ? document.getElementById('priority_correct_' + i).value : null,
+      recommendation_correct: correct === false ? document.getElementById('recommendation_correct_' + i).value : null,
+      comments: correct === false ? document.getElementById('comments_' + i).value : null,
+    };
+  });
+
+  const blob = new Blob([JSON.stringify(results, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'training_validations.json';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+document.querySelectorAll('input[type=radio]').forEach(r => r.addEventListener('change', updateCounter));
+</script>
+</body>
+</html>
