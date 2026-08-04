@@ -1,0 +1,137 @@
+# ============================================================
+# rss_sources.yml — v1.0.0
+# Catálogo de feeds RSS para la ingesta automática (Sprint 9).
+#
+# Cada feed referencia un `source_id` que YA debe existir en
+# config/knowledge_base/sources.yml — este archivo NO crea fuentes
+# nuevas en la Knowledge Base (fuera de alcance de este sprint).
+#
+# Campo `verified`:
+#   true  -> la URL fue confirmada por una búsqueda real durante este
+#            sprint (no se inventó ni se adivinó).
+#   false -> la URL es la mejor estimación posible dada la convención
+#            de cada sitio (ej. WordPress -> /feed/), pero NO se pudo
+#            confirmar en vivo porque este entorno de desarrollo no
+#            tiene acceso a red saliente. Debe verificarse antes de
+#            depender de ella en producción.
+#
+# Igual que en priority_rules.yml: un feed puede quedar `enabled: false`
+# con un `todo:` explicando exactamente qué falta — nunca se deja algo
+# roto en silencio.
+# ============================================================
+version: "1.0.0"
+
+feeds:
+  - id: rss.diario_financiero
+    source_id: source.diario_financiero
+    url: "https://www.df.cl/noticias/site/list/port/rss.xml"
+    enabled: true
+    verified: true
+
+  - id: rss.biobio_chile
+    source_id: source.biobio_chile
+    url: "https://www.biobiochile.cl/static/feed-rss"
+    enabled: true
+    verified: true
+
+  - id: rss.emol_motores
+    source_id: source.emol
+    url: "https://www.emol.com/rss/rss.asp?canal=8"
+    enabled: true
+    verified: false
+    todo: >
+      URL sin confirmar en vivo (sin acceso a red en este entorno de
+      desarrollo). Emol expone RSS por canal numérico; el número de
+      canal correspondiente a la sección de autos/motores no se pudo
+      verificar. Confirmar antes de depender de este feed.
+
+  - id: rss.la_tercera
+    source_id: source.la_tercera
+    url: "https://www.latercera.com/feed/"
+    enabled: true
+    verified: false
+    todo: >
+      URL sin confirmar en vivo. La Tercera usa WordPress (patrón
+      /feed/ es el más probable), pero FeedSpot no expone una URL
+      directa verificable para este sitio — confirmar antes de
+      producción.
+
+  - id: rss.rutamotor
+    source_id: source.rutamotor
+    url: "https://www.rutamotor.com/feed/"
+    enabled: true
+    verified: false
+    todo: "URL sin confirmar en vivo — mismo caso que La Tercera (patrón WordPress /feed/, no verificado)."
+
+  - id: rss.autocosmos
+    source_id: source.autocosmos
+    url: "https://noticias.autocosmos.cl/feed"
+    enabled: true
+    verified: false
+    todo: "URL sin confirmar en vivo."
+
+  - id: rss.reuters_automotive
+    source_id: source.reuters
+    url: "https://www.reutersagency.com/feed/?best-topics=autos-transportation"
+    enabled: false
+    verified: false
+    todo: >
+      Reuters discontinuó la mayoría de sus feeds RSS públicos por
+      categoría hace varios años — es probable que esta URL ya no
+      funcione. Deshabilitado hasta confirmar una alternativa real
+      (o reemplazar por otra fuente de cobertura internacional).
+
+  - id: rss.stellantis_media
+    source_id: source.stellantis_media_global
+    url: "https://www.stellantis.com/en/news/rss"
+    enabled: false
+    verified: false
+    todo: >
+      Los newsrooms corporativos rara vez exponen RSS público sin
+      autenticación. No hay evidencia de que este feed exista.
+      Deshabilitado hasta confirmar, o reemplazar por otro método de
+      captura (scraping del press room, por ejemplo) en un sprint futuro.
+
+  - id: rss.anac
+    source_id: source.anac_oficial
+    url: "https://www.anac.cl/feed/"
+    enabled: false
+    verified: false
+    todo: >
+      ANAC es un sitio institucional; no hay evidencia de que publique
+      un feed RSS. Deshabilitado hasta confirmar — probablemente
+      requiera otro mecanismo de captura (alertas, scraping puntual de
+      la sección de prensa) en un sprint futuro, no RSS.
+
+  # ----------------------------------------------------------------
+  # Los siguientes dos feeds están BLOQUEADOS, no solo sin verificar:
+  # referencian un source_id que todavía no existe en
+  # config/knowledge_base/sources.yml. Agregarlo está fuera de alcance
+  # de este sprint (ver README, sección Knowledge Base). Quedan
+  # documentados aquí, deshabilitados, para no perder el requerimiento
+  # original de pila (AutoTest, Motor1).
+  # ----------------------------------------------------------------
+
+  - id: rss.autotest
+    source_id: source.autotest
+    url: null
+    enabled: false
+    verified: false
+    todo: >
+      BLOQUEADO: 'AutoTest' no existe como Source en
+      config/knowledge_base/sources.yml. Agregar el Source ahí primero
+      (fuera de alcance de este sprint — ver Knowledge Base Update
+      template en .github/ISSUE_TEMPLATE/), luego completar la URL real
+      del feed y habilitar.
+
+  - id: rss.motor1
+    source_id: source.motor1
+    url: null
+    enabled: false
+    verified: false
+    todo: >
+      BLOQUEADO: 'Motor1' no existe como Source en
+      config/knowledge_base/sources.yml. Mismo caso que AutoTest — el
+      feed real de Motor1 en español
+      (https://es.motor1.com probablemente expone RSS, dado que usa un
+      CMS con esa capacidad) puede confirmarse una vez exista el Source.
