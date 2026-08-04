@@ -1,9 +1,10 @@
 """
-Etapas del pipeline (Sprint 3):
+Etapas del pipeline (Sprint 3, extendido en el Sprint del Opportunity
+Engine):
 
     Input JSON -> Entity Recognition -> Event Detection ->
     Priority Rule Engine -> Recommendation Engine ->
-    Daily Brief Generator -> Output JSON
+    Opportunity Engine -> Daily Brief Generator -> Output JSON
 
 Cada etapa es una clase con un único método run(context) -> context.
 Cada una lee y escribe SOLO las claves del contexto que le
@@ -20,7 +21,9 @@ from brief.generator import build_daily_brief
 from classification.entity_recognition import detect_entities
 from classification.event_detection import infer_event_type
 from knowledge_base.loader import KnowledgeBase
+from opportunity_engine.opportunities import compute_opportunities, extend_fact_with_classification
 from rule_engine.engine import RuleEngine
+from rule_engine.registry import RuleRegistry
 
 
 class EntityRecognitionStage:
@@ -96,6 +99,45 @@ class RecommendationEngineStage:
             fact_reference=context["news"].title,
             resolution_strategy="accumulate_all",
             outcome_field="recommendations",
+        )
+        return context
+
+
+class OpportunityEngineStage:
+    """Lee:  context['fact'], context['priority_result'], context['recommendation_result'], context['news']
+    Escribe: context['opportunities']
+
+    Corre después de Priority y Recommendation Engine a propósito — el
+    Fact que evalúa se enriquece con el resultado de ambos
+    (extend_fact_with_classification), disponible para futuras reglas
+    de oportunidad que quieran condicionar sobre la prioridad ya
+    asignada. v1.0 no trae ninguna regla así todavía; el campo queda
+    disponible para no tener que volver a tocar esta etapa cuando haga
+    falta."""
+
+    def __init__(self, engine: RuleEngine, registry: RuleRegistry):
+        self.engine = engine
+        self.registry = registry
+
+    def run(self, context: Dict[str, Any]) -> Dict[str, Any]:
+        priority_result = context["priority_result"]
+        recommendation_result = context["recommendation_result"]
+
+        extended_fact = extend_fact_with_classification(
+            fact=context["fact"],
+            priority=priority_result.final_outcome["priority"] if priority_result.final_outcome else None,
+            recommendations=(
+                recommendation_result.final_outcome["recommendations"]
+                if recommendation_result.final_outcome
+                else []
+            ),
+        )
+
+        context["opportunities"] = compute_opportunities(
+            fact=extended_fact,
+            fact_reference=context["news"].title,
+            engine=self.engine,
+            registry=self.registry,
         )
         return context
 

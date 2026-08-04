@@ -13,6 +13,7 @@ from pipeline.stages import (
     DailyBriefGeneratorStage,
     EntityRecognitionStage,
     EventDetectionStage,
+    OpportunityEngineStage,
     PriorityRuleEngineStage,
     RecommendationEngineStage,
 )
@@ -29,12 +30,16 @@ def build_default_pipeline(base_dir: Path) -> PRHubPipeline:
     recommendation_registry = RuleRegistry.from_yaml(
         base_dir / "config" / "rules" / "recommendation_rules.yml", rules_key="recommendation_rules"
     )
+    opportunity_registry = RuleRegistry.from_yaml(
+        base_dir / "config" / "opportunity_rules.yaml", rules_key="opportunity_rules"
+    )
 
     stages = [
         EntityRecognitionStage(kb),
         EventDetectionStage(kb),
         PriorityRuleEngineStage(RuleEngine(priority_registry)),
         RecommendationEngineStage(RuleEngine(recommendation_registry)),
+        OpportunityEngineStage(RuleEngine(opportunity_registry), opportunity_registry),
         DailyBriefGeneratorStage(kb, priority_registry),
     ]
     return PRHubPipeline(kb, stages)
