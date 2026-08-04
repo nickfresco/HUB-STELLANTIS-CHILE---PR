@@ -1,0 +1,349 @@
+[
+  {
+    "index": 0,
+    "story": "SERNAC emite alerta de seguridad para Citroën, DS, Fiat, Jeep, Opel y Peugeot por defecto en el alternador",
+    "source": "SERNAC (sitio oficial)",
+    "source_url": "https://www.sernac.cl/portal/619/w3-article-88689.html",
+    "system_brand": [
+      "Peugeot",
+      "Citroën",
+      "Opel",
+      "DS Automobiles",
+      "Fiat",
+      "Jeep"
+    ],
+    "system_event_type": "Recall",
+    "system_priority": "HIGH",
+    "system_recommendations": [
+      "EvaluarComunicado",
+      "EvaluarQyA"
+    ],
+    "system_rules": [
+      "PR-001"
+    ],
+    "validated": true,
+    "correct": true,
+    "brand_correct": null,
+    "priority_correct": null,
+    "recommendation_correct": null,
+    "comments": null
+  },
+  {
+    "index": 1,
+    "story": "SERNAC alerta sobre vehículos DS y Peugeot por posible falla en el Módulo de Supervisión del Vehículo",
+    "source": "SERNAC (sitio oficial)",
+    "source_url": "https://www.sernac.cl/portal/619/w3-article-88864.html",
+    "system_brand": [
+      "Peugeot",
+      "DS Automobiles"
+    ],
+    "system_event_type": "Recall",
+    "system_priority": "HIGH",
+    "system_recommendations": [
+      "EvaluarComunicado",
+      "EvaluarQyA"
+    ],
+    "system_rules": [
+      "PR-001"
+    ],
+    "validated": true,
+    "correct": true,
+    "brand_correct": null,
+    "priority_correct": null,
+    "recommendation_correct": null,
+    "comments": null
+  },
+  {
+    "index": 2,
+    "story": "Stellantis anuncia en Chile un plan para responder a las fallas de los motores PureTech",
+    "source": "Autocosmos",
+    "source_url": "https://noticias.autocosmos.cl/2026/04/21/stellantis-toma-cartas-para-dar-solucion-en-chile-a-los-cuestionados-motores-puretech",
+    "system_brand": [
+      "Peugeot",
+      "Citroën",
+      "Opel",
+      "DS Automobiles"
+    ],
+    "system_event_type": "DenunciaOControversia",
+    "system_priority": null,
+    "system_recommendations": [],
+    "system_rules": [],
+    "validated": true,
+    "correct": true,
+    "brand_correct": null,
+    "priority_correct": null,
+    "recommendation_correct": null,
+    "comments": null
+  },
+  {
+    "index": 3,
+    "story": "Stellantis asume representación directa de Fiat, Jeep, RAM y otras marcas que estaban con Astara en Chile",
+    "source": "La Tercera",
+    "source_url": "https://www.latercera.com/mtonline/noticia/stellantis-informa-que-toma-la-representacion-de-seis-marcas-de-astara-en-chile/",
+    "system_brand": [
+      "Fiat",
+      "Jeep",
+      "RAM"
+    ],
+    "system_event_type": null,
+    "system_priority": null,
+    "system_recommendations": [],
+    "system_rules": [],
+    "validated": true,
+    "correct": true,
+    "brand_correct": null,
+    "priority_correct": null,
+    "recommendation_correct": null,
+    "comments": null
+  },
+  {
+    "index": 4,
+    "story": "Crédito automotriz en ventas de Stellantis alcanza un 45% en Chile tras alianza con Santander Consumer",
+    "source": "BioBío Chile",
+    "source_url": "https://www.biobiochile.cl/noticias/economia/negocios-y-empresas/2026/07/24/credito-automotriz-en-ventas-de-stellantis-alcanza-un-45-en-chile-tras-alianza-con-santander-consumer.shtml",
+    "system_brand": [],
+    "system_event_type": "AlianzaOAcuerdoComercial",
+    "system_priority": null,
+    "system_recommendations": [],
+    "system_rules": [],
+    "validated": true,
+    "correct": false,
+    "brand_correct": "Stellantis",
+    "priority_correct": "Low",
+    "recommendation_correct": "Clippear nota",
+    "comments": "Es una nota pagada por Stellantis y Santander. Se debería explicitar los mensajes expuestos en la nota."
+  },
+  {
+    "index": 5,
+    "story": "Jeep celebra sus 85 años con una expedición regional por el Eje Cafetero colombiano",
+    "source": "Autonoticias.cl",
+    "source_url": null,
+    "system_brand": [],
+    "system_event_type": "Campana",
+    "system_priority": null,
+    "system_recommendations": [],
+    "system_rules": [],
+    "validated": true,
+    "correct": true,
+    "brand_correct": null,
+    "priority_correct": null,
+    "recommendation_correct": null,
+    "comments": null
+  },
+  {
+    "index": 6,
+    "story": "BYD Yuan Pro cambia de receta y ahora llega a Chile como híbrido enchufable",
+    "source": "Rutamotor",
+    "source_url": "https://www.rutamotor.com/tag/lanzamiento-en-chile/",
+    "system_brand": [
+      "BYD"
+    ],
+    "system_event_type": "Lanzamiento",
+    "system_priority": "LOW",
+    "system_recommendations": [
+      "MonitorearEvolucion"
+    ],
+    "system_rules": [
+      "PR-010"
+    ],
+    "validated": true,
+    "correct": true,
+    "brand_correct": null,
+    "priority_correct": null,
+    "recommendation_correct": null,
+    "comments": null
+  },
+  {
+    "index": 7,
+    "story": "Buque BYD Changzhou llegará por primera vez a Chile con capacidad para transportar 7.000 vehículos",
+    "source": "Autonoticias.cl",
+    "source_url": "https://autonoticias.cl/2026/08/01/buque-byd-changzhou-llegara-por-primera-vez-a-chile-con-capacidad-para-transportar-7-000-vehiculos/",
+    "system_brand": [
+      "BYD"
+    ],
+    "system_event_type": null,
+    "system_priority": null,
+    "system_recommendations": [],
+    "system_rules": [],
+    "validated": true,
+    "correct": false,
+    "brand_correct": "BYD",
+    "priority_correct": "Low",
+    "recommendation_correct": "Monitorear",
+    "comments": "Faltó proponer monitoreo del tema. "
+  },
+  {
+    "index": 8,
+    "story": "BAIC presenta el BJ81 en el Salón de Beijing 2026 y confirma su primera pickup para Chile",
+    "source": "Autonoticias.cl",
+    "source_url": "https://autonoticias.cl/2026/04/30/baic-presenta-ofensiva-global-en-beijing-2026-con-el-debut-del-bj81-y-su-primera-pickup-que-llegara-a-chile/",
+    "system_brand": [
+      "BAIC"
+    ],
+    "system_event_type": "Lanzamiento",
+    "system_priority": "LOW",
+    "system_recommendations": [
+      "MonitorearEvolucion"
+    ],
+    "system_rules": [
+      "PR-010"
+    ],
+    "validated": true,
+    "correct": true,
+    "brand_correct": null,
+    "priority_correct": null,
+    "recommendation_correct": null,
+    "comments": null
+  },
+  {
+    "index": 9,
+    "story": "Campaña \"Kia In\" se posiciona entre los 10 comerciales más valorados por los chilenos",
+    "source": "Autonoticias.cl",
+    "source_url": null,
+    "system_brand": [
+      "KIA"
+    ],
+    "system_event_type": "Campana",
+    "system_priority": null,
+    "system_recommendations": [],
+    "system_rules": [],
+    "validated": true,
+    "correct": true,
+    "brand_correct": null,
+    "priority_correct": null,
+    "recommendation_correct": null,
+    "comments": null
+  },
+  {
+    "index": 10,
+    "story": "Nissan inicia una nueva etapa en Chile junto a Astara con el lanzamiento del renovado Versa",
+    "source": "Autonoticias.cl",
+    "source_url": null,
+    "system_brand": [
+      "Nissan"
+    ],
+    "system_event_type": "Lanzamiento",
+    "system_priority": "LOW",
+    "system_recommendations": [
+      "MonitorearEvolucion"
+    ],
+    "system_rules": [
+      "PR-010"
+    ],
+    "validated": true,
+    "correct": true,
+    "brand_correct": null,
+    "priority_correct": null,
+    "recommendation_correct": null,
+    "comments": null
+  },
+  {
+    "index": 11,
+    "story": "Toyota Yaris y Yaris Cross obtienen solo dos estrellas en las últimas pruebas de choque de Latin NCAP",
+    "source": "Latin NCAP (sitio oficial)",
+    "source_url": null,
+    "system_brand": [
+      "Toyota"
+    ],
+    "system_event_type": "ResultadoDeSeguridad",
+    "system_priority": "HIGH",
+    "system_recommendations": [
+      "EvaluarQyA"
+    ],
+    "system_rules": [
+      "PR-013"
+    ],
+    "validated": true,
+    "correct": false,
+    "brand_correct": "Toyota",
+    "priority_correct": "Low",
+    "recommendation_correct": "Monitorar",
+    "comments": "Se propone Q&A para la competencia."
+  },
+  {
+    "index": 12,
+    "story": "ANAC: las ventas de autos crecen 5,5% en el primer semestre de 2026, con Peugeot liderando comerciales",
+    "source": "Emol",
+    "source_url": "https://www.emol.com/noticias/Autos/2026/07/07/1204916/autos-vendidos-2026-primer-semestre.html",
+    "system_brand": [
+      "Peugeot"
+    ],
+    "system_event_type": "ResultadoFinanciero",
+    "system_priority": "MEDIUM",
+    "system_recommendations": [
+      "SinAccionInmediata"
+    ],
+    "system_rules": [
+      "PR-011"
+    ],
+    "validated": true,
+    "correct": false,
+    "brand_correct": "Peugeot",
+    "priority_correct": "High",
+    "recommendation_correct": "EvaluarComunicado",
+    "comments": "Nada, pero se debe proponer comunicado. "
+  },
+  {
+    "index": 13,
+    "story": "ANAC advierte que el descuento en el permiso de circulación para autos eléctricos bajará al 50% el próximo año",
+    "source": "Emol",
+    "source_url": "https://www.emol.com/noticias/Economia/2026/01/27/1189813/autos-electricos-permiso-de-circulacion.html",
+    "system_brand": [],
+    "system_event_type": "RegulacionOPoliticaPublica",
+    "system_priority": "MEDIUM",
+    "system_recommendations": [
+      "SinAccionInmediata"
+    ],
+    "system_rules": [
+      "PR-012"
+    ],
+    "validated": true,
+    "correct": false,
+    "brand_correct": "Anac",
+    "priority_correct": "",
+    "recommendation_correct": "",
+    "comments": ""
+  },
+  {
+    "index": 14,
+    "story": "Latin NCAP endurece sus pruebas de choque desde 2026: será más difícil llegar a cinco estrellas",
+    "source": "Autocosmos",
+    "source_url": null,
+    "system_brand": [],
+    "system_event_type": "ResultadoDeSeguridad",
+    "system_priority": "HIGH",
+    "system_recommendations": [
+      "EvaluarQyA"
+    ],
+    "system_rules": [
+      "PR-013"
+    ],
+    "validated": true,
+    "correct": false,
+    "brand_correct": "Latin Ncap",
+    "priority_correct": "",
+    "recommendation_correct": "",
+    "comments": "El Q&A es solo si afecta directamente a Stellantis"
+  },
+  {
+    "index": 15,
+    "story": "Marcas chinas alcanzan un 31% de participación en el mercado automotor chileno",
+    "source": "Diario Financiero",
+    "source_url": null,
+    "system_brand": [],
+    "system_event_type": "TendenciaDeMercado",
+    "system_priority": "MEDIUM",
+    "system_recommendations": [
+      "SinAccionInmediata"
+    ],
+    "system_rules": [
+      "PR-011"
+    ],
+    "validated": true,
+    "correct": true,
+    "brand_correct": null,
+    "priority_correct": null,
+    "recommendation_correct": null,
+    "comments": null
+  }
+]
