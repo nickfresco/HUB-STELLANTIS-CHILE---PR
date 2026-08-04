@@ -228,6 +228,20 @@ def _oportunidades(opportunities: List[Dict[str, Any]]) -> str:
         )
     rows = ""
     for i, opp in enumerate(opportunities, start=1):
+        # Opportunity Engine (Sprint del Opportunity Engine): si la
+        # oportunidad trae tipo/score propios, se muestran; si viene
+        # del mecanismo anterior (fallback), esos campos son None y
+        # simplemente no se agregan las líneas extra — mismo bloque
+        # sirve para ambos casos sin ramas separadas en el HTML.
+        type_line = (
+            f'<br><span style="color:{ACCENTS["oportunidad"]};font-weight:600;">{_esc(opp["type"])}</span>'
+            f'<span style="color:{MUTED};"> · score {opp["score"]}</span>'
+            if opp.get("type") is not None else ""
+        )
+        justification_line = (
+            f'<br><span style="color:{MUTED};font-style:italic;">{_esc(opp["justification"])}</span>'
+            if opp.get("justification") else ""
+        )
         rows += f"""
 <tr><td style="padding:9px 0;border-bottom:1px solid {HAIRLINE};">
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
@@ -236,6 +250,8 @@ def _oportunidades(opportunities: List[Dict[str, Any]]) -> str:
       <td style="font-family:{SANS};font-size:13.5px;color:{INK};line-height:1.5;">
         <strong>{_esc(opp['action_label'])}</strong> — {_esc(opp['story'])}
         <span style="color:{MUTED};"> ({_esc(opp['brand'])})</span>
+        {type_line}
+        {justification_line}
       </td>
     </tr>
   </table>

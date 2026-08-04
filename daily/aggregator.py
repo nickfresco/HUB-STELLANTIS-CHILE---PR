@@ -12,12 +12,13 @@ Reglas de agrupación (decisiones de presentación, no de negocio):
     noticia va a Stellantis si tiene al menos una marca del grupo; si
     no, a Competencia si tiene al menos un competidor; si no tiene
     ninguna de las dos, a Industria.
-  - Oportunidades PR: una entrada por cada RecommendationAction
-    "accionable" (ver daily/labels.py) de CUALQUIER noticia del día,
-    incluyendo las que ya aparecen en Flash Alerts — a diferencia de
-    las secciones anteriores, aquí sí puede repetirse el origen,
-    porque la sección responde una pregunta distinta ("qué hacer"),
-    no "qué pasó".
+  - Oportunidades PR: una entrada por cada Opportunity ya calculada
+    por Opportunity Engine (tipo, score, justificación y acción — ver
+    opportunity_engine/), o, si una noticia no las trae, una entrada
+    genérica derivada de cualquier RecommendationAction "accionable"
+    (ver daily/labels.py) — a diferencia de las secciones anteriores,
+    aquí sí puede repetirse el origen, porque la sección responde una
+    pregunta distinta ("qué hacer"), no "qué pasó".
 """
 
 from __future__ import annotations
@@ -109,8 +110,31 @@ def build_digest(briefs: List[Dict[str, Any]], meta: Dict[str, Any]) -> Dict[str
 
 
 def _build_opportunities(briefs: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    """Prefiere las Opportunity ya calculadas por Opportunity Engine
+    (tipo, score y justificación propios, ver opportunity_engine/) —
+    si una noticia no las trae (briefs generados antes de ese Sprint,
+    o pipelines armados a mano sin esa etapa), cae al mecanismo
+    anterior: derivar una oportunidad genérica de cualquier
+    RecommendationAction ya considerado "accionable"
+    (daily/labels.py:OPPORTUNITY_ACTIONS). Ningún brief queda sin
+    oportunidades solo por no tener el campo nuevo."""
     opportunities = []
     for brief in briefs:
+        engine_opportunities = brief.get("opportunities")
+        if engine_opportunities:
+            for opp in engine_opportunities:
+                opportunities.append({
+                    "action": opp["recommended_action"],
+                    "action_label": action_label(opp["recommended_action"]),
+                    "story": brief["story"],
+                    "brand": (brief.get("brand") or brief.get("competitors") or ["—"])[0],
+                    "priority": brief.get("priority"),
+                    "type": opp.get("type"),
+                    "score": opp.get("score"),
+                    "justification": opp.get("justification"),
+                })
+            continue
+
         for action in brief.get("recommendations", []):
             if action in OPPORTUNITY_ACTIONS:
                 opportunities.append({
@@ -119,6 +143,9 @@ def _build_opportunities(briefs: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
                     "story": brief["story"],
                     "brand": (brief.get("brand") or brief.get("competitors") or ["—"])[0],
                     "priority": brief.get("priority"),
+                    "type": None,
+                    "score": None,
+                    "justification": None,
                 })
     return opportunities
 
