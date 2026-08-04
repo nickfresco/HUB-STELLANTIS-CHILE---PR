@@ -107,6 +107,7 @@ def build_daily_brief(context: Dict[str, Any], kb, priority_registry=None) -> Di
         "recommendations": recommendations,
         "why_it_matters": _why_it_matters(priority_result, priority_registry),
         "source": {"name": source.display_name, "tier": source.tier},
+        "source_url": news.source_url,
         "rules_triggered": {
             "priority_rules": priority_result.matched_rule_ids(),
             "recommendation_rules": recommendation_result.matched_rule_ids(),

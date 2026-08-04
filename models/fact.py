@@ -33,6 +33,11 @@ class NewsInput:
     # exista Sentiment Analysis real. Las reglas que dependen de esto
     # quedan PENDING (enabled: false) independientemente de este campo.
     tone: Optional[str] = None
+    # Sprint 5 (modo de entrenamiento): URL del artículo original, para
+    # que el Coordinador pueda verificar la noticia real al validar.
+    # Puramente informativo — no participa en ninguna condición del
+    # Rule Engine ni en la clasificación.
+    source_url: Optional[str] = None
 
     @staticmethod
     def from_dict(data: Dict[str, Any]) -> "NewsInput":
@@ -44,4 +49,5 @@ class NewsInput:
             published_at=data.get("published_at"),
             market_impact=data.get("market_impact", []),
             tone=data.get("tone"),
+            source_url=data.get("source_url"),
         )
