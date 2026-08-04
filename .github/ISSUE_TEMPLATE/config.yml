@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Question about the Rulebook or Knowledge Base
+    url: https://github.com/OWNER/pr-hub/discussions
+    about: For open-ended questions that aren't yet a concrete bug, feature, rule, or KB proposal, please use Discussions first.
