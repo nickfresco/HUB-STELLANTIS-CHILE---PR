@@ -6,6 +6,55 @@ milestones in [`ROADMAP.md`](ROADMAP.md).
 
 ---
 
+## [Unreleased] — v0.8-dev: RSS Ingestion (Sprint 9)
+
+### Added
+- `rss/` module: `feed_loader.py`, `fetcher.py` (HTTP + `file://`),
+  `parser.py` (RSS 2.0 + Atom, stdlib-only, no new unverified
+  dependencies), `normalizer.py`, `deduplication.py` (exact URL / exact
+  normalized-title matching), `ingest.py` (orchestrator)
+- `config/rss_sources.yml`: 11 feeds cataloged, each an honest record of
+  whether its URL was actually confirmed (`verified: true/false`) rather
+  than a uniform claim that all of them work
+- `run_daily.py` is now the single daily command: RSS ingestion →
+  `data/daily_input/YYYY-MM-DD.json` → the existing, unmodified pipeline
+  → both `daily_brief.html` and `training_report.html`. The previous
+  fictional-data behavior remains available via `--skip-ingestion`
+- `examples/rss_demo/`: a runnable, network-free demonstration of the
+  full ingestion path against local sample feeds (including one
+  deliberately malformed, to show the graceful-failure path for real)
+- 51 new automated tests: RSS/Atom parsing, deduplication, fetch
+  failures (missing file, unsupported scheme, unreachable host),
+  full-ingestion runs (partial failure, total failure, cross-feed
+  deduplication, disabled feeds), and end-to-end integration proving the
+  ingested JSON is consumable by the pipeline with zero changes to it
+
+### Changed
+- `run_daily.py`'s `process_daily_input()` now accepts either a directory
+  of individual story files (original Sprint 4 behavior, unchanged) or a
+  single JSON file containing a list of stories (new, what RSS ingestion
+  produces) — same pipeline execution path either way, no duplicated logic
+
+### Fixed (found while building this sprint, not pre-existing)
+- Two bugs in this sprint's own test fixtures, not in production code:
+  an unescaped `<link>` literal inside RSS `<description>` text that
+  produced invalid XML, and a test assertion that incorrectly assumed
+  CDATA content gets HTML-entity-decoded by the XML parser (it doesn't,
+  by design — that's `rss/normalizer.py`'s job, confirmed by an added
+  end-to-end test)
+
+### Known limitations (see `ROADMAP.md`, v0.8, for the full list)
+- Only 2 of 11 configured feed URLs were confirmed against a live
+  connection (this development environment has an allowlisted egress
+  proxy that didn't include the relevant hosts) — the rest need
+  verification before production use
+- `AutoTest` and `Motor1` feeds are blocked on a Knowledge Base addition,
+  deliberately left out of scope for this sprint
+- No scheduling (cron) yet — ingestion runs when `run_daily.py` is invoked
+- Deduplication is exact-match only; no fuzzy/semantic matching
+
+---
+
 ## [v0.7] — Deterministic Decision Engine & Validation Loop
 
 The first version of PR HUB capable of taking a real news story and
