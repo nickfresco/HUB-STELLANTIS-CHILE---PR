@@ -1,0 +1,30 @@
+LICENSE — PLACEHOLDER (No License Selected)
+
+Status: Internal Project — Not Licensed for External Distribution
+
+This repository ("PR HUB") is an internal tool developed for the PR &
+Corporate Communications team at Stellantis Chile. It is not currently
+published under an open-source license, and no license should be assumed
+by default.
+
+At present:
+
+  - All rights to this codebase, its Knowledge Base, its Rulebook, and its
+    documentation are reserved.
+  - This repository is not authorized for external distribution,
+    republication, or use outside of its intended internal context unless
+    separately and explicitly agreed.
+  - The "open-source-style" documentation and repository structure in this
+    project (README, CONTRIBUTING, issue templates, etc.) reflect
+    engineering practice standards adopted for internal maturity — they
+    are not, by themselves, a statement that this project is or will
+    become open source.
+
+If and when a decision is made to open-source this project (in whole or in
+part), this file will be replaced with an actual OSS license (e.g., MIT,
+Apache 2.0, or another license chosen deliberately, with legal review as
+appropriate for a corporate codebase) — a choice this document intentionally
+does not make on its own.
+
+Until that decision is made, treat this repository as:
+All Rights Reserved © Stellantis Chile — PR & Corporate Communications.
