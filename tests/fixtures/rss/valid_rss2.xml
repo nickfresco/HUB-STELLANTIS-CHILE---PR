@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+<channel>
+  <title>PR HUB Test Feed (RSS 2.0)</title>
+  <item>
+    <title>Jeep Wrangler recibe recall preventivo en Chile</title>
+    <link>https://example.cl/noticias/jeep-recall-2026</link>
+    <description><![CDATA[<p>La marca <b>Jeep</b> confirmó un recall preventivo para el Wrangler &amp; otros modelos.</p>]]></description>
+    <pubDate>Tue, 04 Aug 2026 09:15:00 -0400</pubDate>
+  </item>
+  <item>
+    <title>Peugeot presenta el renovado 2008 en el mercado local</title>
+    <link>https://example.cl/noticias/peugeot-2008-lanzamiento</link>
+    <description>La marca lanzó oficialmente la nueva generación del 2008.</description>
+    <pubDate>Tue, 04 Aug 2026 08:00:00 -0400</pubDate>
+  </item>
+  <item>
+    <title>Nota sin link, debe descartarse</title>
+    <description>Este item no tiene la etiqueta correspondiente y no debería aparecer en el resultado.</description>
+    <pubDate>Tue, 04 Aug 2026 07:00:00 -0400</pubDate>
+  </item>
+</channel>
+</rss>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>PR HUB Test Feed (Atom)</title>
+  <entry>
+    <title>BYD Yuan Pro llega a Chile como híbrido enchufable</title>
+    <link rel="self" href="https://example.cl/atom/self-link"/>
+    <link rel="alternate" href="https://example.cl/noticias/byd-yuan-pro"/>
+    <summary>BYD actualizó la propuesta de su SUV Yuan Pro en Chile.</summary>
+    <updated>2026-08-04T10:30:00Z</updated>
+  </entry>
+  <entry>
+    <title>ANAC publica resultados de ventas del mes</title>
+    <link href="https://example.cl/noticias/anac-ventas"/>
+    <content>Reporte mensual de ventas de la industria automotriz.</content>
+    <published>2026-08-04T11:00:00-04:00</published>
+  </entry>
+</feed>
