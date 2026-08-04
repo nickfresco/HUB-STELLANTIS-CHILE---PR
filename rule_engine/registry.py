@@ -5,7 +5,7 @@ desde un Rulebook, junto con su versión.
 
 from __future__ import annotations
 from pathlib import Path
-from typing import List
+from typing import List, Optional
 
 from rule_engine.loader import load_rulebook
 from rule_engine.rules import Rule
@@ -30,6 +30,15 @@ class RuleRegistry:
     def pending_rules(self) -> List[Rule]:
         """Reglas registradas pero deshabilitadas (deuda técnica declarada)."""
         return [r for r in self._rules if not r.enabled]
+
+    def get_rule(self, rule_id: str) -> Optional[Rule]:
+        """Utilitario de lookup por id (Sprint 4, usado para mostrar la
+        descripción de la regla ganadora en el Daily HTML). No cambia
+        el comportamiento de carga/evaluación existente."""
+        for r in self._rules:
+            if r.id == rule_id:
+                return r
+        return None
 
     def __len__(self) -> int:
         return len(self._rules)
