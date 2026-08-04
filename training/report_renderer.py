@@ -43,8 +43,18 @@ def _priority_label(priority: Optional[str]) -> str:
 
 
 def _card(index: int, brief: Dict[str, Any]) -> str:
-    entities = brief.get("brand") or brief.get("competitors") or []
-    entities_txt = ", ".join(entities) if entities else "— (ninguna detectada)"
+    # Sprint 7 (P4): antes solo se mostraba "brand or competitors",
+    # descartando en silencio cualquier Organization detectada — causa
+    # confirmada de la ambigüedad de la Ronda 1, casos #13 y #14 (el
+    # Coordinador escribía el nombre de un organismo en el campo
+    # "Marca correcta" porque no tenía dónde más verlo). Ahora se
+    # muestran las tres listas del Fact por separado, sin combinar.
+    brands = brief.get("brand") or []
+    competitors = brief.get("competitors") or []
+    organizations = brief.get("organizations") or []
+
+    def _fmt_entities(values: list) -> str:
+        return ", ".join(values) if values else "— (ninguna detectada)"
 
     rules = brief["rules_triggered"]["priority_rules"]
     rule_txt = ", ".join(rules) if rules else "Ninguna"
@@ -74,7 +84,9 @@ def _card(index: int, brief: Dict[str, Any]) -> str:
   <div class="muted small">{source_link}</div>
 
   <table class="fact-table">
-    <tr><td class="fact-label">Marca detectada</td><td>{_esc(entities_txt)}</td></tr>
+    <tr><td class="fact-label">Marcas Stellantis detectadas</td><td>{_esc(_fmt_entities(brands))}</td></tr>
+    <tr><td class="fact-label">Competidores detectados</td><td>{_esc(_fmt_entities(competitors))}</td></tr>
+    <tr><td class="fact-label">Organismos detectados</td><td>{_esc(_fmt_entities(organizations))}</td></tr>
     <tr><td class="fact-label">Event Type</td><td>{event_type_txt}</td></tr>
     <tr><td class="fact-label">Priority</td><td>{_esc(_priority_label(brief.get('priority')))}</td></tr>
     <tr><td class="fact-label">Regla aplicada</td><td>{_esc(rule_txt)}{f' — <span class="muted">{_esc(why)}</span>' if why else ''}</td></tr>
@@ -91,8 +103,8 @@ def _card(index: int, brief: Dict[str, Any]) -> str:
     </label>
 
     <div id="correction_{index}" class="correction-fields" style="display:none;">
-      <label class="field-label">Marca correcta
-        <input type="text" id="brand_correct_{index}" placeholder="Ej: Peugeot">
+      <label class="field-label">Entidad correcta <span class="muted">(marca, competidor u organismo)</span>
+        <input type="text" id="brand_correct_{index}" placeholder="Ej: Peugeot, Toyota, ANAC">
       </label>
       <label class="field-label">Priority correcta
         <select id="priority_correct_{index}">
@@ -144,7 +156,9 @@ def render_training_report(briefs: List[Dict[str, Any]], errors: List[Dict[str, 
             "story": b["story"],
             "source": b.get("source", {}).get("name"),
             "source_url": b.get("source_url"),
-            "system_brand": b.get("brand") or b.get("competitors") or [],
+            "system_brands": b.get("brand") or [],
+            "system_competitors": b.get("competitors") or [],
+            "system_organizations": b.get("organizations") or [],
             "system_event_type": b.get("event_type"),
             "system_priority": b.get("priority"),
             "system_recommendations": b.get("recommendations", []),
