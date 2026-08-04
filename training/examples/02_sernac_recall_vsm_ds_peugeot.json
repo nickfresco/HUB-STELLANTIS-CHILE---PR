@@ -1,0 +1,8 @@
+{
+  "title": "SERNAC alerta sobre vehículos DS y Peugeot por posible falla en el Módulo de Supervisión del Vehículo",
+  "summary": "Stellantis Chile S.A. reportó al SERNAC un posible defecto en el Módulo de Supervisión del Vehículo (VSM) que afecta a los modelos DS4, Peugeot 308, 3008 y 5008 comercializados en Chile entre 2024 y junio de 2026, implicando un riesgo de seguridad para los consumidores.",
+  "source_id": "source.sernac_oficial",
+  "event_type": "Recall",
+  "market_impact": ["Chile"],
+  "source_url": "https://www.sernac.cl/portal/619/w3-article-88864.html"
+}
