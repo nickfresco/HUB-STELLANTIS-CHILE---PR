@@ -1,9 +1,25 @@
 # ============================================================
-# organizations.yml — v1.1.0
+# organizations.yml — v1.2.0
 # ============================================================
-version: "1.1.0"
+version: "1.2.0"
 
 organizations:
+  - canonicalId: org.stellantis
+    displayName: Stellantis
+    aliases:
+      - value: "Grupo Stellantis"
+    organization_type: "Manufacturer"
+    active: true
+    # Sprint 7 (P1): entidad corporativa del grupo, deliberadamente
+    # separada de brands.yml. Las 8 sub-marcas (Peugeot, Citroën, etc.)
+    # siguen siendo Brand; esta es la corporación que las agrupa,
+    # necesaria para noticias que mencionan "Stellantis" sin nombrar
+    # ninguna sub-marca (ej. alianzas comerciales, resultados
+    # corporativos, cambios de representación). "Manufacturer" es un
+    # valor nuevo en organization_type — el catálogo previo
+    # (Government/Regulator/Industry Association/Safety
+    # Organization/Standards Organization) no tenía ninguno que
+    # describiera al fabricante mismo.
   - canonicalId: org.anac
     displayName: ANAC
     aliases:
