@@ -67,9 +67,13 @@ def test_entity_recognition_stage_is_swappable():
     })
     assert "Peugeot" in brief["brand"]
     assert "PR-004" in brief["rules_triggered"]["priority_rules"]  # la regla igual se dispara
+    # El pipeline armado a mano para este test no incluye
+    # OpportunityEngineStage — debe seguir funcionando exactamente
+    # igual que antes de que ese Sprint existiera, sin opportunities.
+    assert brief["opportunities"] == []
 
 
-def test_default_pipeline_builds_five_stages_in_order():
+def test_default_pipeline_builds_six_stages_in_order():
     pipeline = build_default_pipeline(BASE_DIR)
     stage_names = [type(s).__name__ for s in pipeline.stages]
     assert stage_names == [
@@ -77,5 +81,6 @@ def test_default_pipeline_builds_five_stages_in_order():
         "EventDetectionStage",
         "PriorityRuleEngineStage",
         "RecommendationEngineStage",
+        "OpportunityEngineStage",
         "DailyBriefGeneratorStage",
     ]
