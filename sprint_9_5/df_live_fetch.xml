@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:df="http://www.w3.org/TR/html4/">
+    <channel>
+        <title>Diario Financiero Online</title>
+        <link>http://www.df.cl</link>
+        <description>Lo último en Diario Financiero</description>
+        <ttl>60</ttl>
+
+        <item>
+            <pubDate>Mon, 22 Jun 2026 12:42:49 GMT</pubDate>
+            <title>Irán y EEUU establecen una línea de comunicación directa y una "célula de desescalamiento" para cesar operaciones militares en Líbano</title>
+            <category>Internacional</category>
+            <link>http://www.df.cl/internacional/politica/iran-y-eeuu-establecen-una-linea-de-comunicacion-directa-y-una-celula-de</link>
+            <guid>http://www.df.cl/noticias/site/artic/20260622/pags/20260622082841.html</guid>
+            <description>La delegación iraní citó "importantes avances" tras negociaciones nocturnas con los representantes estadounidenses.</description>
+        </item>
+        <item>
+            <pubDate>Mon, 22 Jun 2026 12:51:55 GMT</pubDate>
+            <title>Dólar abre a la baja tras reunión entre EEUU e Irán que trajo "progresos alentadores" tras un tenso fin de semana</title>
+            <category>Mercados</category>
+            <link>http://www.df.cl/mercados/bolsa-monedas/dolar-hoy-79m9v</link>
+            <guid>http://www.df.cl/noticias/site/artic/20260622/pags/20260622080157.html</guid>
+            <description>El petróleo Brent caía 2,6% a US$ 78,5 por barril.</description>
+        </item>
+        <item>
+            <pubDate>Mon, 22 Jun 2026 12:20:46 GMT</pubDate>
+            <title>Plan de salvataje de gigante metalúrgica de Talcahuano contempla "potencial cambio de control"</title>
+            <category>Empresas</category>
+            <link>http://www.df.cl/empresas/construccion/plan-de-salvataje-de-gigante-metalurgica-de-talcahuano-contempla-potencial</link>
+            <guid>http://www.df.cl/noticias/site/artic/20260622/pags/20260622081907.html</guid>
+            <description>A juicio del veedor de Edyce, en el escenario de una liquidación apenas se pagaría 76% de las acreencias garantizadas.</description>
+        </item>
+        <item>
+            <pubDate>Mon, 22 Jun 2026 10:39:05 GMT</pubDate>
+            <title>"Yo la crisis no la siento": Embotelladora Andina invertirá US$ 260 millones al 2030 para crecer en medio de la desaceleración</title>
+            <category>Empresas</category>
+            <link>http://www.df.cl/empresas/industria/yo-la-crisis-no-la-siento-embotelladora-andina-invertira-us-260</link>
+            <guid>http://www.df.cl/noticias/site/artic/20260619/pags/20260619195657.html</guid>
+            <description>La compañía pocas veces ha bajado sus ventas en sus 80 años de vida.</description>
+        </item>
+        <item>
+            <pubDate>Mon, 22 Jun 2026 10:22:45 GMT</pubDate>
+            <title>SII identifica a 84 empresas de alto riesgo fiscal que informan rentabilidades por debajo del nivel de su industria</title>
+            <category>Economía y Política</category>
+            <link>http://www.df.cl/economia-y-politica/df-tax/sii-identifica-a-84-empresas-de-alto-riesgo-fiscal-que-informan</link>
+            <guid>http://www.df.cl/noticias/site/artic/20260619/pags/20260619181133.html</guid>
+            <description>El organismo puso el foco sobre 281 contribuyentes en seis sectores con filiales en el exterior.</description>
+        </item>
+        <item>
+            <pubDate>Mon, 22 Jun 2026 11:19:24 GMT</pubDate>
+            <title>Elecciones en Colombia: Abelardo De la Espriella se impone en reñida segunda vuelta</title>
+            <category>Internacional</category>
+            <link>http://www.df.cl/internacional/politica/colombianos-acuden-a-las-urnas-para-elegir-nuevo-presidente-entre-aberlardo</link>
+            <guid>http://www.df.cl/noticias/site/artic/20260621/pags/20260621094144.html</guid>
+            <description>Con el 99,99% de las mesas de votación contabilizadas, De La Espriella lograba un 49,66% de los votos.</description>
+        </item>
+        <item>
+            <pubDate>Fri, 19 Jun 2026 23:09:20 GMT</pubDate>
+            <title>Capstone Copper Mantos Blancos ingresa a tramitación ambiental proyecto para ampliar su vida útil hasta 2041</title>
+            <category>Empresas</category>
+            <link>http://www.df.cl/empresas/mineria/capstone-copper-mantos-blancos-ingresa-a-tramitacion-ambiental-proyecto</link>
+            <guid>http://www.df.cl/noticias/site/artic/20260619/pags/20260619185345.html</guid>
+            <description>La iniciativa considera una inversión de capital de US$500 millones en la Región de Antofagasta.</description>
+        </item>
+        <item>
+            <pubDate>Fri, 19 Jun 2026 23:06:38 GMT</pubDate>
+            <title>Codelco anuncia evaluación de venta de activos en su Plan Estratégico, tras negar información sobre El Abra y Quebrada Blanca</title>
+            <category>Señal DF</category>
+            <link>http://www.df.cl/senal-df/senales-financieras/codelco-anuncia-evaluacion-de-venta-de-activos-en-su-plan-estrategico-tras</link>
+            <guid>http://www.df.cl/noticias/site/artic/20260619/pags/20260619184508.html</guid>
+            <description>Dicho proceso permitirá identificar y analizar las distintas alternativas que contribuyan a fortalecer su sostenibilidad operacional y financiera.</description>
+        </item>
+    </channel>
+</rss>
