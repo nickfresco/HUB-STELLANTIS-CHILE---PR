@@ -14,7 +14,7 @@
 # se resolvió la ausencia de dato de la forma menos intrusiva posible,
 # tal como se acordó.
 # ============================================================
-version: "0.2.0"
+version: "0.3.0"
 
 recommendation_rules:
 
@@ -221,3 +221,25 @@ recommendation_rules:
     outcome:
       recommendations: [SinAccionInmediata]
     todo: "PENDING junto con la regla de prioridad equivalente (persons.yml no existe)."
+
+  - id: PR-016
+    enabled: true
+    condition:
+      and:
+        - field: organizations
+          operator: in
+          value: [org.stellantis]
+        - field: event_type
+          operator: equals
+          value: AlianzaOAcuerdoComercial
+    outcome:
+      recommendations: [SinAccionInmediata]
+    todo: >
+      Sprint 7 (P2). La corrección real de la Ronda 1 (#4) pedía
+      "Clippear nota" — valor que no existe en el catálogo
+      RecommendationAction (9 valores cerrados, Parte 2B sección 5.6).
+      Se mapeó a SinAccionInmediata por ser la opción más fiel dentro
+      del catálogo actual (registrar sin acción proactiva). No se
+      amplió el catálogo en este sprint — eso es P7 del backlog,
+      pendiente de una conversación de negocio, explícitamente fuera
+      de alcance de P1-P4.

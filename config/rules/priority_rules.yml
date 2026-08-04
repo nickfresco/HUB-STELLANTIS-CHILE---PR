@@ -11,7 +11,7 @@
 # conforme a lo acordado: no se inventa ninguna regla nueva, solo se
 # traduce lo ya definido y se documenta lo que falta.
 # ============================================================
-version: "0.2.0"
+version: "0.3.0"
 
 priority_rules:
 
@@ -279,3 +279,26 @@ priority_rules:
       No hay forma de detectar "vocero oficial / Brand Manager / CEO"
       sin ese catálogo. Se requiere Sprint de Knowledge Base adicional
       para Person antes de habilitar esta regla.
+
+  - id: PR-016
+    description: "Alianza comercial o estratégica de Stellantis (financiera, movilidad, tecnología, etc.)"
+    enabled: true
+    priority_weight: 1
+    condition:
+      and:
+        - field: organizations
+          operator: in
+          value: [org.stellantis]
+        - field: event_type
+          operator: equals
+          value: AlianzaOAcuerdoComercial
+    outcome:
+      priority: LOW
+    todo: >
+      Sprint 7 (P2). Resuelve la Ronda 1 #4 (Stellantis + Santander
+      Consumer), y cubre casos equivalentes citados en el sprint
+      (Stellantis + Free2Move, Stellantis + Factorial). Antes de esta
+      regla, ningún caso de "organizations contiene org.stellantis"
+      tenía salida — quedaban sin prioridad ni recomendación. No
+      requiere market_impact porque estas alianzas suelen anunciarse a
+      nivel corporativo/regional, no exclusivamente para Chile.
