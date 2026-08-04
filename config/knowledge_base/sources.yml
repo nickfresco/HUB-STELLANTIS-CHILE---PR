@@ -1,9 +1,15 @@
 # ============================================================
 # sources.yml — v1.1.0
 # ============================================================
-version: "1.1.0"
+version: "1.1.1"
 
 sources:
+  - canonicalId: source.autonoticias
+    displayName: Autonoticias.cl
+    tier: "Especializado"
+    type: "Medio especializado"
+    country: Chile
+    acquisition_method: "Google Alerts"
   - canonicalId: source.el_mercurio
     displayName: El Mercurio
     tier: "Tier 1"
