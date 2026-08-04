@@ -1,0 +1,11 @@
+{
+  "1_parse_and_normalize": 0.0004065350000246326,
+  "2_deduplication": 0.00014799900003481525,
+  "3_write_json": 0.0001403460000233281,
+  "4_build_pipeline": 0.06393282400000544,
+  "5_process_pipeline": 0.0055471150000130365,
+  "6_build_digest": 2.7950000003329478e-05,
+  "7_render_daily_brief": 0.0003316029999496095,
+  "8_render_training_report": 0.0002065689999994902,
+  "TOTAL_measured_stages": 0.07161429000001363
+}

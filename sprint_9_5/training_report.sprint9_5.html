@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PR HUB — Modo de Entrenamiento</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin:0; padding:0; background:#ECEEF2; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; color:#14213D; }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 32px 20px 80px 20px; }
+  .masthead { border-top:2px solid #14213D; border-bottom:1px solid #14213D; padding:14px 0; text-align:center; margin-bottom:18px; }
+  .masthead .eyebrow { font-size:12px; letter-spacing:.2em; text-transform:uppercase; font-weight:700; }
+  h1 { font-family: Georgia, serif; font-size: 26px; margin: 10px 0 4px 0; }
+  .meta { color:#6B7280; font-size:13px; margin-bottom: 6px; }
+  .instructions { background:#FFFFFF; border:1px solid #DADFE6; border-radius:8px; padding:14px 18px; font-size:13.5px; line-height:1.5; margin-bottom:24px; }
+  .card { background:#FFFFFF; border:1px solid #DADFE6; border-left:4px solid #14213D; border-radius:8px; padding:16px 18px; margin-bottom:14px; }
+  .card-header { display:flex; justify-content:space-between; align-items:flex-start; gap:12px; }
+  .story-title { font-weight:700; font-size:15px; line-height:1.35; }
+  .priority-chip { font-size:10.5px; font-weight:700; letter-spacing:.04em; color:#fff; background:#6B7280; padding:3px 9px; border-radius:3px; white-space:nowrap; }
+  .muted { color:#6B7280; }
+  .small { font-size:12px; }
+  .fact-table { width:100%; border-collapse:collapse; margin-top:10px; font-size:13px; }
+  .fact-table td { padding:5px 0; vertical-align:top; border-bottom:1px solid #ECEEF2; }
+  .fact-label { color:#6B7280; width:180px; font-weight:600; }
+  .validation { margin-top:14px; padding-top:12px; border-top:1px dashed #DADFE6; }
+  .validation-question { font-weight:700; font-size:13px; margin-bottom:6px; }
+  .radio-label { margin-right:18px; font-size:13.5px; cursor:pointer; }
+  .correction-fields { margin-top:10px; padding:12px; background:#ECEEF2; border-radius:6px; display:flex; flex-direction:column; gap:8px; }
+  .field-label { font-size:12.5px; color:#6B7280; display:flex; flex-direction:column; gap:3px; }
+  .field-label input, .field-label select, .field-label textarea {
+    font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size:13px; color:#14213D; padding:6px 8px; border:1px solid #DADFE6; border-radius:4px; background:#FFFFFF;
+  }
+  .toolbar { position: sticky; bottom: 0; background:#FFFFFF; border-top:1px solid #DADFE6; padding:14px 20px; display:flex; justify-content:space-between; align-items:center; margin-top: 24px; border-radius: 8px; box-shadow: 0 -2px 8px rgba(0,0,0,0.05); }
+  .counter { font-size:13px; color:#6B7280; }
+  button.download { background:#14213D; color:#fff; border:none; padding:10px 18px; border-radius:6px; font-size:13.5px; font-weight:600; cursor:pointer; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; }
+  button.download:hover { opacity:0.9; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="masthead">
+    <div class="eyebrow">Stellantis · PR Intelligence</div>
+    <h1>Modo de Entrenamiento</h1>
+    <div class="meta">martes 4 de agosto de 2026 · 8 noticias procesadas</div>
+  </div>
+
+  <div class="instructions">
+    Para cada noticia, indica si el criterio del sistema (marca, prioridad, evento y
+    recomendaciones) coincide con lo que tú, como Coordinador de PR, habrías determinado.
+    Si marcas <strong>No</strong>, completa los campos de corrección. Al final puedes
+    descargar todas las validaciones en un archivo JSON — no se envía a ningún servidor,
+    el archivo se genera y descarga localmente en tu navegador.
+  </div>
+
+  
+  
+<div class="card" data-index="0">
+  <div class="card-header">
+    <div class="story-title">Irán y EEUU establecen una línea de comunicación directa y una &quot;célula de desescalamiento&quot; para cesar operaciones militares en Líbano</div>
+    <div class="priority-chip">Sin clasificar</div>
+  </div>
+  <div class="muted small"><a href="http://www.df.cl/internacional/politica/iran-y-eeuu-establecen-una-linea-de-comunicacion-directa-y-una-celula-de" target="_blank" rel="noopener" style="color:#14213D;">Diario Financiero ↗</a></div>
+
+  <table class="fact-table">
+    <tr><td class="fact-label">Marcas Stellantis detectadas</td><td>— (ninguna detectada)</td></tr>
+    <tr><td class="fact-label">Competidores detectados</td><td>— (ninguna detectada)</td></tr>
+    <tr><td class="fact-label">Organismos detectados</td><td>— (ninguna detectada)</td></tr>
+    <tr><td class="fact-label">Event Type</td><td>Sin detectar <span class="muted">(undetected)</span></td></tr>
+    <tr><td class="fact-label">Priority</td><td>Sin clasificar</td></tr>
+    <tr><td class="fact-label">Regla aplicada</td><td>Ninguna</td></tr>
+    <tr><td class="fact-label">Recommendation Actions</td><td>Ninguna</td></tr>
+  </table>
+
+  <div class="validation">
+    <div class="validation-question">¿Correcto?</div>
+    <label class="radio-label">
+      <input type="radio" name="correct_0" value="si" onchange="toggleCorrection(0, false)"> Sí
+    </label>
+    <label class="radio-label">
+      <input type="radio" name="correct_0" value="no" onchange="toggleCorrection(0, true)"> No
+    </label>
+
+    <div id="correction_0" class="correction-fields" style="display:none;">
+      <label class="field-label">Entidad correcta <span class="muted">(marca, competidor u organismo)</span>
+        <input type="text" id="brand_correct_0" placeholder="Ej: Peugeot, Toyota, ANAC">
+      </label>
+      <label class="field-label">Priority correcta
+        <select id="priority_correct_0">
+          <option value="">— sin cambio —</option>
+          <option value="Critical">Critical</option>
+          <option value="High">High</option>
+          <option value="Medium">Medium</option>
+          <option value="Low">Low</option>
+          <option value="Ninguna">Ninguna (no debería tener prioridad)</option>
+        </select>
+      </label>
+      <label class="field-label">Recommendation correcta
+        <input type="text" id="recommendation_correct_0" placeholder="Ej: EvaluarComunicado">
+      </label>
+      <label class="field-label">Comentarios
+        <textarea id="comments_0" rows="2" placeholder="¿Qué faltó o qué sobró en el criterio del sistema?"></textarea>
+      </label>
+    </div>
+  </div>
+</div>
+
+<div class="card" data-index="1">
+  <div class="card-header">
+    <div class="story-title">Dólar abre a la baja tras reunión entre EEUU e Irán que trajo &quot;progresos alentadores&quot; tras un tenso fin de semana</div>
+    <div class="priority-chip">Sin clasificar</div>
+  </div>
+  <div class="muted small"><a href="http://www.df.cl/mercados/bolsa-monedas/dolar-hoy-79m9v" target="_blank" rel="noopener" style="color:#14213D;">Diario Financiero ↗</a></div>
+
+  <table class="fact-table">
+    <tr><td class="fact-label">Marcas Stellantis detectadas</td><td>— (ninguna detectada)</td></tr>
+    <tr><td class="fact-label">Competidores detectados</td><td>— (ninguna detectada)</td></tr>
+    <tr><td class="fact-label">Organismos detectados</td><td>— (ninguna detectada)</td></tr>
+    <tr><td class="fact-label">Event Type</td><td>Sin detectar <span class="muted">(undetected)</span></td></tr>
+    <tr><td class="fact-label">Priority</td><td>Sin clasificar</td></tr>
+    <tr><td class="fact-label">Regla aplicada</td><td>Ninguna</td></tr>
+    <tr><td class="fact-label">Recommendation Actions</td><td>Ninguna</td></tr>
+  </table>
+
+  <div class="validation">
+    <div class="validation-question">¿Correcto?</div>
+    <label class="radio-label">
+      <input type="radio" name="correct_1" value="si" onchange="toggleCorrection(1, false)"> Sí
+    </label>
+    <label class="radio-label">
+      <input type="radio" name="correct_1" value="no" onchange="toggleCorrection(1, true)"> No
+    </label>
+
+    <div id="correction_1" class="correction-fields" style="display:none;">
+      <label class="field-label">Entidad correcta <span class="muted">(marca, competidor u organismo)</span>
+        <input type="text" id="brand_correct_1" placeholder="Ej: Peugeot, Toyota, ANAC">
+      </label>
+      <label class="field-label">Priority correcta
+        <select id="priority_correct_1">
+          <option value="">— sin cambio —</option>
+          <option value="Critical">Critical</option>
+          <option value="High">High</option>
+          <option value="Medium">Medium</option>
+          <option value="Low">Low</option>
+          <option value="Ninguna">Ninguna (no debería tener prioridad)</option>
+        </select>
+      </label>
+      <label class="field-label">Recommendation correcta
+        <input type="text" id="recommendation_correct_1" placeholder="Ej: EvaluarComunicado">
+      </label>
+      <label class="field-label">Comentarios
+        <textarea id="comments_1" rows="2" placeholder="¿Qué faltó o qué sobró en el criterio del sistema?"></textarea>
+      </label>
+    </div>
+  </div>
+</div>
+
+<div class="card" data-index="2">
+  <div class="card-header">
+    <div class="story-title">Plan de salvataje de gigante metalúrgica de Talcahuano contempla &quot;potencial cambio de control&quot;</div>
+    <div class="priority-chip">Sin clasificar</div>
+  </div>
+  <div class="muted small"><a href="http://www.df.cl/empresas/construccion/plan-de-salvataje-de-gigante-metalurgica-de-talcahuano-contempla-potencial" target="_blank" rel="noopener" style="color:#14213D;">Diario Financiero ↗</a></div>
+
+  <table class="fact-table">
+    <tr><td class="fact-label">Marcas Stellantis detectadas</td><td>— (ninguna detectada)</td></tr>
+    <tr><td class="fact-label">Competidores detectados</td><td>— (ninguna detectada)</td></tr>
+    <tr><td class="fact-label">Organismos detectados</td><td>— (ninguna detectada)</td></tr>
+    <tr><td class="fact-label">Event Type</td><td>Sin detectar <span class="muted">(undetected)</span></td></tr>
+    <tr><td class="fact-label">Priority</td><td>Sin clasificar</td></tr>
+    <tr><td class="fact-label">Regla aplicada</td><td>Ninguna</td></tr>
+    <tr><td class="fact-label">Recommendation Actions</td><td>Ninguna</td></tr>
+  </table>
+
+  <div class="validation">
+    <div class="validation-question">¿Correcto?</div>
+    <label class="radio-label">
+      <input type="radio" name="correct_2" value="si" onchange="toggleCorrection(2, false)"> Sí
+    </label>
+    <label class="radio-label">
+      <input type="radio" name="correct_2" value="no" onchange="toggleCorrection(2, true)"> No
+    </label>
+
+    <div id="correction_2" class="correction-fields" style="display:none;">
+      <label class="field-label">Entidad correcta <span class="muted">(marca, competidor u organismo)</span>
+        <input type="text" id="brand_correct_2" placeholder="Ej: Peugeot, Toyota, ANAC">
+      </label>
+      <label class="field-label">Priority correcta
+        <select id="priority_correct_2">
+          <option value="">— sin cambio —</option>
+          <option value="Critical">Critical</option>
+          <option value="High">High</option>
+          <option value="Medium">Medium</option>
+          <option value="Low">Low</option>
+          <option value="Ninguna">Ninguna (no debería tener prioridad)</option>
+        </select>
+      </label>
+      <label class="field-label">Recommendation correcta
+        <input type="text" id="recommendation_correct_2" placeholder="Ej: EvaluarComunicado">
+      </label>
+      <label class="field-label">Comentarios
+        <textarea id="comments_2" rows="2" placeholder="¿Qué faltó o qué sobró en el criterio del sistema?"></textarea>
+      </label>
+    </div>
+  </div>
+</div>
+
+<div class="card" data-index="3">
+  <div class="card-header">
+    <div class="story-title">&quot;Yo la crisis no la siento&quot;: Embotelladora Andina invertirá US$ 260 millones al 2030 para crecer en medio de la desaceleración</div>
+    <div class="priority-chip">Sin clasificar</div>
+  </div>
+  <div class="muted small"><a href="http://www.df.cl/empresas/industria/yo-la-crisis-no-la-siento-embotelladora-andina-invertira-us-260" target="_blank" rel="noopener" style="color:#14213D;">Diario Financiero ↗</a></div>
+
+  <table class="fact-table">
+    <tr><td class="fact-label">Marcas Stellantis detectadas</td><td>— (ninguna detectada)</td></tr>
+    <tr><td class="fact-label">Competidores detectados</td><td>— (ninguna detectada)</td></tr>
+    <tr><td class="fact-label">Organismos detectados</td><td>— (ninguna detectada)</td></tr>
+    <tr><td class="fact-label">Event Type</td><td>Sin detectar <span class="muted">(undetected)</span></td></tr>
+    <tr><td class="fact-label">Priority</td><td>Sin clasificar</td></tr>
+    <tr><td class="fact-label">Regla aplicada</td><td>Ninguna</td></tr>
+    <tr><td class="fact-label">Recommendation Actions</td><td>Ninguna</td></tr>
+  </table>
+
+  <div class="validation">
+    <div class="validation-question">¿Correcto?</div>
+    <label class="radio-label">
+      <input type="radio" name="correct_3" value="si" onchange="toggleCorrection(3, false)"> Sí
+    </label>
+    <label class="radio-label">
+      <input type="radio" name="correct_3" value="no" onchange="toggleCorrection(3, true)"> No
+    </label>
+
+    <div id="correction_3" class="correction-fields" style="display:none;">
+      <label class="field-label">Entidad correcta <span class="muted">(marca, competidor u organismo)</span>
+        <input type="text" id="brand_correct_3" placeholder="Ej: Peugeot, Toyota, ANAC">
+      </label>
+      <label class="field-label">Priority correcta
+        <select id="priority_correct_3">
+          <option value="">— sin cambio —</option>
+          <option value="Critical">Critical</option>
+          <option value="High">High</option>
+          <option value="Medium">Medium</option>
+          <option value="Low">Low</option>
+          <option value="Ninguna">Ninguna (no debería tener prioridad)</option>
+        </select>
+      </label>
+      <label class="field-label">Recommendation correcta
+        <input type="text" id="recommendation_correct_3" placeholder="Ej: EvaluarComunicado">
+      </label>
+      <label class="field-label">Comentarios
+        <textarea id="comments_3" rows="2" placeholder="¿Qué faltó o qué sobró en el criterio del sistema?"></textarea>
+      </label>
+    </div>
+  </div>
+</div>
+
+<div class="card" data-index="4">
+  <div class="card-header">
+    <div class="story-title">SII identifica a 84 empresas de alto riesgo fiscal que informan rentabilidades por debajo del nivel de su industria</div>
+    <div class="priority-chip">Sin clasificar</div>
+  </div>
+  <div class="muted small"><a href="http://www.df.cl/economia-y-politica/df-tax/sii-identifica-a-84-empresas-de-alto-riesgo-fiscal-que-informan" target="_blank" rel="noopener" style="color:#14213D;">Diario Financiero ↗</a></div>
+
+  <table class="fact-table">
+    <tr><td class="fact-label">Marcas Stellantis detectadas</td><td>— (ninguna detectada)</td></tr>
+    <tr><td class="fact-label">Competidores detectados</td><td>— (ninguna detectada)</td></tr>
+    <tr><td class="fact-label">Organismos detectados</td><td>— (ninguna detectada)</td></tr>
+    <tr><td class="fact-label">Event Type</td><td>Sin detectar <span class="muted">(undetected)</span></td></tr>
+    <tr><td class="fact-label">Priority</td><td>Sin clasificar</td></tr>
+    <tr><td class="fact-label">Regla aplicada</td><td>Ninguna</td></tr>
+    <tr><td class="fact-label">Recommendation Actions</td><td>Ninguna</td></tr>
+  </table>
+
+  <div class="validation">
+    <div class="validation-question">¿Correcto?</div>
+    <label class="radio-label">
+      <input type="radio" name="correct_4" value="si" onchange="toggleCorrection(4, false)"> Sí
+    </label>
+    <label class="radio-label">
+      <input type="radio" name="correct_4" value="no" onchange="toggleCorrection(4, true)"> No
+    </label>
+
+    <div id="correction_4" class="correction-fields" style="display:none;">
+      <label class="field-label">Entidad correcta <span class="muted">(marca, competidor u organismo)</span>
+        <input type="text" id="brand_correct_4" placeholder="Ej: Peugeot, Toyota, ANAC">
+      </label>
+      <label class="field-label">Priority correcta
+        <select id="priority_correct_4">
+          <option value="">— sin cambio —</option>
+          <option value="Critical">Critical</option>
+          <option value="High">High</option>
+          <option value="Medium">Medium</option>
+          <option value="Low">Low</option>
+          <option value="Ninguna">Ninguna (no debería tener prioridad)</option>
+        </select>
+      </label>
+      <label class="field-label">Recommendation correcta
+        <input type="text" id="recommendation_correct_4" placeholder="Ej: EvaluarComunicado">
+      </label>
+      <label class="field-label">Comentarios
+        <textarea id="comments_4" rows="2" placeholder="¿Qué faltó o qué sobró en el criterio del sistema?"></textarea>
+      </label>
+    </div>
+  </div>
+</div>
+
+<div class="card" data-index="5">
+  <div class="card-header">
+    <div class="story-title">Elecciones en Colombia: Abelardo De la Espriella se impone en reñida segunda vuelta</div>
+    <div class="priority-chip">Sin clasificar</div>
+  </div>
+  <div class="muted small"><a href="http://www.df.cl/internacional/politica/colombianos-acuden-a-las-urnas-para-elegir-nuevo-presidente-entre-aberlardo" target="_blank" rel="noopener" style="color:#14213D;">Diario Financiero ↗</a></div>
+
+  <table class="fact-table">
+    <tr><td class="fact-label">Marcas Stellantis detectadas</td><td>— (ninguna detectada)</td></tr>
+    <tr><td class="fact-label">Competidores detectados</td><td>— (ninguna detectada)</td></tr>
+    <tr><td class="fact-label">Organismos detectados</td><td>— (ninguna detectada)</td></tr>
+    <tr><td class="fact-label">Event Type</td><td>Sin detectar <span class="muted">(undetected)</span></td></tr>
+    <tr><td class="fact-label">Priority</td><td>Sin clasificar</td></tr>
+    <tr><td class="fact-label">Regla aplicada</td><td>Ninguna</td></tr>
+    <tr><td class="fact-label">Recommendation Actions</td><td>Ninguna</td></tr>
+  </table>
+
+  <div class="validation">
+    <div class="validation-question">¿Correcto?</div>
+    <label class="radio-label">
+      <input type="radio" name="correct_5" value="si" onchange="toggleCorrection(5, false)"> Sí
+    </label>
+    <label class="radio-label">
+      <input type="radio" name="correct_5" value="no" onchange="toggleCorrection(5, true)"> No
+    </label>
+
+    <div id="correction_5" class="correction-fields" style="display:none;">
+      <label class="field-label">Entidad correcta <span class="muted">(marca, competidor u organismo)</span>
+        <input type="text" id="brand_correct_5" placeholder="Ej: Peugeot, Toyota, ANAC">
+      </label>
+      <label class="field-label">Priority correcta
+        <select id="priority_correct_5">
+          <option value="">— sin cambio —</option>
+          <option value="Critical">Critical</option>
+          <option value="High">High</option>
+          <option value="Medium">Medium</option>
+          <option value="Low">Low</option>
+          <option value="Ninguna">Ninguna (no debería tener prioridad)</option>
+        </select>
+      </label>
+      <label class="field-label">Recommendation correcta
+        <input type="text" id="recommendation_correct_5" placeholder="Ej: EvaluarComunicado">
+      </label>
+      <label class="field-label">Comentarios
+        <textarea id="comments_5" rows="2" placeholder="¿Qué faltó o qué sobró en el criterio del sistema?"></textarea>
+      </label>
+    </div>
+  </div>
+</div>
+
+<div class="card" data-index="6">
+  <div class="card-header">
+    <div class="story-title">Capstone Copper Mantos Blancos ingresa a tramitación ambiental proyecto para ampliar su vida útil hasta 2041</div>
+    <div class="priority-chip">Sin clasificar</div>
+  </div>
+  <div class="muted small"><a href="http://www.df.cl/empresas/mineria/capstone-copper-mantos-blancos-ingresa-a-tramitacion-ambiental-proyecto" target="_blank" rel="noopener" style="color:#14213D;">Diario Financiero ↗</a></div>
+
+  <table class="fact-table">
+    <tr><td class="fact-label">Marcas Stellantis detectadas</td><td>— (ninguna detectada)</td></tr>
+    <tr><td class="fact-label">Competidores detectados</td><td>— (ninguna detectada)</td></tr>
+    <tr><td class="fact-label">Organismos detectados</td><td>— (ninguna detectada)</td></tr>
+    <tr><td class="fact-label">Event Type</td><td>Sin detectar <span class="muted">(undetected)</span></td></tr>
+    <tr><td class="fact-label">Priority</td><td>Sin clasificar</td></tr>
+    <tr><td class="fact-label">Regla aplicada</td><td>Ninguna</td></tr>
+    <tr><td class="fact-label">Recommendation Actions</td><td>Ninguna</td></tr>
+  </table>
+
+  <div class="validation">
+    <div class="validation-question">¿Correcto?</div>
+    <label class="radio-label">
+      <input type="radio" name="correct_6" value="si" onchange="toggleCorrection(6, false)"> Sí
+    </label>
+    <label class="radio-label">
+      <input type="radio" name="correct_6" value="no" onchange="toggleCorrection(6, true)"> No
+    </label>
+
+    <div id="correction_6" class="correction-fields" style="display:none;">
+      <label class="field-label">Entidad correcta <span class="muted">(marca, competidor u organismo)</span>
+        <input type="text" id="brand_correct_6" placeholder="Ej: Peugeot, Toyota, ANAC">
+      </label>
+      <label class="field-label">Priority correcta
+        <select id="priority_correct_6">
+          <option value="">— sin cambio —</option>
+          <option value="Critical">Critical</option>
+          <option value="High">High</option>
+          <option value="Medium">Medium</option>
+          <option value="Low">Low</option>
+          <option value="Ninguna">Ninguna (no debería tener prioridad)</option>
+        </select>
+      </label>
+      <label class="field-label">Recommendation correcta
+        <input type="text" id="recommendation_correct_6" placeholder="Ej: EvaluarComunicado">
+      </label>
+      <label class="field-label">Comentarios
+        <textarea id="comments_6" rows="2" placeholder="¿Qué faltó o qué sobró en el criterio del sistema?"></textarea>
+      </label>
+    </div>
+  </div>
+</div>
+
+<div class="card" data-index="7">
+  <div class="card-header">
+    <div class="story-title">Codelco anuncia evaluación de venta de activos en su Plan Estratégico, tras negar información sobre El Abra y Quebrada Blanca</div>
+    <div class="priority-chip">Sin clasificar</div>
+  </div>
+  <div class="muted small"><a href="http://www.df.cl/senal-df/senales-financieras/codelco-anuncia-evaluacion-de-venta-de-activos-en-su-plan-estrategico-tras" target="_blank" rel="noopener" style="color:#14213D;">Diario Financiero ↗</a></div>
+
+  <table class="fact-table">
+    <tr><td class="fact-label">Marcas Stellantis detectadas</td><td>— (ninguna detectada)</td></tr>
+    <tr><td class="fact-label">Competidores detectados</td><td>— (ninguna detectada)</td></tr>
+    <tr><td class="fact-label">Organismos detectados</td><td>— (ninguna detectada)</td></tr>
+    <tr><td class="fact-label">Event Type</td><td>Sin detectar <span class="muted">(undetected)</span></td></tr>
+    <tr><td class="fact-label">Priority</td><td>Sin clasificar</td></tr>
+    <tr><td class="fact-label">Regla aplicada</td><td>Ninguna</td></tr>
+    <tr><td class="fact-label">Recommendation Actions</td><td>Ninguna</td></tr>
+  </table>
+
+  <div class="validation">
+    <div class="validation-question">¿Correcto?</div>
+    <label class="radio-label">
+      <input type="radio" name="correct_7" value="si" onchange="toggleCorrection(7, false)"> Sí
+    </label>
+    <label class="radio-label">
+      <input type="radio" name="correct_7" value="no" onchange="toggleCorrection(7, true)"> No
+    </label>
+
+    <div id="correction_7" class="correction-fields" style="display:none;">
+      <label class="field-label">Entidad correcta <span class="muted">(marca, competidor u organismo)</span>
+        <input type="text" id="brand_correct_7" placeholder="Ej: Peugeot, Toyota, ANAC">
+      </label>
+      <label class="field-label">Priority correcta
+        <select id="priority_correct_7">
+          <option value="">— sin cambio —</option>
+          <option value="Critical">Critical</option>
+          <option value="High">High</option>
+          <option value="Medium">Medium</option>
+          <option value="Low">Low</option>
+          <option value="Ninguna">Ninguna (no debería tener prioridad)</option>
+        </select>
+      </label>
+      <label class="field-label">Recommendation correcta
+        <input type="text" id="recommendation_correct_7" placeholder="Ej: EvaluarComunicado">
+      </label>
+      <label class="field-label">Comentarios
+        <textarea id="comments_7" rows="2" placeholder="¿Qué faltó o qué sobró en el criterio del sistema?"></textarea>
+      </label>
+    </div>
+  </div>
+</div>
+
+
+  <div class="toolbar">
+    <span class="counter" id="counter">0 de 8 validadas</span>
+    <button class="download" onclick="downloadValidations()">Descargar validaciones (JSON)</button>
+  </div>
+</div>
+
+<script>
+const SYSTEM_DATA = [{"index": 0, "story": "Irán y EEUU establecen una línea de comunicación directa y una \"célula de desescalamiento\" para cesar operaciones militares en Líbano", "source": "Diario Financiero", "source_url": "http://www.df.cl/internacional/politica/iran-y-eeuu-establecen-una-linea-de-comunicacion-directa-y-una-celula-de", "system_brands": [], "system_competitors": [], "system_organizations": [], "system_event_type": null, "system_priority": null, "system_recommendations": [], "system_rules": []}, {"index": 1, "story": "Dólar abre a la baja tras reunión entre EEUU e Irán que trajo \"progresos alentadores\" tras un tenso fin de semana", "source": "Diario Financiero", "source_url": "http://www.df.cl/mercados/bolsa-monedas/dolar-hoy-79m9v", "system_brands": [], "system_competitors": [], "system_organizations": [], "system_event_type": null, "system_priority": null, "system_recommendations": [], "system_rules": []}, {"index": 2, "story": "Plan de salvataje de gigante metalúrgica de Talcahuano contempla \"potencial cambio de control\"", "source": "Diario Financiero", "source_url": "http://www.df.cl/empresas/construccion/plan-de-salvataje-de-gigante-metalurgica-de-talcahuano-contempla-potencial", "system_brands": [], "system_competitors": [], "system_organizations": [], "system_event_type": null, "system_priority": null, "system_recommendations": [], "system_rules": []}, {"index": 3, "story": "\"Yo la crisis no la siento\": Embotelladora Andina invertirá US$ 260 millones al 2030 para crecer en medio de la desaceleración", "source": "Diario Financiero", "source_url": "http://www.df.cl/empresas/industria/yo-la-crisis-no-la-siento-embotelladora-andina-invertira-us-260", "system_brands": [], "system_competitors": [], "system_organizations": [], "system_event_type": null, "system_priority": null, "system_recommendations": [], "system_rules": []}, {"index": 4, "story": "SII identifica a 84 empresas de alto riesgo fiscal que informan rentabilidades por debajo del nivel de su industria", "source": "Diario Financiero", "source_url": "http://www.df.cl/economia-y-politica/df-tax/sii-identifica-a-84-empresas-de-alto-riesgo-fiscal-que-informan", "system_brands": [], "system_competitors": [], "system_organizations": [], "system_event_type": null, "system_priority": null, "system_recommendations": [], "system_rules": []}, {"index": 5, "story": "Elecciones en Colombia: Abelardo De la Espriella se impone en reñida segunda vuelta", "source": "Diario Financiero", "source_url": "http://www.df.cl/internacional/politica/colombianos-acuden-a-las-urnas-para-elegir-nuevo-presidente-entre-aberlardo", "system_brands": [], "system_competitors": [], "system_organizations": [], "system_event_type": null, "system_priority": null, "system_recommendations": [], "system_rules": []}, {"index": 6, "story": "Capstone Copper Mantos Blancos ingresa a tramitación ambiental proyecto para ampliar su vida útil hasta 2041", "source": "Diario Financiero", "source_url": "http://www.df.cl/empresas/mineria/capstone-copper-mantos-blancos-ingresa-a-tramitacion-ambiental-proyecto", "system_brands": [], "system_competitors": [], "system_organizations": [], "system_event_type": null, "system_priority": null, "system_recommendations": [], "system_rules": []}, {"index": 7, "story": "Codelco anuncia evaluación de venta de activos en su Plan Estratégico, tras negar información sobre El Abra y Quebrada Blanca", "source": "Diario Financiero", "source_url": "http://www.df.cl/senal-df/senales-financieras/codelco-anuncia-evaluacion-de-venta-de-activos-en-su-plan-estrategico-tras", "system_brands": [], "system_competitors": [], "system_organizations": [], "system_event_type": null, "system_priority": null, "system_recommendations": [], "system_rules": []}];
+
+function toggleCorrection(index, show) {
+  document.getElementById('correction_' + index).style.display = show ? 'flex' : 'none';
+  updateCounter();
+}
+
+function updateCounter() {
+  let count = 0;
+  const total = SYSTEM_DATA.length;
+  for (let i = 0; i < total; i++) {
+    const radios = document.getElementsByName('correct_' + i);
+    for (const r of radios) {
+      if (r.checked) { count++; break; }
+    }
+  }
+  document.getElementById('counter').textContent = count + ' de ' + total + ' validadas';
+}
+
+function downloadValidations() {
+  const results = SYSTEM_DATA.map(item => {
+    const i = item.index;
+    const radios = document.getElementsByName('correct_' + i);
+    let correct = null;
+    for (const r of radios) { if (r.checked) correct = (r.value === 'si'); }
+
+    return {
+      ...item,
+      validated: correct !== null,
+      correct: correct,
+      brand_correct: correct === false ? document.getElementById('brand_correct_' + i).value : null,
+      priority_correct: correct === false ? document.getElementById('priority_correct_' + i).value : null,
+      recommendation_correct: correct === false ? document.getElementById('recommendation_correct_' + i).value : null,
+      comments: correct === false ? document.getElementById('comments_' + i).value : null,
+    };
+  });
+
+  const blob = new Blob([JSON.stringify(results, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'training_validations.json';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+document.querySelectorAll('input[type=radio]').forEach(r => r.addEventListener('change', updateCounter));
+</script>
+</body>
+</html>
