@@ -231,7 +231,7 @@ priority_rules:
       priority: MEDIUM
 
   - id: PR-013
-    description: "Resultado Latin NCAP de modelo comercializado en la región"
+    description: "Resultado Latin NCAP de una marca Stellantis"
     enabled: true
     priority_weight: 3
     condition:
@@ -242,12 +242,40 @@ priority_rules:
         - field: event_type
           operator: equals
           value: ResultadoDeSeguridad
+        - field: brands
+          operator: exists
     outcome:
       priority: HIGH
     todo: >
-      No se restringió explícitamente a marcas Stellantis, replicando
-      la ambigüedad ya señalada en la revisión del documento original
-      (el texto no lo restringe). Confirmar con negocio si debe acotarse.
+      Sprint 7 (P3). Antes, esta regla no distinguía marca propia de
+      competencia (ambigüedad señalada desde la revisión de la Parte
+      2B, confirmada como error real en la Ronda 1 — casos #11 y #14
+      de validation_report.md). Ahora exige explícitamente 'brands'
+      (marca Stellantis detectada). El caso de competencia se separó a
+      PR-017.
+
+  - id: PR-017
+    description: "Resultado Latin NCAP de una marca de la competencia"
+    enabled: true
+    priority_weight: 1
+    condition:
+      and:
+        - field: organizations
+          operator: in
+          value: [org.latin_ncap]
+        - field: event_type
+          operator: equals
+          value: ResultadoDeSeguridad
+        - field: competitors
+          operator: exists
+    outcome:
+      priority: LOW
+    todo: >
+      Sprint 7 (P3). Contraparte de PR-013 para competidores. Prioridad
+      LOW conforme al criterio validado en la Ronda 1 (#11, Toyota
+      Yaris): un mal resultado de un competidor es inteligencia
+      competitiva a monitorear, no una situación que amerite preparar
+      una defensa propia.
 
   - id: PR-014
     description: "Comparativa entre modelos"

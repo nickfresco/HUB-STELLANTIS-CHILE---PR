@@ -196,13 +196,39 @@ recommendation_rules:
         - field: event_type
           operator: equals
           value: ResultadoDeSeguridad
+        - field: brands
+          operator: exists
     outcome:
-      recommendations: [EvaluarQyA]
+      recommendations: [EvaluarQyA, EvaluarComunicado]
     todo: >
-      El original decía "alertar", ambiguo entre EvaluarQyA,
-      InformarBrandManager o EvaluarComiteDeCrisis. Se eligió la opción
-      intermedia. Requiere confirmación explícita de negocio antes de
-      considerarse definitivo (no solo un ajuste menor).
+      Sprint 7 (P3). El texto del sprint pide "Evaluate Q&A" +
+      "Evaluate Statement" — Statement se mapea a EvaluarComunicado del
+      catálogo existente. Reemplaza el mapeo anterior (solo EvaluarQyA,
+      marcado como ambiguo entre 3 opciones en el Sprint de Decision
+      Rules); ahora, acotada a marca Stellantis, ambas acciones tienen
+      sentido de negocio: preparar respuesta a prensa Y evaluar un
+      comunicado propio.
+
+  - id: PR-017
+    enabled: true
+    condition:
+      and:
+        - field: organizations
+          operator: in
+          value: [org.latin_ncap]
+        - field: event_type
+          operator: equals
+          value: ResultadoDeSeguridad
+        - field: competitors
+          operator: exists
+    outcome:
+      recommendations: [MonitorearEvolucion, CompartirAnalisisCompetitivo]
+    todo: >
+      Sprint 7 (P3). El sprint pide "Monitor" + "Competitive
+      Intelligence" — mapeados a MonitorearEvolucion y
+      CompartirAnalisisCompetitivo del catálogo existente. Resuelve la
+      Ronda 1 #11 (Toyota Yaris), donde EvaluarQyA no tenía sentido de
+      negocio para un resultado de un competidor.
 
   - id: PR-014
     enabled: false
