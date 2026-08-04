@@ -35,6 +35,6 @@ def build_default_pipeline(base_dir: Path) -> PRHubPipeline:
         EventDetectionStage(kb),
         PriorityRuleEngineStage(RuleEngine(priority_registry)),
         RecommendationEngineStage(RuleEngine(recommendation_registry)),
-        DailyBriefGeneratorStage(kb),
+        DailyBriefGeneratorStage(kb, priority_registry),
     ]
     return PRHubPipeline(kb, stages)

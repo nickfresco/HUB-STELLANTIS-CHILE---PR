@@ -8,6 +8,11 @@ No genera las 10 secciones completas del Daily Brief de la Parte 3
 (eso requiere agregación de varias Stories, no de una sola noticia) —
 asigna una única sección por noticia como aproximación del MVP,
 documentada como TODO en models/enums.py.
+
+Sprint 4: se agregaron campos aditivos (competitors, organizations,
+source, why_it_matters) requeridos por el Daily HTML — no cambia
+ningún campo ni comportamiento ya existente, solo agrega información
+adicional al mismo diccionario de salida.
 """
 
 from __future__ import annotations
@@ -23,7 +28,7 @@ def assign_section(priority: Optional[str], event_type: Optional[str]) -> str:
     Stories del día, no sobre una noticia aislada."""
     if event_type in REPUTATIONAL_EVENT_TYPES:
         return "Riesgos reputacionales"
-    if priority in ("Critical", "High"):
+    if priority in ("Critical", "High", "CRITICAL", "HIGH"):
         return "Resumen Ejecutivo"
     return "Radar de noticias"
 
@@ -60,7 +65,18 @@ def _display_name(canonical_id: str, entities) -> str:
     return canonical_id
 
 
-def build_daily_brief(context: Dict[str, Any], kb) -> Dict[str, Any]:
+def _why_it_matters(priority_result, priority_registry) -> Optional[str]:
+    """Usa la descripción ya existente de la regla ganadora (Rule.description,
+    definida en priority_rules.yml) como explicación de 'por qué importa'.
+    No es texto generativo — es la descripción de negocio que ya estaba
+    en el YAML, simplemente expuesta en el output."""
+    if not priority_result.winning_rule_id or priority_registry is None:
+        return None
+    rule = priority_registry.get_rule(priority_result.winning_rule_id)
+    return rule.description if rule else None
+
+
+def build_daily_brief(context: Dict[str, Any], kb, priority_registry=None) -> Dict[str, Any]:
     news = context["news"]
     entities = context["entities"]
     event_type = context["event_type"]
@@ -74,15 +90,23 @@ def build_daily_brief(context: Dict[str, Any], kb) -> Dict[str, Any]:
         else []
     )
     brand_names = [_display_name(bid, kb.brands) for bid in entities.brands]
+    competitor_names = [_display_name(cid, kb.competitors) for cid in entities.competitors]
+    organization_names = [_display_name(oid, kb.organizations) for oid in entities.organizations]
+
+    source = context["source"]
 
     return {
         "story": news.title,
         "brand": brand_names,
+        "competitors": competitor_names,
+        "organizations": organization_names,
         "event_type": event_type,
         "event_type_source": context.get("event_type_source"),
         "priority": priority,
         "section": assign_section(priority, event_type),
         "recommendations": recommendations,
+        "why_it_matters": _why_it_matters(priority_result, priority_registry),
+        "source": {"name": source.display_name, "tier": source.tier},
         "rules_triggered": {
             "priority_rules": priority_result.matched_rule_ids(),
             "recommendation_rules": recommendation_result.matched_rule_ids(),

@@ -104,11 +104,12 @@ class DailyBriefGeneratorStage:
     """Lee:  todo el contexto acumulado por las etapas anteriores
     Escribe: context['output'] (el JSON final del Daily Brief)"""
 
-    def __init__(self, kb: KnowledgeBase):
+    def __init__(self, kb: KnowledgeBase, priority_registry=None):
         self.kb = kb
+        self.priority_registry = priority_registry
 
     def run(self, context: Dict[str, Any]) -> Dict[str, Any]:
-        context["output"] = build_daily_brief(context, self.kb)
+        context["output"] = build_daily_brief(context, self.kb, self.priority_registry)
         return context
 
 
