@@ -11,7 +11,7 @@
 
 <p align="center">
   <img alt="Version" src="https://img.shields.io/badge/version-v0.8--dev-blue">
-  <img alt="Tests" src="https://img.shields.io/badge/tests-125%20passing-brightgreen">
+  <img alt="Tests" src="https://img.shields.io/badge/tests-139%20passing-brightgreen">
   <img alt="Rulebook" src="https://img.shields.io/badge/rulebook-10%2F17%20rules%20active-yellow">
   <img alt="Status" src="https://img.shields.io/badge/status-internal%20pilot-orange">
   <img alt="License" src="https://img.shields.io/badge/license-internal%20%2F%20proprietary-lightgrey">
@@ -67,6 +67,7 @@ boundary is enforced by construction, not by convention — see
 - ✓ **Event Detection** — keyword-based inference of event type when not explicitly provided
 - ✓ **Priority Engine** — 17 configured rules (10 active, 7 documented as pending on explicit dependencies)
 - ✓ **Recommendation Engine** — maps classified stories to a closed catalog of 9 PR actions
+- ✓ **Opportunity Engine** — same deterministic Rule Engine, a separate Rulebook (`config/opportunity_rules.yaml`): surfaces proactive PR opportunities (type, priority, score, justification, recommended action) independently of the base recommendation — a story can be "no action needed" and "worth a proactive opportunity" at the same time, on purpose
 - ✓ **Daily Brief** — generates a client-safe (Gmail/Outlook-compatible) HTML executive brief
 - ✓ **Training Mode** — a human-in-the-loop validation workflow: run real news through the system, mark each classification correct/incorrect, export the verdicts as JSON
 - ✓ **Validation Workflow** — structured analysis (`validation_report.md`, `validation_delta.md`) that turns human corrections into a prioritized, evidence-based improvement backlog
@@ -97,13 +98,15 @@ flowchart TD
     B --> C["Event Detection"]
     C --> D["Priority Rule Engine"]
     D --> E["Recommendation Engine"]
-    E --> F["Daily Brief Generator"]
+    E --> OE["Opportunity Engine"]
+    OE --> F["Daily Brief Generator"]
     F --> G["daily_brief.html"]
 
     KB[("Knowledge Base<br/>brands · competitors · organizations<br/>sources · taxonomy · event types")] -.-> B
     KB -.-> C
-    RB[("Rulebook<br/>priority_rules.yml<br/>recommendation_rules.yml")] -.-> D
+    RB[("Rulebook<br/>priority_rules.yml<br/>recommendation_rules.yml<br/>opportunity_rules.yaml")] -.-> D
     RB -.-> E
+    RB -.-> OE
 
     F --> T["Training Mode"]
     T --> H["training_report.html"]
@@ -143,6 +146,7 @@ pr-hub/
 │   ├── knowledge_base/     # brands, competitors, organizations, models,
 │   │                       # technologies, sources, taxonomy, event_types
 │   ├── rules/               # priority_rules.yml, recommendation_rules.yml
+│   ├── opportunity_rules.yaml # Opportunity Engine Rulebook
 │   └── rss_sources.yml      # RSS feed catalog (Sprint 9)
 ├── knowledge_base/          # Knowledge Base Loader (Python)
 ├── rule_engine/              # Generic, domain-agnostic engine: condition,
@@ -151,6 +155,8 @@ pr-hub/
 ├── models/                   # NewsInput dataclass, domain enums
 ├── pipeline/                  # Decoupled pipeline stages + orchestrator
 ├── rss/                       # RSS ingestion: fetch, parse, normalize, dedupe
+├── opportunity_engine/         # Opportunity Engine: reuses rule_engine/, adds
+│                               # a fourth Rulebook (opportunity_rules.yaml)
 ├── brief/                     # Daily Brief Generator (pure functions, per story)
 ├── daily/                     # Aggregation, labels, email-safe HTML renderer
 ├── training/                  # Training Mode: report renderer + validations archive
@@ -159,7 +165,7 @@ pr-hub/
 ├── data/daily_input/          # Fictional news samples + RSS-generated YYYY-MM-DD.json
 ├── examples/                  # Fictional news samples for demoing main.py
 │   └── rss_demo/              # Runnable RSS ingestion example (local fixtures, no network)
-├── tests/                     # 125 automated tests + fixtures (incl. tests/fixtures/rss/)
+├── tests/                     # 139 automated tests + fixtures (incl. tests/fixtures/rss/)
 ├── .github/                   # Issue templates, label proposal
 ├── main.py                    # Single-story CLI: python main.py noticia.json
 ├── run_daily.py                # One-command daily CLI: RSS → briefs → both HTML reports
@@ -283,7 +289,7 @@ included in this repo so you can open them without running anything.
 | | |
 |---|---|
 | **Version** | v0.8-dev (Sprint 9 in progress — see [`ROADMAP.md`](ROADMAP.md)) |
-| **Automated tests** | 125 passing, 0 failing (74 core + 51 RSS ingestion) |
+| **Automated tests** | 139 passing, 0 failing (74 core + 51 RSS ingestion + 14 Opportunity Engine) |
 | **RSS feeds configured** | 11 total — 9 enabled, 2 verified against a live search, 7 best-effort/unverified or explicitly blocked (see [RSS Ingestion](#rss-ingestion)) |
 | **Rulebook coverage** | 10 of 17 rules active (7 documented as pending, each with an explicit blocking dependency) |
 | **Estimated accuracy** | ~75% (post-fix estimate against Round 1 of real-news validation — see [`validation_delta.md`](validation_delta.md); a Round 2 with fresh human validation is the next recommended step, not yet run) |

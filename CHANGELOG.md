@@ -6,6 +6,44 @@ milestones in [`ROADMAP.md`](ROADMAP.md).
 
 ---
 
+## [Unreleased] — Opportunity Engine v1.0
+
+### Added
+- `config/opportunity_rules.yaml`: a fourth Rulebook, same schema as
+  `priority_rules.yml`/`recommendation_rules.yml` — 6 deterministic rules
+  (OPP-001 through OPP-006), each producing a full Opportunity (type,
+  priority, score, justification, recommended action) rather than a single
+  tag
+- `opportunity_engine/opportunities.py`: reuses `rule_engine.RuleEngine`
+  and `RuleRegistry` exactly as-is — no new engine class, no changes to
+  `rule_engine/` — reads the engine's existing per-rule `matches` (already
+  exposed for audit purposes since Sprint 3) to build one structured
+  Opportunity per matching rule, since a Story can qualify for more than
+  one opportunity at once
+- `OpportunityEngineStage`, a new pipeline stage running after
+  Recommendation Engine and before Daily Brief Generator — extends the
+  classified Fact with the already-resolved `priority` and
+  `recommendations` before evaluating opportunity rules
+- Daily Brief and Training Report both updated additively to show
+  Opportunity type/score/justification when present, falling back to the
+  pre-existing simple recommendation-based derivation otherwise — no
+  existing brief shape is broken
+- 14 new tests, including one that inspects `opportunity_engine/`'s own
+  source to assert it never defines a `RuleEngine`/`RuleRegistry`
+  subclass — a structural check that the "same deterministic approach as
+  the Rule Engine, without modifying it" requirement actually holds, not
+  just a claim in a docstring
+
+### Design note
+Opportunity Engine answers a different question than Recommendation
+Engine on purpose: Recommendation Engine says what must happen (often
+`SinAccionInmediata`); Opportunity Engine says what could be seized. A
+Story can carry both `SinAccionInmediata` and a real Opportunity at the
+same time (see OPP-002) — that's the intended behavior, not a
+contradiction between the two engines.
+
+---
+
 ## [Unreleased] — v0.8-dev: RSS Ingestion (Sprint 9)
 
 ### Added
