@@ -63,6 +63,12 @@ def _card(index: int, brief: Dict[str, Any]) -> str:
     actions = brief.get("recommendations", [])
     actions_txt = ", ".join(action_label(a) for a in actions) if actions else "Ninguna"
 
+    opportunities = brief.get("opportunities") or []
+    opportunities_txt = (
+        ", ".join(f"{o['type']} (score {o['score']})" for o in opportunities)
+        if opportunities else "Ninguna"
+    )
+
     source_name = brief.get("source", {}).get("name", "—")
     source_url = brief.get("source_url")
     source_link = (
@@ -91,6 +97,7 @@ def _card(index: int, brief: Dict[str, Any]) -> str:
     <tr><td class="fact-label">Priority</td><td>{_esc(_priority_label(brief.get('priority')))}</td></tr>
     <tr><td class="fact-label">Regla aplicada</td><td>{_esc(rule_txt)}{f' — <span class="muted">{_esc(why)}</span>' if why else ''}</td></tr>
     <tr><td class="fact-label">Recommendation Actions</td><td>{_esc(actions_txt)}</td></tr>
+    <tr><td class="fact-label">Oportunidades detectadas</td><td>{_esc(opportunities_txt)}</td></tr>
   </table>
 
   <div class="validation">
@@ -162,6 +169,7 @@ def render_training_report(briefs: List[Dict[str, Any]], errors: List[Dict[str, 
             "system_event_type": b.get("event_type"),
             "system_priority": b.get("priority"),
             "system_recommendations": b.get("recommendations", []),
+            "system_opportunities": b.get("opportunities") or [],
             "system_rules": b["rules_triggered"]["priority_rules"],
         }
         for i, b in enumerate(briefs)
