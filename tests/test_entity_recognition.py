@@ -44,3 +44,21 @@ def test_no_entities_detected_returns_empty_lists():
     result = detect_entities("Un texto genérico sin ninguna marca conocida", kb)
     assert result.brands == []
     assert result.competitors == []
+
+
+def test_ds_alias_does_not_false_positive_inside_other_words():
+    """Bug real encontrado con noticias reales (Sprint 5): 'ds' es
+    subcadena de 'Ads', y 'auto' es subcadena de 'automotriz'. Sin
+    límites de palabra, ambas condiciones se cumplían y DS Automobiles
+    se detectaba en una noticia que no la mencionaba en absoluto."""
+    kb = load_kb()
+    result = detect_entities(
+        "La campaña ganó un premio en los Ads People Like, siendo la única marca automotriz presente", kb
+    )
+    assert "brand.ds_automobiles" not in result.brands
+
+
+def test_word_boundary_matching_still_detects_real_mentions():
+    kb = load_kb()
+    result = detect_entities("El nuevo DS Automobiles llega a Chile con tecnología francesa", kb)
+    assert "brand.ds_automobiles" in result.brands

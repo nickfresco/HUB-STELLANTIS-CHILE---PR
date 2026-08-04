@@ -15,6 +15,7 @@ models/fact.py) hasta que el Taxonomy Engine se implemente.
 """
 
 from __future__ import annotations
+import re
 from dataclasses import dataclass, field
 from typing import List
 
@@ -29,6 +30,20 @@ class DetectedEntities:
     products: List[str] = field(default_factory=list)
 
 
+def _contains_word(text_lower: str, value_lower: str) -> bool:
+    """Coincidencia por palabra completa, no por subcadena.
+
+    Bug real encontrado al procesar noticias reales (Sprint 5, modo de
+    entrenamiento): el chequeo anterior (`value_lower in text_lower`)
+    hacía match de "ds" dentro de "Ads" (como en "premios Ads People
+    Like") y de "auto" dentro de "automotriz", generando una detección
+    falsa de la marca DS Automobiles en una noticia que no la mencionaba
+    en absoluto. \\b exige límite de palabra a ambos lados.
+    """
+    pattern = r"\b" + re.escape(value_lower) + r"\b"
+    return re.search(pattern, text_lower) is not None
+
+
 def _matches_entity(text_lower: str, entity: Entity) -> bool:
     if not entity.active:
         return False
@@ -38,9 +53,9 @@ def _matches_entity(text_lower: str, entity: Entity) -> bool:
     # displayName coincide textualmente con un alias que sí tiene
     # disambiguationContext, ese requisito prevalezca — evita que el
     # mismo texto quede "sin contexto" solo por venir de displayName
-    # (bug corregido: antes, displayName == alias.value se evaluaba
-    # como dos candidatos independientes y el primero, sin contexto,
-    # producía un falso positivo).
+    # (bug corregido en el Sprint 4: antes, displayName == alias.value
+    # se evaluaba como dos candidatos independientes y el primero, sin
+    # contexto, producía un falso positivo).
     value_context: dict = {}
     for alias_entry in entity.aliases:
         if isinstance(alias_entry, dict):
@@ -54,11 +69,11 @@ def _matches_entity(text_lower: str, entity: Entity) -> bool:
     value_context.setdefault(entity.display_name.lower(), None)
 
     for value_lower, context_words in value_context.items():
-        if value_lower not in text_lower:
+        if not _contains_word(text_lower, value_lower):
             continue
 
         if context_words:
-            if any(cw.lower() in text_lower for cw in context_words):
+            if any(_contains_word(text_lower, cw.lower()) for cw in context_words):
                 return True
             # El texto candidato apareció pero ninguna palabra de
             # contexto requerido está presente -> no se confirma la
