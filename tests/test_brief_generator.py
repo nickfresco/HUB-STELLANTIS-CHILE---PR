@@ -110,8 +110,33 @@ def test_unknown_event_type_raises_clear_error(pipeline):
 
 def test_audit_trail_includes_rulebook_version(pipeline):
     brief = pipeline.run(_load_fixture("recall_jeep_chile.json"))
-    assert brief["audit"]["priority_rulebook_version"] == "0.2.0"
-    assert brief["audit"]["recommendation_rulebook_version"] == "0.2.0"
+    assert brief["audit"]["priority_rulebook_version"] == "0.3.0"
+    assert brief["audit"]["recommendation_rulebook_version"] == "0.3.0"
+
+
+# ---------------------------------------------------------------------
+# Sprint 7 (P2): alianzas comerciales de Stellantis (PR-016)
+# ---------------------------------------------------------------------
+
+def test_stellantis_alliance_triggers_pr016_low(pipeline):
+    brief = pipeline.run(_load_fixture("alianza_stellantis_free2move.json"))
+    assert brief["priority"] == "LOW"
+    assert "PR-016" in brief["rules_triggered"]["priority_rules"]
+    assert "SinAccionInmediata" in brief["recommendations"]
+    assert "org.stellantis" not in brief["organizations"]  # se expone display name, no canonicalId
+    assert "Stellantis" in brief["organizations"]
+
+
+def test_alliance_without_stellantis_org_does_not_trigger_pr016(pipeline):
+    """PR-016 exige explícitamente organizations contiene org.stellantis
+    — una alianza comercial sin mención de Stellantis no debe activarla."""
+    brief = pipeline.run({
+        "title": "Toyota anuncia una alianza estratégica con una empresa de baterías",
+        "summary": "Toyota confirmó un acuerdo comercial para asegurar suministro de baterías.",
+        "source_id": "source.reuters",
+        "event_type": "AlianzaOAcuerdoComercial",
+    })
+    assert "PR-016" not in brief["rules_triggered"]["priority_rules"]
 
 
 # ---------------------------------------------------------------------
