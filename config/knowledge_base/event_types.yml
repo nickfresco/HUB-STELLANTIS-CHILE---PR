@@ -1,0 +1,30 @@
+# ============================================================
+# event_types.yml — v1.0.0
+# Catálogo de EventType (Parte 2B, sección 5.4)
+# Se materializa aquí por primera vez como archivo propio; hasta ahora
+# solo existía documentado en la especificación funcional.
+# ============================================================
+version: "1.0.0"
+
+event_types:
+  - id: Lanzamiento
+  - id: ActualizacionDeProducto
+  - id: Recall
+  - id: InvestigacionOficial
+  - id: DenunciaOControversia
+  - id: ResultadoDeSeguridad
+  - id: InnovacionTecnologica
+  - id: AlianzaOAcuerdoComercial
+  - id: ResultadoFinanciero
+  - id: Campana
+  - id: CoberturaEditorial
+  - id: PremioOReconocimiento
+  - id: ResultadoDeportivo
+  - id: IniciativaESG
+  - id: TendenciaDeMercado
+  - id: DeclaracionOVoceria
+  - id: RegulacionOPoliticaPublica
+  # TODO (deuda técnica): "Comparativa" (PR-014) y "Test Drive" (PR-003)
+  # no tienen un valor correspondiente en este catálogo. No se agregan
+  # aquí porque ampliar el catálogo es una decisión de negocio, no de
+  # implementación. Las reglas que los usan quedan PENDING.

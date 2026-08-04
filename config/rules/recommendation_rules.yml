@@ -1,0 +1,223 @@
+# ============================================================
+# recommendation_rules.yml — v0.2.0
+# Mismas condiciones que priority_rules.yml (misma "regla de negocio"
+# original, PR-XXX), pero como Rulebook independiente que resuelve
+# RecommendationAction en vez de PriorityLevel — consistente con la
+# separación Priority Engine / Recommendation Engine (Parte 2A) y con
+# la estrategia accumulate_all del Rule Engine.
+#
+# Todo valor de "recommendations" corresponde exactamente a uno de los
+# 9 valores del catálogo RecommendationAction (Parte 2B, sección 5.6).
+# Donde el documento original no tenía una recomendación de negocio
+# explícita, se dejó la asignación más conservadora (SinAccionInmediata)
+# marcada con "todo" para confirmación — no se inventó contenido nuevo,
+# se resolvió la ausencia de dato de la forma menos intrusiva posible,
+# tal como se acordó.
+# ============================================================
+version: "0.2.0"
+
+recommendation_rules:
+
+  - id: PR-001
+    enabled: true
+    condition:
+      and:
+        - field: brands
+          operator: exists
+        - field: event_type
+          operator: equals
+          value: Recall
+        - field: market_impact
+          operator: in
+          value: [Chile]
+    outcome:
+      recommendations: [EvaluarComunicado, EvaluarQyA]
+
+  - id: PR-002
+    enabled: true
+    condition:
+      and:
+        - field: brands
+          operator: exists
+        - field: event_type
+          operator: in
+          value: [Recall, DenunciaOControversia, ResultadoDeSeguridad]
+        - field: market_impact
+          operator: not_exists
+    outcome:
+      recommendations: [MonitorearEvolucion]
+
+  - id: PR-003
+    enabled: false
+    condition:
+      and:
+        - field: brands
+          operator: exists
+        - field: event_type
+          operator: equals
+          value: CoberturaEditorial
+        - field: tone
+          operator: equals
+          value: positive
+    outcome:
+      recommendations: [EvaluarOportunidadDeContenido]
+    todo: >
+      Mapeo tentativo — el original decía "recomendar continuar
+      estrategia de Test Drive", concepto sin valor exacto en el
+      catálogo. Confirmar con negocio. PENDING junto con la regla de
+      prioridad equivalente.
+
+  - id: PR-004
+    enabled: true
+    condition:
+      and:
+        - field: brands
+          operator: exists
+        - field: event_type
+          operator: equals
+          value: Lanzamiento
+    outcome:
+      recommendations: [SinAccionInmediata]
+    todo: >
+      El original no tenía una línea de "recomendar X" — solo pasos de
+      consolidación de cobertura (ahora Analysis Checklist). Se asumió
+      SinAccionInmediata. Confirmar con negocio.
+
+  - id: PR-005
+    enabled: false
+    condition:
+      and:
+        - field: brands
+          operator: exists
+        - field: event_type
+          operator: equals
+          value: Campana
+    outcome:
+      recommendations: [SinAccionInmediata]
+    todo: "PENDING junto con la regla de prioridad equivalente."
+
+  - id: PR-006
+    enabled: false
+    condition:
+      and:
+        - field: organizations
+          operator: exists
+        - field: _unsupported_cross_story_check
+          operator: exists
+    outcome:
+      recommendations: [EvaluarPlanDeDifusion]
+    todo: "PENDING junto con la regla de prioridad equivalente (capacidad cross-Story no soportada)."
+
+  - id: PR-007
+    enabled: false
+    condition:
+      and:
+        - field: _undefined_engagement_threshold
+          operator: exists
+    outcome:
+      recommendations: [EvaluarComunicado]
+    todo: "PENDING junto con la regla de prioridad equivalente."
+
+  - id: PR-008
+    enabled: true
+    condition:
+      and:
+        - field: brands
+          operator: exists
+        - field: event_type
+          operator: equals
+          value: PremioOReconocimiento
+    outcome:
+      recommendations: [EvaluarPlanDeDifusion]
+    todo: "Mapeo aproximado de 'evaluar adaptación local' — confirmar con negocio."
+
+  - id: PR-009
+    enabled: false
+    condition:
+      and:
+        - field: competitors
+          operator: exists
+        - field: event_type
+          operator: equals
+          value: Campana
+        - field: _person_role_not_modeled
+          operator: exists
+    outcome:
+      recommendations: [CompartirAnalisisCompetitivo]
+    todo: "PENDING junto con la regla de prioridad equivalente."
+
+  - id: PR-010
+    enabled: true
+    condition:
+      and:
+        - field: competitors
+          operator: exists
+        - field: event_type
+          operator: equals
+          value: Lanzamiento
+    outcome:
+      recommendations: [MonitorearEvolucion]
+    todo: "El original no tenía recomendación explícita; se asumió MonitorearEvolucion. Confirmar con negocio."
+
+  - id: PR-011
+    enabled: true
+    condition:
+      and:
+        - field: organizations
+          operator: in
+          value: [org.anac]
+        - field: event_type
+          operator: in
+          value: [ResultadoFinanciero, TendenciaDeMercado]
+    outcome:
+      recommendations: [SinAccionInmediata]
+    todo: >
+      El original decía "compartir resumen", sin valor de catálogo
+      equivalente — se asumió que el contenido fluye por el Radar del
+      Daily Brief sin acción distintiva adicional. Confirmar con negocio.
+
+  - id: PR-012
+    enabled: true
+    condition:
+      field: event_type
+      operator: equals
+      value: RegulacionOPoliticaPublica
+    outcome:
+      recommendations: [SinAccionInmediata]
+    todo: "Mismo caso que PR-011 ('compartir con cliente' sin valor de catálogo equivalente). Confirmar con negocio."
+
+  - id: PR-013
+    enabled: true
+    condition:
+      and:
+        - field: organizations
+          operator: in
+          value: [org.latin_ncap]
+        - field: event_type
+          operator: equals
+          value: ResultadoDeSeguridad
+    outcome:
+      recommendations: [EvaluarQyA]
+    todo: >
+      El original decía "alertar", ambiguo entre EvaluarQyA,
+      InformarBrandManager o EvaluarComiteDeCrisis. Se eligió la opción
+      intermedia. Requiere confirmación explícita de negocio antes de
+      considerarse definitivo (no solo un ajuste menor).
+
+  - id: PR-014
+    enabled: false
+    condition:
+      field: _event_type_comparativa_not_in_catalog
+      operator: exists
+    outcome:
+      recommendations: [SinAccionInmediata]
+    todo: "PENDING junto con la regla de prioridad equivalente."
+
+  - id: PR-015
+    enabled: false
+    condition:
+      field: _persons_catalog_not_implemented
+      operator: exists
+    outcome:
+      recommendations: [SinAccionInmediata]
+    todo: "PENDING junto con la regla de prioridad equivalente (persons.yml no existe)."

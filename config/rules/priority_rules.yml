@@ -1,0 +1,281 @@
+# ============================================================
+# priority_rules.yml — v0.2.0
+# Traducción del Priority Rulebook v0.2 (documento revisado) al
+# esquema del Rule Engine genérico.
+#
+# priority_weight: HIGH=3, MEDIUM=2, LOW=1 (usado solo para el
+# desempate de single_winner — no es un campo de negocio).
+#
+# 8 reglas READY (enabled: true) / 7 reglas PENDING (enabled: false),
+# cada PENDING con su dependencia declarada explícitamente en "todo",
+# conforme a lo acordado: no se inventa ninguna regla nueva, solo se
+# traduce lo ya definido y se documenta lo que falta.
+# ============================================================
+version: "0.2.0"
+
+priority_rules:
+
+  - id: PR-001
+    description: "Recall Stellantis con impacto o repercusión en Chile"
+    enabled: true
+    priority_weight: 3
+    condition:
+      and:
+        - field: brands
+          operator: exists
+        - field: event_type
+          operator: equals
+          value: Recall
+        - field: market_impact
+          operator: in
+          value: [Chile]
+    outcome:
+      priority: HIGH
+    todo: >
+      'market_impact' es un campo de entrada explícito (proxy manual)
+      mientras no se resuelva el mapeo formal de Story.market (deuda
+      técnica registrada en la revisión del Rulebook v0.1, Riesgo B).
+      Se asume que "campaña preventiva" es sinónimo de Recall a falta
+      de un EventType propio — confirmar con negocio.
+
+  - id: PR-002
+    description: "Problema técnico/reputacional de marca Stellantis, sin impacto confirmado en Chile"
+    enabled: true
+    priority_weight: 2
+    condition:
+      and:
+        - field: brands
+          operator: exists
+        - field: event_type
+          operator: in
+          value: [Recall, DenunciaOControversia, ResultadoDeSeguridad]
+        - field: market_impact
+          operator: not_exists
+    outcome:
+      priority: MEDIUM
+    todo: >
+      El documento original decía "problema técnico o reputacional"
+      sin precisar qué EventType cubre. Se asumió el conjunto
+      [Recall, DenunciaOControversia, ResultadoDeSeguridad] por ser el
+      más amplio consistente con el caso origen (PureTech). Confirmar
+      alcance con negocio — puede requerir ajuste.
+
+  - id: PR-003
+    description: "Test Drive con cobertura de tono positivo"
+    enabled: false
+    priority_weight: 2
+    condition:
+      and:
+        - field: brands
+          operator: exists
+        - field: event_type
+          operator: equals
+          value: CoberturaEditorial
+        - field: tone
+          operator: equals
+          value: positive
+    outcome:
+      priority: MEDIUM
+    todo: >
+      PENDING. Depende de Sentiment Analysis, capacidad no implementada
+      (el campo 'tone' del input es solo un placeholder manual para
+      pruebas, no una detección real). Además "Test Drive" no tiene
+      EventType propio en el catálogo; se usó CoberturaEditorial como
+      aproximación tentativa. No activar sin resolver ambos puntos.
+
+  - id: PR-004
+    description: "Lanzamiento oficial de marca Stellantis"
+    enabled: true
+    priority_weight: 2
+    condition:
+      and:
+        - field: brands
+          operator: exists
+        - field: event_type
+          operator: equals
+          value: Lanzamiento
+    outcome:
+      priority: MEDIUM
+
+  - id: PR-005
+    description: "Campaña Always On (historia de marca / efeméride / patrimonio / lifestyle)"
+    enabled: false
+    priority_weight: 1
+    condition:
+      and:
+        - field: brands
+          operator: exists
+        - field: event_type
+          operator: equals
+          value: Campana
+    outcome:
+      priority: LOW
+    todo: >
+      PENDING. "Efeméride", "patrimonio" y "lifestyle" no tienen
+      mapeo definido a EventType/Category — se dejó solo Campana como
+      aproximación parcial, insuficiente para representar las 4
+      condiciones originales (probablemente OR entre sí). Requiere
+      decisión de negocio antes de habilitar.
+
+  - id: PR-006
+    description: "Comunicado internacional de Stellantis Media sin adaptación local"
+    enabled: false
+    priority_weight: 1
+    condition:
+      and:
+        - field: organizations
+          operator: exists
+        - field: _unsupported_cross_story_check
+          operator: exists
+    outcome:
+      priority: LOW
+    todo: >
+      PENDING (bloqueada, no solo por falta de dato sino de
+      capacidad). "Sin adaptación local" requiere comparar contra la
+      existencia de otra Story relacionada — el modelo de Fact actual
+      evalúa una noticia a la vez, no relaciones entre noticias. La
+      condición incluye deliberadamente un campo inexistente
+      ('_unsupported_cross_story_check') para que la regla nunca
+      pueda coincidir por accidente si alguien la habilita sin
+      resolver esto primero.
+
+  - id: PR-007
+    description: "Oportunidad espontánea de alto potencial de conversación"
+    enabled: false
+    priority_weight: 2
+    condition:
+      and:
+        - field: _undefined_engagement_threshold
+          operator: exists
+    outcome:
+      priority: MEDIUM
+    todo: >
+      PENDING. "Alto potencial de conversación" es un criterio
+      subjetivo sin proxy medible definido en el modelo actual (¿volumen
+      de réplicas? ¿alcance de la fuente?). Placeholder deliberadamente
+      no evaluable hasta definir esa métrica con negocio.
+
+  - id: PR-008
+    description: "Premio internacional a marca Stellantis"
+    enabled: true
+    priority_weight: 1
+    condition:
+      and:
+        - field: brands
+          operator: exists
+        - field: event_type
+          operator: equals
+          value: PremioOReconocimiento
+    outcome:
+      priority: LOW
+
+  - id: PR-009
+    description: "Activación PR experiencial de la competencia"
+    enabled: false
+    priority_weight: 2
+    condition:
+      and:
+        - field: competitors
+          operator: exists
+        - field: event_type
+          operator: equals
+          value: Campana
+        - field: _person_role_not_modeled
+          operator: exists
+    outcome:
+      priority: MEDIUM
+    todo: >
+      PENDING. Person no tiene atributo de rol (prensa/influencer/
+      embajador) en el modelo actual — no existe forma de distinguir
+      "participación de prensa, influencers o embajadores". Placeholder
+      no evaluable hasta agregar ese atributo al modelo de dominio.
+
+  - id: PR-010
+    description: "Lanzamiento de modelo de la competencia"
+    enabled: true
+    priority_weight: 1
+    condition:
+      and:
+        - field: competitors
+          operator: exists
+        - field: event_type
+          operator: equals
+          value: Lanzamiento
+    outcome:
+      priority: LOW
+
+  - id: PR-011
+    description: "Publicación oficial de resultados ANAC"
+    enabled: true
+    priority_weight: 2
+    condition:
+      and:
+        - field: organizations
+          operator: in
+          value: [org.anac]
+        - field: event_type
+          operator: in
+          value: [ResultadoFinanciero, TendenciaDeMercado]
+    outcome:
+      priority: MEDIUM
+
+  - id: PR-012
+    description: "Cambio regulatorio (nueva ley, incentivo o normativa)"
+    enabled: true
+    priority_weight: 2
+    condition:
+      field: event_type
+      operator: equals
+      value: RegulacionOPoliticaPublica
+    outcome:
+      priority: MEDIUM
+
+  - id: PR-013
+    description: "Resultado Latin NCAP de modelo comercializado en la región"
+    enabled: true
+    priority_weight: 3
+    condition:
+      and:
+        - field: organizations
+          operator: in
+          value: [org.latin_ncap]
+        - field: event_type
+          operator: equals
+          value: ResultadoDeSeguridad
+    outcome:
+      priority: HIGH
+    todo: >
+      No se restringió explícitamente a marcas Stellantis, replicando
+      la ambigüedad ya señalada en la revisión del documento original
+      (el texto no lo restringe). Confirmar con negocio si debe acotarse.
+
+  - id: PR-014
+    description: "Comparativa entre modelos"
+    enabled: false
+    priority_weight: 1
+    condition:
+      field: _event_type_comparativa_not_in_catalog
+      operator: exists
+    outcome:
+      priority: LOW
+    todo: >
+      PENDING. "Comparativa" no existe como valor en event_types.yml.
+      Requiere decisión de negocio: ¿se agrega al catálogo, o se
+      remapea a un EventType existente (ej. CoberturaEditorial)?
+
+  - id: PR-015
+    description: "Entrevista a vocero oficial, Brand Manager o CEO"
+    enabled: false
+    priority_weight: 1
+    condition:
+      field: _persons_catalog_not_implemented
+      operator: exists
+    outcome:
+      priority: LOW
+    todo: >
+      PENDING — hallazgo nuevo durante la implementación: Person nunca
+      se materializó como archivo de Knowledge Base (no existe
+      persons.yml; solo estaba definido conceptualmente en la Parte 2B).
+      No hay forma de detectar "vocero oficial / Brand Manager / CEO"
+      sin ese catálogo. Se requiere Sprint de Knowledge Base adicional
+      para Person antes de habilitar esta regla.

@@ -1,0 +1,120 @@
+# ============================================================
+# sources.yml — v1.1.0
+# ============================================================
+version: "1.1.0"
+
+sources:
+  - canonicalId: source.el_mercurio
+    displayName: El Mercurio
+    tier: "Tier 1"
+    type: "Medio general"
+    country: Chile
+    acquisition_method: RSS
+  - canonicalId: source.emol
+    displayName: Emol
+    tier: "Tier 1"
+    type: "Medio general"
+    country: Chile
+    acquisition_method: RSS
+  - canonicalId: source.biobio_chile
+    displayName: BioBío Chile
+    tier: "Tier 1"
+    type: "Medio general"
+    country: Chile
+    acquisition_method: RSS
+  - canonicalId: source.la_tercera
+    displayName: La Tercera
+    tier: "Tier 1"
+    type: "Medio general"
+    country: Chile
+    acquisition_method: RSS
+  - canonicalId: source.tvn
+    displayName: TVN
+    tier: "Tier 1"
+    type: "Medio general"
+    country: Chile
+    acquisition_method: RSS
+  - canonicalId: source.diario_financiero
+    displayName: Diario Financiero
+    tier: "Tier 2"
+    type: "Medio general"
+    country: Chile
+    acquisition_method: RSS
+  - canonicalId: source.diario_estrategia
+    displayName: Diario Estrategia
+    tier: "Tier 2"
+    type: "Medio general"
+    country: Chile
+    acquisition_method: RSS
+  - canonicalId: source.radio_agricultura
+    displayName: Radio Agricultura
+    tier: "Tier 2"
+    type: "Medio general"
+    country: Chile
+    acquisition_method: "Google Alerts"
+  - canonicalId: source.g5_noticias
+    displayName: G5 Noticias
+    tier: "Tier 3"
+    type: "Medio general"
+    country: Chile
+    acquisition_method: "Google Alerts"
+  - canonicalId: source.autocosmos
+    displayName: Autocosmos
+    tier: "Especializado"
+    type: "Medio especializado"
+    country: Chile
+    acquisition_method: "Google Alerts"
+  - canonicalId: source.rutamotor
+    displayName: Rutamotor
+    tier: "Especializado"
+    type: "Medio especializado"
+    country: Chile
+    acquisition_method: "Google Alerts"
+  - canonicalId: source.altorque
+    displayName: Altorque
+    tier: "Especializado"
+    type: "Medio especializado"
+    country: Chile
+    acquisition_method: "Google Alerts"
+  - canonicalId: source.estilo_motor
+    displayName: Estilo Motor
+    tier: "Especializado"
+    type: "Medio especializado"
+    country: Chile
+    acquisition_method: "Google Alerts"
+  - canonicalId: source.anac_oficial
+    displayName: ANAC (sitio oficial)
+    tier: "Oficial"
+    type: "Organismo oficial"
+    country: Chile
+    acquisition_method: "Official Website"
+  - canonicalId: source.sernac_oficial
+    displayName: SERNAC (sitio oficial)
+    tier: "Oficial"
+    type: "Organismo oficial"
+    country: Chile
+    acquisition_method: "Official Website"
+  - canonicalId: source.latin_ncap_oficial
+    displayName: Latin NCAP (sitio oficial)
+    tier: "Oficial"
+    type: "Organismo oficial"
+    country: Internacional
+    acquisition_method: "Official Website"
+  - canonicalId: source.stellantis_chile
+    displayName: Stellantis Chile (sitio corporativo)
+    tier: "Corporativo"
+    type: "Sitio corporativo"
+    country: Chile
+    acquisition_method: "Official Website"
+  - canonicalId: source.stellantis_media_global
+    displayName: Stellantis Media (global)
+    tier: "Corporativo"
+    type: "Sitio corporativo"
+    country: Global
+    acquisition_method: "Official Website"
+  - canonicalId: source.reuters
+    displayName: Reuters
+    tier: "Agencia"
+    type: "Agencia internacional"
+    country: Internacional
+    acquisition_method: RSS

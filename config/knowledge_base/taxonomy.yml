@@ -1,0 +1,112 @@
+# ============================================================
+# taxonomy.yml — v1.0.0 (sin cambios respecto a la versión aprobada)
+# Catálogo de Category y Subcategory
+# ============================================================
+version: "1.0.0"
+
+categories:
+  - id: category.producto
+    displayName: Producto
+    subcategories:
+      - id: subcategory.producto.lanzamiento_de_modelo
+        displayName: Lanzamiento de modelo
+      - id: subcategory.producto.actualizacion_de_modelo
+        displayName: Actualización de modelo
+      - id: subcategory.producto.especificaciones_tecnicas
+        displayName: Especificaciones técnicas
+      - id: subcategory.producto.descontinuacion
+        displayName: Descontinuación
+  - id: category.competencia
+    displayName: Competencia
+    subcategories:
+      - id: subcategory.competencia.lanzamiento_de_competidor
+        displayName: Lanzamiento de competidor
+      - id: subcategory.competencia.movimiento_estrategico
+        displayName: Movimiento estratégico
+      - id: subcategory.competencia.resultado_financiero_de_competidor
+        displayName: Resultado financiero de competidor
+  - id: category.industria
+    displayName: Industria
+    subcategories:
+      - id: subcategory.industria.ventas_y_participacion_de_mercado
+        displayName: Ventas y participación de mercado
+      - id: subcategory.industria.cadena_de_suministro
+        displayName: Cadena de suministro
+      - id: subcategory.industria.empleo_automotriz
+        displayName: Empleo automotriz
+      - id: subcategory.industria.postventa
+        displayName: Postventa
+  - id: category.tecnologia
+    displayName: Tecnología
+    subcategories:
+      - id: subcategory.tecnologia.innovacion_general
+        displayName: Innovación general
+      - id: subcategory.tecnologia.conectividad_y_software
+        displayName: Conectividad y software
+      - id: subcategory.tecnologia.sistemas_adas
+        displayName: Sistemas ADAS
+  - id: category.electrificacion
+    displayName: Electrificación
+    subcategories:
+      - id: subcategory.electrificacion.producto_electrico_o_hibrido
+        displayName: Producto eléctrico o híbrido
+      - id: subcategory.electrificacion.infraestructura_de_carga
+        displayName: Infraestructura de carga
+      - id: subcategory.electrificacion.incentivos_y_politica_ev
+        displayName: Incentivos y política EV
+  - id: category.regulacion
+    displayName: Regulación
+    subcategories:
+      - id: subcategory.regulacion.aranceles
+        displayName: Aranceles
+      - id: subcategory.regulacion.normas_de_emision
+        displayName: Normas de emisión
+      - id: subcategory.regulacion.investigacion_regulatoria
+        displayName: Investigación regulatoria
+      - id: subcategory.regulacion.homologacion
+        displayName: Homologación
+  - id: category.reputacion
+    displayName: Reputación
+    subcategories:
+      - id: subcategory.reputacion.recall
+        displayName: Recall
+      - id: subcategory.reputacion.denuncia_de_consumidor
+        displayName: Denuncia de consumidor
+      - id: subcategory.reputacion.demanda_colectiva
+        displayName: Demanda colectiva
+      - id: subcategory.reputacion.falla_de_seguridad
+        displayName: Falla de seguridad
+  - id: category.marketing
+    displayName: Marketing
+    subcategories:
+      - id: subcategory.marketing.campana_publicitaria
+        displayName: Campaña publicitaria
+      - id: subcategory.marketing.patrocinio
+        displayName: Patrocinio
+      - id: subcategory.marketing.voceria_de_marca
+        displayName: Vocería de marca
+  - id: category.earned_media
+    displayName: Earned Media
+    subcategories:
+      - id: subcategory.earned_media.cobertura_editorial_positiva
+        displayName: Cobertura editorial positiva
+      - id: subcategory.earned_media.premio_o_reconocimiento
+        displayName: Premio o reconocimiento
+      - id: subcategory.earned_media.resena_de_producto
+        displayName: Reseña de producto
+  - id: category.motorsport
+    displayName: Motorsport
+    subcategories:
+      - id: subcategory.motorsport.resultado_de_competencia
+        displayName: Resultado de competencia
+      - id: subcategory.motorsport.anuncio_de_equipo_o_piloto
+        displayName: Anuncio de equipo o piloto
+  - id: category.sustentabilidad
+    displayName: Sustentabilidad
+    subcategories:
+      - id: subcategory.sustentabilidad.iniciativa_esg
+        displayName: Iniciativa ESG
+      - id: subcategory.sustentabilidad.reporte_de_sustentabilidad
+        displayName: Reporte de sustentabilidad
+      - id: subcategory.sustentabilidad.alianza_ambiental
+        displayName: Alianza ambiental

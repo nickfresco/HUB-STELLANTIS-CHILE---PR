@@ -1,0 +1,75 @@
+# ============================================================
+# brands.yml — v1.1.0
+# Catálogo de Brand — marcas del grupo Stellantis
+# ============================================================
+version: "1.1.0"
+
+brands:
+  - canonicalId: brand.peugeot
+    displayName: Peugeot
+    aliases:
+      - value: "El León"
+        disambiguationContext: ["auto", "vehículo", "modelo", "Stellantis"]
+    market: ["Chile"]
+    monitoring_priority: High
+    active: true
+
+  - canonicalId: brand.citroen
+    displayName: Citroën
+    aliases:
+      - value: "Citroen"
+    market: ["Chile"]
+    monitoring_priority: High
+    active: true
+
+  - canonicalId: brand.opel
+    displayName: Opel
+    aliases: []
+    market: ["Chile"]
+    monitoring_priority: Medium
+    active: true
+
+  - canonicalId: brand.ds_automobiles
+    displayName: DS Automobiles
+    aliases:
+      - value: "DS"
+        disambiguationContext: ["auto", "vehículo", "modelo", "Stellantis", "Automobiles"]
+    market: ["Chile"]
+    monitoring_priority: Low
+    active: true
+
+  - canonicalId: brand.fiat
+    displayName: Fiat
+    aliases:
+      - value: "FIAT"
+      - value: "Fiat Chrysler"
+    market: ["Chile"]
+    monitoring_priority: Medium
+    active: true
+
+  - canonicalId: brand.jeep
+    displayName: Jeep
+    aliases:
+      - value: "Jeep"
+        disambiguationContext: ["Wrangler", "Compass", "Renegade", "Grand Cherokee", "Stellantis", "4x4"]
+    market: ["Chile"]
+    monitoring_priority: High
+    active: true
+
+  - canonicalId: brand.ram
+    displayName: RAM
+    aliases:
+      - value: "Ram Trucks"
+      - value: "RAM"
+        disambiguationContext: ["camioneta", "pickup", "vehículo", "Stellantis"]
+    market: ["Chile"]
+    monitoring_priority: Medium
+    active: true
+
+  - canonicalId: brand.leapmotor
+    displayName: Leapmotor
+    aliases:
+      - value: "Leap Motor"
+    market: ["Chile"]
+    monitoring_priority: High
+    active: true

@@ -1,0 +1,48 @@
+# ============================================================
+# models.yml — v1.1.0
+# Catálogo de Product (type: Modelo)
+# ============================================================
+version: "1.1.0"
+
+models:
+  - canonicalId: product.leapmotor_c10
+    displayName: Leapmotor C10
+    type: Modelo
+    aliases: []
+    active: true
+  - canonicalId: product.leapmotor_b10
+    displayName: Leapmotor B10
+    type: Modelo
+    aliases: []
+    active: true
+  - canonicalId: product.peugeot_polygon_concept
+    displayName: Peugeot Polygon Concept
+    type: Modelo
+    aliases: []
+    active: true
+  - canonicalId: product.fiat_topolino
+    displayName: Fiat Topolino
+    type: Modelo
+    aliases: []
+    active: true
+  - canonicalId: product.citroen_berlingo
+    displayName: Citroën Berlingo
+    type: Modelo
+    aliases:
+      - value: "Berlingo"
+    active: true
+  - canonicalId: product.jeep_wrangler
+    displayName: Jeep Wrangler
+    type: Modelo
+    aliases: []
+    active: true
+  - canonicalId: product.jeep_renegade
+    displayName: Jeep Renegade
+    type: Modelo
+    aliases: []
+    active: true
+  - canonicalId: product.ram_2500
+    displayName: RAM 2500
+    type: Modelo
+    aliases: []
+    active: true

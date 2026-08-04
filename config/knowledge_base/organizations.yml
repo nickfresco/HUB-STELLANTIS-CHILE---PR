@@ -1,0 +1,56 @@
+# ============================================================
+# organizations.yml — v1.1.0
+# ============================================================
+version: "1.1.0"
+
+organizations:
+  - canonicalId: org.anac
+    displayName: ANAC
+    aliases:
+      - value: "Asociación Nacional Automotriz de Chile"
+    organization_type: "Industry Association"
+    active: true
+  - canonicalId: org.cavem
+    displayName: CAVEM
+    aliases: []
+    organization_type: "Industry Association"
+    active: true
+  - canonicalId: org.sernac
+    displayName: SERNAC
+    aliases:
+      - value: "Servicio Nacional del Consumidor"
+    organization_type: "Regulator"
+    active: true
+  - canonicalId: org.ministerio_transportes
+    displayName: Ministerio de Transportes
+    aliases:
+      - value: "MTT"
+    organization_type: "Government"
+    active: true
+  - canonicalId: org.ministerio_energia
+    displayName: Ministerio de Energía
+    aliases: []
+    organization_type: "Government"
+    active: true
+  - canonicalId: org.latin_ncap
+    displayName: Latin NCAP
+    aliases: []
+    organization_type: "Safety Organization"
+    active: true
+  - canonicalId: org.euro_ncap
+    displayName: Euro NCAP
+    aliases: []
+    organization_type: "Safety Organization"
+    active: true
+  - canonicalId: org.nhtsa
+    displayName: NHTSA
+    aliases:
+      - value: "National Highway Traffic Safety Administration"
+    organization_type: "Regulator"
+    active: true
+  - canonicalId: org.iihs
+    displayName: IIHS
+    aliases:
+      - value: "Insurance Institute for Highway Safety"
+    organization_type: "Safety Organization"
+    active: true

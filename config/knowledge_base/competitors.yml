@@ -1,0 +1,161 @@
+# ============================================================
+# competitors.yml — v1.1.0
+# ============================================================
+version: "1.1.0"
+
+competitors:
+  - canonicalId: competitor.toyota
+    displayName: Toyota
+    aliases: []
+    competitive_priority: High
+    active: true
+  - canonicalId: competitor.hyundai
+    displayName: Hyundai
+    aliases: []
+    competitive_priority: High
+    active: true
+  - canonicalId: competitor.kia
+    displayName: KIA
+    aliases: []
+    competitive_priority: High
+    active: true
+  - canonicalId: competitor.byd
+    displayName: BYD
+    aliases: []
+    competitive_priority: High
+    active: true
+  - canonicalId: competitor.geely
+    displayName: Geely
+    aliases: []
+    competitive_priority: High
+    active: true
+  - canonicalId: competitor.chery
+    displayName: Chery
+    aliases: []
+    competitive_priority: High
+    active: true
+  - canonicalId: competitor.omoda
+    displayName: Omoda
+    aliases: []
+    competitive_priority: Medium
+    active: true
+  - canonicalId: competitor.jaecoo
+    displayName: Jaecoo
+    aliases: []
+    competitive_priority: Medium
+    active: true
+  - canonicalId: competitor.gwm
+    displayName: GWM
+    aliases:
+      - value: "Great Wall Motors"
+    competitive_priority: High
+    active: true
+  - canonicalId: competitor.mg
+    displayName: MG
+    aliases: []
+    competitive_priority: High
+    active: true
+  - canonicalId: competitor.ford
+    displayName: Ford
+    aliases: []
+    competitive_priority: Medium
+    active: true
+  - canonicalId: competitor.chevrolet
+    displayName: Chevrolet
+    aliases: []
+    competitive_priority: High
+    active: true
+  - canonicalId: competitor.nissan
+    displayName: Nissan
+    aliases: []
+    competitive_priority: Medium
+    active: true
+  - canonicalId: competitor.volkswagen
+    displayName: Volkswagen
+    aliases:
+      - value: "VW"
+    competitive_priority: Medium
+    active: true
+  - canonicalId: competitor.renault
+    displayName: Renault
+    aliases: []
+    competitive_priority: Medium
+    active: true
+  - canonicalId: competitor.honda
+    displayName: Honda
+    aliases: []
+    competitive_priority: Medium
+    active: true
+  - canonicalId: competitor.tesla
+    displayName: Tesla
+    aliases: []
+    competitive_priority: Low
+    active: true
+  - canonicalId: competitor.volvo
+    displayName: Volvo Cars
+    aliases:
+      - value: "Volvo"
+        disambiguationContext: ["auto", "vehículo", "modelo", "SUV"]
+    competitive_priority: Low
+    active: true
+  - canonicalId: competitor.bmw
+    displayName: BMW
+    aliases: []
+    competitive_priority: Low
+    active: true
+  - canonicalId: competitor.mercedes_benz
+    displayName: Mercedes-Benz
+    aliases:
+      - value: "Mercedes"
+    competitive_priority: Low
+    active: true
+  - canonicalId: competitor.audi
+    displayName: Audi
+    aliases: []
+    competitive_priority: Low
+    active: true
+  - canonicalId: competitor.suzuki
+    displayName: Suzuki
+    aliases: []
+    competitive_priority: High
+    active: true
+  - canonicalId: competitor.changan
+    displayName: Changan
+    aliases: []
+    competitive_priority: High
+    active: true
+  - canonicalId: competitor.mitsubishi
+    displayName: Mitsubishi
+    aliases: []
+    competitive_priority: Medium
+    active: true
+  - canonicalId: competitor.mazda
+    displayName: Mazda
+    aliases: []
+    competitive_priority: Medium
+    active: true
+  - canonicalId: competitor.deepal
+    displayName: Deepal
+    aliases: []
+    competitive_priority: Medium
+    active: true
+  - canonicalId: competitor.baic
+    displayName: BAIC
+    aliases: []
+    competitive_priority: Medium
+    active: true
+  - canonicalId: competitor.saic
+    displayName: SAIC
+    aliases: []
+    competitive_priority: Medium
+    active: true
+  - canonicalId: competitor.maxus
+    displayName: Maxus
+    aliases: []
+    competitive_priority: Medium
+    active: true
+  - canonicalId: competitor.subaru
+    displayName: Subaru
+    aliases: []
+    competitive_priority: Medium
+    active: true

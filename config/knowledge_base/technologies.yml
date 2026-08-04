@@ -1,0 +1,40 @@
+# ============================================================
+# technologies.yml — v1.1.0
+# Catálogo de Product (type: Plataforma | Motor | Tecnología | ADAS | Batería)
+# ============================================================
+version: "1.1.0"
+
+technologies:
+  - canonicalId: product.puretech
+    displayName: PureTech
+    type: Motor
+    aliases:
+      - value: "Puretech"
+    active: true
+  - canonicalId: product.stla_small
+    displayName: STLA Small
+    type: Plataforma
+    aliases: []
+    active: true
+  - canonicalId: product.stla_medium
+    displayName: STLA Medium
+    type: Plataforma
+    aliases: []
+    active: true
+  - canonicalId: product.stla_large
+    displayName: STLA Large
+    type: Plataforma
+    aliases: []
+    active: true
+  - canonicalId: product.stla_frame
+    displayName: STLA Frame
+    type: Plataforma
+    aliases: []
+    active: true
+  - canonicalId: product.takata_airbags
+    displayName: Airbags Takata
+    type: Tecnología
+    aliases:
+      - value: "Takata"
+        disambiguationContext: ["airbag", "recall", "vehículo", "seguridad"]
+    active: true
