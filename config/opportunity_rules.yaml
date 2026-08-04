@@ -1,0 +1,148 @@
+# ============================================================
+# opportunity_rules.yaml — v1.0.0
+#
+# Rulebook del Opportunity Engine. Usa exactamente el mismo esquema y
+# el mismo motor genérico (rule_engine/) que priority_rules.yml y
+# recommendation_rules.yml — condición determinística, sin IA, cada
+# regla auditable por separado.
+#
+# Diferencia de propósito respecto a los otros dos Rulebooks:
+#   - Priority Engine responde "¿qué tan urgente es esto?"
+#   - Recommendation Engine responde "¿qué hay que hacer, como mínimo?"
+#   - Opportunity Engine responde "¿qué se podría aprovechar, más allá
+#     de lo mínimo?" — por eso puede coincidir con una Story que la
+#     Recommendation Engine ya marcó SinAccionInmediata (ver OPP-002):
+#     no son contradictorios, son dos preguntas distintas.
+#
+# Cada regla, en su `outcome`, define una Opportunity completa:
+#   opportunity_type      — texto legible, qué tipo de oportunidad es
+#   priority               — Critical/High/Medium/Low (mismo catálogo
+#                            que Priority Engine, para que ambas señales
+#                            se lean con el mismo vocabulario)
+#   score                  — 0-100, qué tan fuerte es la señal (permite
+#                            ordenar oportunidades dentro de un mismo
+#                            nivel de priority)
+#   recommended_action     — un valor del catálogo RecommendationAction
+#                            ya existente (Parte 2B, sección 5.6) — no
+#                            se crea un catálogo de acciones paralelo
+#
+# La `description` de cada regla se usa como `justificacion` de la
+# oportunidad — mismo patrón ya establecido para "why_it_matters" en
+# Priority Engine (brief/generator.py).
+# ============================================================
+version: "1.0.0"
+
+opportunity_rules:
+
+  - id: OPP-001
+    description: "Reconocimiento o premio a una marca propia — ventana natural para amplificar cobertura positiva mientras está vigente."
+    enabled: true
+    condition:
+      and:
+        - field: brands
+          operator: exists
+        - field: event_type
+          operator: equals
+          value: PremioOReconocimiento
+    outcome:
+      opportunity_type: "Amplificar cobertura positiva"
+      priority: Medium
+      score: 70
+      recommended_action: EvaluarPlanDeDifusion
+
+  - id: OPP-002
+    description: "Lanzamiento de marca propia — independientemente de si Recommendation Engine ya marcó la noticia como Sin Acción Inmediata, todo lanzamiento es una ventana proactiva de comunicado o contenido, no solo un hecho a registrar."
+    enabled: true
+    condition:
+      and:
+        - field: brands
+          operator: exists
+        - field: event_type
+          operator: equals
+          value: Lanzamiento
+    outcome:
+      opportunity_type: "Comunicado proactivo de lanzamiento"
+      priority: Medium
+      score: 65
+      recommended_action: EvaluarComunicado
+    todo: >
+      Esta regla puede coincidir con una Story donde PR-004
+      (priority_rules.yml) ya asignó SinAccionInmediata como
+      recomendación base. Es intencional, no un conflicto: Recommendation
+      Engine responde "qué se debe hacer como mínimo"; Opportunity Engine
+      responde "qué se podría aprovechar además". El Daily Brief muestra
+      ambas señales por separado (sección "Oportunidades PR" vs.
+      "Recommendation Actions").
+
+  - id: OPP-003
+    description: "Movimiento relevante de un competidor (lanzamiento, campaña o innovación) — insumo directo para benchmark competitivo del equipo de PR."
+    enabled: true
+    condition:
+      and:
+        - field: competitors
+          operator: exists
+        - field: event_type
+          operator: in
+          value: [Campana, Lanzamiento, InnovacionTecnologica]
+    outcome:
+      opportunity_type: "Benchmark competitivo"
+      priority: Low
+      score: 40
+      recommended_action: CompartirAnalisisCompetitivo
+
+  - id: OPP-004
+    description: "Campaña de marca propia — candidata natural a contenido Always On que extienda el mensaje más allá de la cobertura inicial."
+    enabled: true
+    condition:
+      and:
+        - field: brands
+          operator: exists
+        - field: event_type
+          operator: equals
+          value: Campana
+    outcome:
+      opportunity_type: "Contenido Always On"
+      priority: Low
+      score: 35
+      recommended_action: EvaluarOportunidadDeContenido
+
+  - id: OPP-005
+    description: "Alianza o acuerdo comercial a nivel corporativo (Stellantis) — oportunidad de adaptar el comunicado internacional al mercado local antes de que otro lo cubra primero."
+    enabled: true
+    condition:
+      and:
+        - field: organizations
+          operator: in
+          value: [org.stellantis]
+        - field: event_type
+          operator: equals
+          value: AlianzaOAcuerdoComercial
+    outcome:
+      opportunity_type: "Adaptar comunicado internacional"
+      priority: Medium
+      score: 55
+      recommended_action: EvaluarPlanDeDifusion
+
+  - id: OPP-006
+    description: "Resultado de industria (ventas o tendencia de mercado) que menciona a una marca propia — oportunidad de vocería proactiva usando el dato como contexto."
+    enabled: true
+    condition:
+      and:
+        - field: brands
+          operator: exists
+        - field: event_type
+          operator: in
+          value: [ResultadoFinanciero, TendenciaDeMercado]
+    outcome:
+      opportunity_type: "Vocería en resultados de industria"
+      priority: Medium
+      score: 60
+      recommended_action: EvaluarComunicado
+    todo: >
+      Misma limitación de fondo señalada en validation_report.md (ítem
+      P5, Ronda 1): sin una señal de tono/sentimiento, esta regla no
+      distingue si el resultado es favorable o desfavorable para la
+      marca — trata ambos casos como oportunidad de vocería. Aceptable
+      para v1.0 porque el Coordinador de PR sigue siendo quien decide si
+      corresponde actuar; no aceptable si en el futuro esto se
+      automatizara sin revisión humana.
