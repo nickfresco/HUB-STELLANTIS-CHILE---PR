@@ -62,3 +62,22 @@ def test_word_boundary_matching_still_detects_real_mentions():
     kb = load_kb()
     result = detect_entities("El nuevo DS Automobiles llega a Chile con tecnología francesa", kb)
     assert "brand.ds_automobiles" in result.brands
+
+
+def test_stellantis_detected_as_organization_not_brand():
+    """Sprint 7 (P1): Stellantis debe detectarse como Organization,
+    independiente de las 8 sub-marcas."""
+    kb = load_kb()
+    result = detect_entities("Stellantis anuncia una alianza estratégica con Santander", kb)
+    assert "org.stellantis" in result.organizations
+    assert result.brands == []
+
+
+def test_stellantis_org_detection_does_not_affect_brand_detection():
+    """P1 exige explícitamente que esto no afecte la detección de
+    marcas existente: ambas deben coexistir en el mismo texto."""
+    kb = load_kb()
+    result = detect_entities("Stellantis confirmó que Peugeot y Jeep lanzarán nuevos modelos", kb)
+    assert "org.stellantis" in result.organizations
+    assert "brand.peugeot" in result.brands
+    assert "brand.jeep" in result.brands
