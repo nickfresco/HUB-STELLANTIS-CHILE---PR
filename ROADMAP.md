@@ -127,6 +127,12 @@ relies on daily, with the reliability and auditability the "PR HUB never
 decides, it only assists" principle demands.
 
 ### Candidate features (subject to re-prioritization closer to the time)
+- **Media & Source Intelligence** — a full architecture is already
+  designed (`docs/media-source-intelligence/ARCHITECTURE.md`, Sprint 9.6):
+  a scoring and tiering system that learns which sources actually
+  generate PR-relevant signal, directly motivated by the Diario
+  Financiero finding in Sprint 9.5 (a verified, working feed that
+  produced 0/8 relevant stories). Not implemented — design only.
 - Sentiment/tone signal — this single capability unblocks multiple
   documented-but-pending rules (see `config/rules/*.yml` for the specific
   `todo` notes on each PENDING rule)
