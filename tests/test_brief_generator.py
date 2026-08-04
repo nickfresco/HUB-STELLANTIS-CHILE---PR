@@ -127,7 +127,33 @@ def test_stellantis_alliance_triggers_pr016_low(pipeline):
     assert "Stellantis" in brief["organizations"]
 
 
-def test_alliance_without_stellantis_org_does_not_trigger_pr016(pipeline):
+def test_latin_ncap_competitor_triggers_pr017_low(pipeline):
+    """Sprint 7 (P3): resultado Latin NCAP de un competidor -> PR-017,
+    no PR-013. Antes (Ronda 1, caso #11) esto disparaba PR-013 con
+    HIGH + EvaluarQyA, un error real confirmado por el Coordinador."""
+    brief = pipeline.run(_load_fixture("latin_ncap_resultado_competidor.json"))
+    assert brief["priority"] == "LOW"
+    assert "PR-017" in brief["rules_triggered"]["priority_rules"]
+    assert "PR-013" not in brief["rules_triggered"]["priority_rules"]
+    assert "MonitorearEvolucion" in brief["recommendations"]
+    assert "CompartirAnalisisCompetitivo" in brief["recommendations"]
+    assert "EvaluarQyA" not in brief["recommendations"]
+
+
+def test_latin_ncap_without_brand_or_competitor_triggers_nothing(pipeline):
+    """Sprint 7 (P3): una noticia de Latin NCAP que no menciona ninguna
+    marca ni competidor específico (ej. un cambio de protocolo general)
+    no debe disparar ni PR-013 ni PR-017 — antes disparaba PR-013 por
+    error (Ronda 1, caso #14)."""
+    brief = pipeline.run({
+        "title": "Latin NCAP anuncia cambios en su protocolo de evaluación",
+        "summary": "El organismo confirmó ajustes generales a su metodología de pruebas de choque para toda la región, sin referirse a un modelo o marca en particular.",
+        "source_id": "source.latin_ncap_oficial",
+        "event_type": "ResultadoDeSeguridad",
+    })
+    assert brief["priority"] is None
+    assert "PR-013" not in brief["rules_triggered"]["priority_rules"]
+    assert "PR-017" not in brief["rules_triggered"]["priority_rules"]
     """PR-016 exige explícitamente organizations contiene org.stellantis
     — una alianza comercial sin mención de Stellantis no debe activarla."""
     brief = pipeline.run({
