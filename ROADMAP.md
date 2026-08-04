@@ -48,24 +48,44 @@ instead of guesswork.
 ---
 
 ## v0.8 — RSS Ingestion
-**Status: 🔜 Planned**
+**Status: 🚧 In Progress — core ingestion built and tested (Sprint 9), feed verification and scheduling still open**
 
 ### Objective
 Replace manual JSON input with automated ingestion from real-time sources,
 without changing anything downstream of ingestion.
 
-### Planned features
-- RSS connector(s) for the sources already cataloged in
-  `config/knowledge_base/sources.yml`
-- A scheduled ingestion run (cron-style), producing the same `NewsInput`
-  shape the Rule Engine already consumes — **no changes to
-  `rule_engine/`, `classification/`, or the Rulebook required**
-- Basic cross-fetch deduplication (avoid re-processing the same article
-  fetched twice), which is the first real step toward the `Story` vs.
-  `NewsItem` distinction described in earlier architecture work but never
-  implemented
-- Source health monitoring (a feed that stops responding should be
-  visible, not silent)
+### Delivered in Sprint 9
+- `rss/` module: fetch (HTTP + `file://` for local testing), parse (RSS 2.0
+  and Atom, stdlib-only), normalize, and deterministic deduplication
+  (same URL or same normalized title)
+- `config/rss_sources.yml`: 11 feeds cataloged, each referencing a
+  `source_id` that already exists in `config/knowledge_base/sources.yml` —
+  no Knowledge Base changes were made to support ingestion
+- `python run_daily.py` is now the single command: RSS → 
+  `data/daily_input/YYYY-MM-DD.json` → existing pipeline (unchanged) →
+  `daily_brief.html` + `training_report.html`
+- Per-feed resilience: one broken feed doesn't stop the rest — verified
+  against real (allowlist-blocked) network calls during development, not
+  only mocked failures
+- 51 new automated tests (parsing, deduplication, fetch failures, full
+  ingestion runs, end-to-end integration with the unmodified existing
+  pipeline)
+
+### Explicitly still open (not silently missing)
+- **Feed verification**: only 2 of 11 feed URLs (Diario Financiero,
+  BioBioChile) were confirmed against a live connection — the rest are
+  best-effort and need checking against real network access before
+  production use (see `verified: false` entries in `rss_sources.yml`)
+- **`AutoTest` and `Motor1`** feeds are blocked on a Knowledge Base change
+  (their `source_id` doesn't exist yet in `sources.yml`) — deliberately
+  out of scope for an ingestion-only sprint
+- **Scheduled/cron execution** — today, ingestion runs when `run_daily.py`
+  is invoked, not on a timer
+- **Source health monitoring** — a feed that starts failing is logged per
+  run, but there's no persisted history of feed reliability over time yet
+- **Fuzzy/semantic deduplication** — only exact URL and normalized-title
+  matches are caught; two articles covering the same event with
+  differently-worded headlines are still treated as separate stories
 
 ### Explicitly not in v0.8
 - Email delivery (still v0.9)
