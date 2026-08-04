@@ -1,0 +1,44 @@
+[
+  {
+    "title": "Jeep Wrangler recibe recall preventivo en Chile",
+    "summary": "La marca Jeep confirmó un recall preventivo para el Wrangler & otros modelos.",
+    "source_id": "source.emol",
+    "published_at": "2026-08-04T09:15:00-04:00",
+    "source_url": "https://example.cl/noticias/jeep-recall-2026"
+  },
+  {
+    "title": "Peugeot presenta el renovado 2008 en el mercado local",
+    "summary": "La marca lanzó oficialmente la nueva generación del 2008.",
+    "source_id": "source.emol",
+    "published_at": "2026-08-04T08:00:00-04:00",
+    "source_url": "https://example.cl/noticias/peugeot-2008-lanzamiento"
+  },
+  {
+    "title": "BYD Yuan Pro llega a Chile como híbrido enchufable",
+    "summary": "BYD actualizó la propuesta de su SUV Yuan Pro en Chile.",
+    "source_id": "source.la_tercera",
+    "published_at": "2026-08-04T10:30:00+00:00",
+    "source_url": "https://example.cl/noticias/byd-yuan-pro"
+  },
+  {
+    "title": "ANAC publica resultados de ventas del mes",
+    "summary": "Reporte mensual de ventas de la industria automotriz.",
+    "source_id": "source.la_tercera",
+    "published_at": "2026-08-04T11:00:00-04:00",
+    "source_url": "https://example.cl/noticias/anac-ventas"
+  },
+  {
+    "title": "Fiat Topolino se suma a la flota del Vaticano",
+    "summary": "Nota original.",
+    "source_id": "source.autocosmos",
+    "published_at": "2026-08-04T09:00:00-04:00",
+    "source_url": "https://example.cl/noticias/fiat-topolino-vaticano"
+  },
+  {
+    "title": "RAM 2500 rescata a vehículo militar atascado",
+    "summary": "Nota genuina, no es duplicado de nada.",
+    "source_id": "source.autocosmos",
+    "published_at": "2026-08-04T09:20:00-04:00",
+    "source_url": "https://example.cl/noticias/ram-2500-rescate"
+  }
+]
