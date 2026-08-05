@@ -1,0 +1,27 @@
+# ============================================================
+# email_config.yaml — v1.0.0
+#
+# Ningún valor de este archivo es secreto — el usuario y la contraseña
+# NUNCA van acá. Se leen en tiempo de ejecución desde las variables de
+# entorno nombradas en username_env_var / password_env_var. Ver
+# README.md, sección "Email Delivery", para cómo definirlas (incluye
+# la nota específica de Gmail: se necesita un App Password, no la
+# contraseña normal de la cuenta).
+# ============================================================
+
+smtp_host: "smtp.gmail.com"
+smtp_port: 587
+use_tls: true
+
+sender_email: "tu-cuenta@gmail.com"
+sender_name: "PR HUB — Stellantis PR Intelligence"
+
+recipients:
+  - "coordinador@ejemplo.com"
+
+subject_template: "PR HUB — Daily Brief {fecha}"
+
+# Nombres de las variables de entorno donde deben vivir las
+# credenciales reales. No son las credenciales en sí.
+username_env_var: "PR_HUB_SMTP_USERNAME"
+password_env_var: "PR_HUB_SMTP_PASSWORD"
