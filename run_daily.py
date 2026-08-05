@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 """
-Stellantis PR Intelligence Hub — PR HUB Daily (Sprint 4 + Sprint 9)
+Stellantis PR Intelligence Hub — PR HUB Daily (Sprint 4 + Sprint 9 + Email Delivery v1.0)
 
 Comando único del día: descarga las noticias vía RSS (Sprint 9),
 corre el pipeline existente (sin cambios de arquitectura) sobre cada
 una, y genera tanto daily_brief.html como training_report.html —
-listos para revisar cada mañana.
+listos para revisar cada mañana. Opcionalmente, envía el Daily Brief
+por correo (Email Delivery v1.0) — solo si se pasa --send-email; sin
+ese flag, el comportamiento es exactamente el de antes.
 
 Flujo por defecto (sin --input):
     1. Descargar feeds RSS (config/rss_sources.yml)
@@ -13,11 +15,13 @@ Flujo por defecto (sin --input):
     3. Ejecutar el Rule Engine sobre cada noticia
     4. Generar daily_brief.html
     5. Generar training_report.html
+    6. (opcional, --send-email) Enviar daily_brief.html por SMTP
 
 Uso:
     python run_daily.py                          # flujo completo con RSS
     python run_daily.py --skip-ingestion          # usa data/daily_input/ ficticio, sin red
     python run_daily.py --input archivo_o_carpeta # usa una fuente específica, sin red
+    python run_daily.py --send-email              # además, envía el Daily Brief por correo
 """
 
 from __future__ import annotations
@@ -30,6 +34,8 @@ from typing import Any, Dict, List, Tuple
 
 from daily.aggregator import build_digest
 from daily.html_renderer import render_html
+from email_delivery.config import load_email_config
+from email_delivery.mailer import build_email_message, build_plain_text_summary, send_email
 from pipeline.factory import build_default_pipeline
 from rss.ingest import run_ingestion
 from training.report_renderer import render_training_report
@@ -39,6 +45,7 @@ DEFAULT_INPUT_DIR = BASE_DIR / "data" / "daily_input"
 DEFAULT_RSS_SOURCES = BASE_DIR / "config" / "rss_sources.yml"
 DEFAULT_OUTPUT = BASE_DIR / "daily_brief.html"
 DEFAULT_REPORT_OUTPUT = BASE_DIR / "training_report.html"
+DEFAULT_EMAIL_CONFIG = BASE_DIR / "config" / "email_config.yaml"
 
 MESES = [
     "enero", "febrero", "marzo", "abril", "mayo", "junio",
@@ -116,6 +123,11 @@ def main() -> None:
     parser.add_argument("--report-output", type=Path, default=DEFAULT_REPORT_OUTPUT,
                          help="Archivo HTML del Training Report. Nota: comparte nombre por defecto con el que genera "
                               "run_training.py — si necesitas conservar ambos, usa rutas distintas.")
+    parser.add_argument("--send-email", action="store_true",
+                         help="Además de generar los HTML, envía el Daily Brief por correo (SMTP). "
+                              "Sin este flag, el comportamiento es exactamente el de antes de Email Delivery v1.0.")
+    parser.add_argument("--email-config", type=Path, default=DEFAULT_EMAIL_CONFIG,
+                         help="Archivo de configuración de correo (sin credenciales — ver config/email_config.yaml).")
     args = parser.parse_args()
 
     start = time.perf_counter()
@@ -171,6 +183,28 @@ def main() -> None:
         print("  Noticias con error (ver sección Debug del Daily Brief):")
         for e in errors:
             print(f"    - {e['file']}: {e['error']}")
+
+    # 6. Envío por correo — completamente opcional (Email Delivery
+    # v1.0). Si no se pasa --send-email, ninguna línea de este bloque
+    # se ejecuta y el comportamiento es idéntico al de antes de este
+    # Sprint — requisito explícito ("mantener el flujo actual intacto").
+    if args.send_email:
+        print(f"\nEnviando Daily Brief por correo (config: {args.email_config.name})...")
+        try:
+            email_config = load_email_config(args.email_config)
+            html_content = args.output.read_text(encoding="utf-8")
+            plain_text = build_plain_text_summary(digest)
+            message = build_email_message(
+                html_content=html_content,
+                plain_text=plain_text,
+                config=email_config,
+                fecha=meta["fecha_legible"],
+            )
+            send_email(message, email_config)
+            print(f"  Enviado a: {', '.join(email_config.recipients)}")
+        except Exception as e:  # noqa: BLE001 — un fallo de envío no debe hacer parecer que el Daily Brief no se generó
+            print(f"  ⚠ No se pudo enviar el correo: {e}")
+            print(f"  El Daily Brief igual se generó correctamente en {args.output} — solo falló el envío.")
 
 
 if __name__ == "__main__":
