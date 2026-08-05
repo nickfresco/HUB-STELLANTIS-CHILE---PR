@@ -6,6 +6,46 @@ milestones in [`ROADMAP.md`](ROADMAP.md).
 
 ---
 
+## [Unreleased] — Email Delivery v1.0
+
+### Added
+- `email_delivery/config.py`: loads `config/email_config.yaml` (host, port,
+  sender, recipients, subject template — never a credential) and resolves
+  the real username/password from environment variables at send time;
+  raises `MissingCredentialError` if either is unset rather than sending
+  with empty credentials
+- `email_delivery/mailer.py`: builds a `multipart/alternative` MIME
+  message (HTML + plain-text fallback) from the same `daily_brief.html`
+  already being generated, and sends it via `smtplib` (standard library,
+  no new dependency) with STARTTLS support
+- `run_daily.py --send-email` (+ `--email-config`): fully opt-in — with
+  no flag, behavior is byte-for-byte identical to before this version;
+  verified explicitly with a real CLI run (`subprocess`, not just calling
+  the Python functions directly) both with and without the flag
+- `config/email_config.yaml`: ships with placeholder values only; a test
+  (`test_email_config_never_contains_a_literal_password`) asserts the
+  committed file never contains anything that looks like a real password
+- 12 new tests, including `tests/helpers/fake_smtp_server.py` — a real
+  SMTP server (a real socket, not a mock of `smtplib`) implementing the
+  minimal real protocol (EHLO, AUTH LOGIN, MAIL FROM, RCPT TO, DATA,
+  QUIT), used to prove the actual SMTP conversation completes and
+  delivers the exact expected content, without needing real credentials
+  or a real mail provider
+
+### Explicitly not done, and why
+- No message was sent to a real inbox from this environment. Doing so
+  would require real SMTP credentials, and this assistant does not
+  handle real passwords/tokens even when offered — the same rule already
+  applied to GitHub access earlier in this project. The final real-world
+  send is meant to be run by the user, with their own credentials, using
+  the documented commands (see README, "Email Delivery")
+- STARTTLS itself isn't re-tested by the fake server (would require a
+  real TLS certificate to test meaningfully) — the TLS negotiation is
+  mature standard-library code (`ssl`/`smtplib`), not project code, so
+  it wasn't the target of this sprint's verification
+
+---
+
 ## [Unreleased] — Opportunity Engine v1.0
 
 ### Added

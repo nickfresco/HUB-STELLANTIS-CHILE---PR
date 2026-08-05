@@ -11,7 +11,7 @@
 
 <p align="center">
   <img alt="Version" src="https://img.shields.io/badge/version-v0.8--dev-blue">
-  <img alt="Tests" src="https://img.shields.io/badge/tests-139%20passing-brightgreen">
+  <img alt="Tests" src="https://img.shields.io/badge/tests-151%20passing-brightgreen">
   <img alt="Rulebook" src="https://img.shields.io/badge/rulebook-10%2F17%20rules%20active-yellow">
   <img alt="Status" src="https://img.shields.io/badge/status-internal%20pilot-orange">
   <img alt="License" src="https://img.shields.io/badge/license-internal%20%2F%20proprietary-lightgrey">
@@ -68,6 +68,7 @@ boundary is enforced by construction, not by convention — see
 - ✓ **Priority Engine** — 17 configured rules (10 active, 7 documented as pending on explicit dependencies)
 - ✓ **Recommendation Engine** — maps classified stories to a closed catalog of 9 PR actions
 - ✓ **Opportunity Engine** — same deterministic Rule Engine, a separate Rulebook (`config/opportunity_rules.yaml`): surfaces proactive PR opportunities (type, priority, score, justification, recommended action) independently of the base recommendation — a story can be "no action needed" and "worth a proactive opportunity" at the same time, on purpose
+- ✓ **Email Delivery** — `--send-email` sends `daily_brief.html` over real SMTP (multipart HTML + plain-text fallback), credentials from environment variables only, fully opt-in
 - ✓ **Daily Brief** — generates a client-safe (Gmail/Outlook-compatible) HTML executive brief
 - ✓ **Training Mode** — a human-in-the-loop validation workflow: run real news through the system, mark each classification correct/incorrect, export the verdicts as JSON
 - ✓ **Validation Workflow** — structured analysis (`validation_report.md`, `validation_delta.md`) that turns human corrections into a prioritized, evidence-based improvement backlog
@@ -101,6 +102,8 @@ flowchart TD
     E --> OE["Opportunity Engine"]
     OE --> F["Daily Brief Generator"]
     F --> G["daily_brief.html"]
+    G -.->|"--send-email"| MAIL["SMTP<br/>(Gmail u otro)"]
+    MAIL --> INBOX["Bandeja del<br/>Coordinador de PR"]
 
     KB[("Knowledge Base<br/>brands · competitors · organizations<br/>sources · taxonomy · event types")] -.-> B
     KB -.-> C
@@ -147,7 +150,8 @@ pr-hub/
 │   │                       # technologies, sources, taxonomy, event_types
 │   ├── rules/               # priority_rules.yml, recommendation_rules.yml
 │   ├── opportunity_rules.yaml # Opportunity Engine Rulebook
-│   └── rss_sources.yml      # RSS feed catalog (Sprint 9)
+│   ├── rss_sources.yml      # RSS feed catalog (Sprint 9)
+│   └── email_config.yaml    # SMTP config — no credentials, only env var names
 ├── knowledge_base/          # Knowledge Base Loader (Python)
 ├── rule_engine/              # Generic, domain-agnostic engine: condition,
 │                             # rules, loader, registry, evaluation
@@ -157,6 +161,7 @@ pr-hub/
 ├── rss/                       # RSS ingestion: fetch, parse, normalize, dedupe
 ├── opportunity_engine/         # Opportunity Engine: reuses rule_engine/, adds
 │                               # a fourth Rulebook (opportunity_rules.yaml)
+├── email_delivery/             # Email Delivery: MIME message + real SMTP send
 ├── brief/                     # Daily Brief Generator (pure functions, per story)
 ├── daily/                     # Aggregation, labels, email-safe HTML renderer
 ├── training/                  # Training Mode: report renderer + validations archive
@@ -165,10 +170,10 @@ pr-hub/
 ├── data/daily_input/          # Fictional news samples + RSS-generated YYYY-MM-DD.json
 ├── examples/                  # Fictional news samples for demoing main.py
 │   └── rss_demo/              # Runnable RSS ingestion example (local fixtures, no network)
-├── tests/                     # 139 automated tests + fixtures (incl. tests/fixtures/rss/)
+├── tests/                     # 151 automated tests + fixtures (incl. tests/fixtures/rss/, tests/helpers/)
 ├── .github/                   # Issue templates, label proposal
 ├── main.py                    # Single-story CLI: python main.py noticia.json
-├── run_daily.py                # One-command daily CLI: RSS → briefs → both HTML reports
+├── run_daily.py                # One-command daily CLI: RSS → briefs → both HTML reports → optional email
 ├── run_training.py             # Training Mode CLI: python run_training.py
 ├── validation_report.md        # Round 1 analysis (accuracy, root causes, backlog)
 ├── validation_delta.md         # Round 1 → post-fix comparison
@@ -284,12 +289,86 @@ included in this repo so you can open them without running anything.
 
 ---
 
+## Email Delivery
+
+`python run_daily.py --send-email` sends the same `daily_brief.html`
+already being generated as a real email, over SMTP — as a
+`multipart/alternative` MIME message (HTML + a plain-text fallback for
+clients that don't render HTML). Without `--send-email`, nothing in this
+section changes anything: it's fully opt-in, off by default.
+
+### Configuration
+
+Edit [`config/email_config.yaml`](config/email_config.yaml) — **it never
+contains a password**, only which host/port to use and the *names* of two
+environment variables where the real username and password must live:
+
+```yaml
+smtp_host: "smtp.gmail.com"
+smtp_port: 587
+use_tls: true
+sender_email: "tu-cuenta@gmail.com"
+recipients:
+  - "coordinador@ejemplo.com"
+username_env_var: "PR_HUB_SMTP_USERNAME"
+password_env_var: "PR_HUB_SMTP_PASSWORD"
+```
+
+Then, **outside of any file that gets committed**, set the actual
+credentials as environment variables:
+
+```bash
+export PR_HUB_SMTP_USERNAME="tu-cuenta@gmail.com"
+export PR_HUB_SMTP_PASSWORD="tu-app-password-de-16-caracteres"
+```
+
+**For Gmail specifically:** you need an **App Password**, not your normal
+account password — Gmail requires 2-Step Verification to be enabled, and
+then a 16-character app-specific password generated at
+[myaccount.google.com/apppasswords](https://myaccount.google.com/apppasswords).
+A regular password will fail to authenticate over SMTP regardless of how
+correctly everything else is configured.
+
+If either environment variable is missing when `--send-email` runs, it
+fails with a clear `MissingCredentialError` — it never attempts to send
+with empty credentials, and it never falls back to anything insecure.
+
+### Run it
+
+```bash
+python run_daily.py --send-email
+python run_daily.py --skip-ingestion --send-email   # sin red, con los datos ficticios del Sprint 4
+```
+
+A failed send doesn't erase the work already done: `daily_brief.html` and
+`training_report.html` are written to disk *before* the email step runs,
+so a bad password or an unreachable SMTP host only fails the delivery,
+not the generation.
+
+### How this was tested
+
+`smtplib` (Python standard library) does the real SMTP conversation — this
+project doesn't reimplement or mock it. To verify that conversation
+actually completes correctly (EHLO, AUTH LOGIN, MAIL FROM, RCPT TO, DATA)
+without needing real credentials, `tests/test_email_delivery.py` spins up
+a minimal real SMTP server on `localhost`
+([`tests/helpers/fake_smtp_server.py`](tests/helpers/fake_smtp_server.py) —
+a real socket, not a mock of `smtplib`) and sends an actual message to it
+over the real protocol. **What this project cannot do on its own is send
+to a real Gmail inbox** — that requires real credentials, and this
+assistant will not handle a real password even if one is offered (same
+rule that applied to GitHub access) — that final, real-world check is
+meant to be run by you, with your own credentials, using the commands
+above.
+
+---
+
 ## Current Status
 
 | | |
 |---|---|
 | **Version** | v0.8-dev (Sprint 9 in progress — see [`ROADMAP.md`](ROADMAP.md)) |
-| **Automated tests** | 139 passing, 0 failing (74 core + 51 RSS ingestion + 14 Opportunity Engine) |
+| **Automated tests** | 151 passing, 0 failing (74 core + 51 RSS ingestion + 14 Opportunity Engine + 12 Email Delivery) |
 | **RSS feeds configured** | 11 total — 9 enabled, 2 verified against a live search, 7 best-effort/unverified or explicitly blocked (see [RSS Ingestion](#rss-ingestion)) |
 | **Rulebook coverage** | 10 of 17 rules active (7 documented as pending, each with an explicit blocking dependency) |
 | **Estimated accuracy** | ~75% (post-fix estimate against Round 1 of real-news validation — see [`validation_delta.md`](validation_delta.md); a Round 2 with fresh human validation is the next recommended step, not yet run) |

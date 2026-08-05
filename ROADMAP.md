@@ -95,21 +95,39 @@ without changing anything downstream of ingestion.
 ---
 
 ## v0.9 — Email Delivery
-**Status: 🔜 Planned**
+**Status: 🚧 In Progress — SMTP sending built and tested, scheduling and real-inbox verification still open**
 
 ### Objective
 Get the Daily Brief into the Coordinator's inbox automatically, every
 morning, without anyone opening a terminal.
 
-### Planned features
-- Scheduled generation + delivery (Daily Brief and, if useful by then,
-  Training Mode digests)
-- Real Gmail/Outlook client rendering verification — `daily_brief.html`
-  has only ever been verified in a headless browser and Chromium via
-  Playwright; a real inbox test is a known open item
+### Delivered
+- `email_delivery/` module: builds a `multipart/alternative` MIME message
+  (HTML + plain-text fallback) from the already-generated
+  `daily_brief.html`, and sends it via `smtplib` (STARTTLS supported)
+- `config/email_config.yaml` — no credentials committed, ever; username
+  and password are read from environment variables at send time, or the
+  send fails loudly with `MissingCredentialError`
+- `run_daily.py --send-email`, fully opt-in — verified via a real CLI
+  subprocess run, both with and without the flag, to confirm the default
+  flow is untouched
+- The real SMTP protocol conversation (EHLO, AUTH LOGIN, MAIL FROM, RCPT
+  TO, DATA) verified against a real local test server — not a mock of
+  `smtplib`
+
+### Still open
+- **Real Gmail/Outlook inbox verification** — the SMTP conversation is
+  proven correct against a real server, but sending to an actual Gmail
+  inbox with real credentials hasn't happened yet, and can't happen from
+  this development environment (no real credentials were used, by
+  design — see `CHANGELOG.md`). This is the next concrete step, to be
+  run by whoever owns the sending account
+- Scheduled generation + delivery (cron-style) — today, email only goes
+  out when `run_daily.py --send-email` is invoked manually
 - A delivery failure channel independent of the Daily Brief channel
-  itself (so a broken email integration doesn't fail silently)
+  itself
 - Delivery audit log (what was sent, when, to whom)
+- Training Mode digests by email (only the Daily Brief is covered)
 
 ### Explicitly not in v0.9
 - Two-way triage (replying to the email, marking things read) — Daily
