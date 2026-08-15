@@ -147,7 +147,8 @@ The dotted lines are intentional: the Knowledge Base and the Rulebook are
 pr-hub/
 ├── config/
 │   ├── knowledge_base/     # brands, competitors, organizations, models,
-│   │                       # technologies, sources, taxonomy, event_types
+│   │                       # technologies, sources, taxonomy, event_types,
+│   │                       # event_type_keywords
 │   ├── rules/               # priority_rules.yml, recommendation_rules.yml
 │   ├── opportunity_rules.yaml # Opportunity Engine Rulebook
 │   ├── rss_sources.yml      # RSS feed catalog (Sprint 9)
@@ -368,7 +369,7 @@ above.
 | | |
 |---|---|
 | **Version** | v0.8-dev (Sprint 9 in progress — see [`ROADMAP.md`](ROADMAP.md)) |
-| **Automated tests** | 151 passing, 0 failing (74 core + 51 RSS ingestion + 14 Opportunity Engine + 12 Email Delivery) |
+| **Automated tests** | 152 passing, 0 failing (75 core + 51 RSS ingestion + 14 Opportunity Engine + 12 Email Delivery) |
 | **RSS feeds configured** | 11 total — 9 enabled, 2 verified against a live search, 7 best-effort/unverified or explicitly blocked (see [RSS Ingestion](#rss-ingestion)) |
 | **Rulebook coverage** | 10 of 17 rules active (7 documented as pending, each with an explicit blocking dependency) |
 | **Estimated accuracy** | ~75% (post-fix estimate against Round 1 of real-news validation — see [`validation_delta.md`](validation_delta.md); a Round 2 with fresh human validation is the next recommended step, not yet run) |

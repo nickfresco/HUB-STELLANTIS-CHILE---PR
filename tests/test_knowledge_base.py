@@ -41,3 +41,9 @@ def test_all_products_combines_models_and_technologies():
     ids = {p.canonical_id for p in kb.all_products()}
     assert "product.puretech" in ids  # technologies.yml
     assert "product.jeep_renegade" in ids  # models.yml
+
+
+def test_event_type_keywords_loaded_for_every_catalog_event_type():
+    kb = load_kb()
+    assert "recall" in kb.event_type_keywords["Recall"]
+    assert set(kb.event_type_keywords.keys()) <= set(kb.event_types)

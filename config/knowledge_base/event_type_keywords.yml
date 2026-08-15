@@ -1,0 +1,120 @@
+# ============================================================
+# event_type_keywords.yml — v1.0.0
+# Keywords para Event Detection (classification/event_detection.py)
+# ============================================================
+# Heurística de MVP, no un Taxonomy Engine real (Parte 2A) — ver
+# discusión en classification/event_detection.py. Se externaliza a YAML
+# porque estaba hardcodeada en Python sin necesidad; esto no resuelve
+# ni pretende resolver la discusión de arquitectura más amplia de un
+# Taxonomy Engine real (aliases, pesos, multi-idioma, etc.), que sigue
+# postergada.
+#
+# El orden de las entradas es el orden de desempate cuando dos
+# EventType empatan en cantidad de keywords encontradas (gana el
+# primero de esta lista) — ver infer_event_type().
+version: "1.0.0"
+
+event_type_keywords:
+  - id: Recall
+    keywords:
+      - "recall"
+      - "retiro preventivo"
+      - "campaña preventiva"
+      - "falla de fábrica"
+      - "defecto de fabrica"
+  - id: ResultadoDeSeguridad
+    keywords:
+      - "ncap"
+      - "prueba de choque"
+      - "resultado de seguridad"
+      - "crash test"
+  - id: DenunciaOControversia
+    keywords:
+      - "denuncia"
+      - "demanda colectiva"
+      - "controversia"
+      - "reclamo de consumidor"
+  - id: InvestigacionOficial
+    keywords:
+      - "investigación oficial"
+      - "abre investigación"
+      - "sumario"
+  - id: Lanzamiento
+    keywords:
+      - "lanza"
+      - "lanzamiento"
+      - "presenta oficialmente"
+      - "debuta"
+      - "estreno"
+  - id: ActualizacionDeProducto
+    keywords:
+      - "actualiza"
+      - "actualización de modelo"
+      - "rediseño"
+      - "nueva versión del"
+  - id: InnovacionTecnologica
+    keywords:
+      - "innovación tecnológica"
+      - "nueva tecnología"
+      - "presenta tecnología"
+  - id: AlianzaOAcuerdoComercial
+    keywords:
+      - "alianza"
+      - "acuerdo comercial"
+      - "joint venture"
+      - "sociedad estratégica"
+  - id: ResultadoFinanciero
+    keywords:
+      - "resultados financieros"
+      - "ventas del mes"
+      - "participación de mercado"
+      - "ingresos"
+  - id: Campana
+    keywords:
+      - "campaña publicitaria"
+      - "spot publicitario"
+      - "campaña de marketing"
+  - id: CoberturaEditorial
+    keywords:
+      - "reseña"
+      - "test drive"
+      - "prueba de manejo"
+      - "análisis del modelo"
+  - id: PremioOReconocimiento
+    keywords:
+      - "premio"
+      - "reconocimiento"
+      - "galardón"
+      - "distinción"
+  - id: ResultadoDeportivo
+    keywords:
+      - "rally"
+      - "competencia deportiva"
+      - "motorsport"
+      - "carrera"
+  - id: IniciativaESG
+    keywords:
+      - "sustentabilidad"
+      - "iniciativa esg"
+      - "responsabilidad social"
+      - "medioambiente"
+  - id: TendenciaDeMercado
+    keywords:
+      - "tendencia de mercado"
+      - "panorama del mercado"
+      - "análisis de mercado"
+  - id: DeclaracionOVoceria
+    keywords:
+      - "declaró"
+      - "declaración de"
+      - "entrevista con"
+      - "vocero"
+      - "afirmó"
+  - id: RegulacionOPoliticaPublica
+    keywords:
+      - "nueva ley"
+      - "normativa"
+      - "arancel"
+      - "regulación"
+      - "incentivo tributario"
+      - "decreto"

@@ -1,7 +1,8 @@
 """
 Knowledge Base Loader — carga brands.yml, competitors.yml,
 organizations.yml, models.yml, technologies.yml, sources.yml,
-taxonomy.yml y event_types.yml, y expone métodos de consulta.
+taxonomy.yml, event_types.yml y event_type_keywords.yml, y expone
+métodos de consulta.
 
 Corresponde a: Parte 5, sección 3 (Config Engine) y sección 8
 (inventario de archivos de configuración).
@@ -47,6 +48,7 @@ class KnowledgeBase:
         self.sources: List[Source] = []
         self.categories: List[Dict[str, Any]] = []
         self.event_types: List[str] = []
+        self.event_type_keywords: Dict[str, List[str]] = {}
         self._load_all()
 
     # ------------------------------------------------------------------
@@ -66,6 +68,10 @@ class KnowledgeBase:
         self.sources = self._load_sources("sources.yml")
         self.categories = self._load_yaml("taxonomy.yml")["categories"]
         self.event_types = [e["id"] for e in self._load_yaml("event_types.yml")["event_types"]]
+        self.event_type_keywords = {
+            e["id"]: e["keywords"]
+            for e in self._load_yaml("event_type_keywords.yml")["event_type_keywords"]
+        }
 
     def _load_entities(self, filename: str, key: str) -> List[Entity]:
         raw = self._load_yaml(filename)
